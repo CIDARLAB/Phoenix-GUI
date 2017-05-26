@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phoenix Structural</title>
+	<!-- load paper.js -->
+    <script type="text/javascript" src="./javascript/paper-full.js"></script>
+	<!-- load script that controls special functions -->
+	<script type="text/javascript" src="./javascript/specifyfunctions.js"></script>
+	<!-- load jquery -->
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+	<!-- load bootstrap javascript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" 
+		crossorigin="anonymous"></script>
+	<!-- load bootstrap css -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous">
+	<!--load custom stylesheet -->
+    <link rel="stylesheet" href="./styles/style.css"></link>
+</head>
+<body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+    		<div class="navbar-header">
+				<img src="./images/logo/phoenix_banner.png" class="navbar-left">
+    		</div>
+			<ul class="nav navbar-nav">
+				<li><a href="#">DESIGN</a></li>
+				<li><a href="#">BUILD</a></li>
+				<li><a href="#">TEST</a></li>
+			</ul>
+		</div>
+	</nav>
+	<canvas id="sidebarLeft"></canvas>	
+	<div class="container pull-right">
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-8">
+				<button class="btn btn-default round">UPLOAD</button>
+			</div>
+			<div class="col-xs-2">
+				<button class="btn btn-default round">SAMPLE</button>
+			</div>
+		</div>
+		<div class="row" id="editor-container">
+			
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<button class="btn btn-default round">HELP</button>
+			</div>
+			<div class="col-xs-2 col-xs-offset-6">
+				<button class="btn btn-default round">SAVE</button>
+			</div>
+			<div class="col-xs-2">
+				<button class="btn btn-default round">NEXT</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
