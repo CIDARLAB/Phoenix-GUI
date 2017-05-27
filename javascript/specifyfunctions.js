@@ -1,119 +1,93 @@
-// Make the paper scope global, by injecting it into window:
-paper.install(window);
+function nextPage() {
+    if (circleOne.radius == radiusLarge) {
+        // resize circleOne
+        circleOne.radius = radiusSmall;
+        textOne.fontSize = '15px';
+        textOne.point = new Point(yAxis - 5, xOne + 5);
+        captionOne.fillColor = '#9b9b9b';
+        captionOne.fontSize = '14px';
+        subCaptOne.visible = false;
+        // resize and color circleTwo
+        circleTwo.radius = radiusLarge;
+        circleTwo.fillColor = '#08ca75';
+        circleTwo.strokeColor = null;
+        textTwo.fontSize = '30px';
+        textTwo.fillColor = 'white';
+        textTwo.point = new Point(yAxis - 7.5, xTwo + 10);
+        captionTwo.fillColor = '#08ca75';
+        captionTwo.fontSize = '20px';
+        subCaptTwo.visible = true;
 
-// Load the window
-window.onload = function() {
-    // Setup directly from canvas id:
-    paper.setup('sidebarLeft');
-    sidebarLeft.style.background = 'white'; 
+        // update page layout:
+        $(".stl").hide();
+        $(".functional").show();
+        // document.getElementById('stl').style.visibilility = hidden;
+        // document.getElementById('functional').style.visibilility = visible;
+    } else if (circleTwo.radius == radiusLarge) {
+        // resize circleTwo
+        circleTwo.radius = radiusSmall;
+        textTwo.fontSize = '15px';
+        textTwo.point = new Point(yAxis - 5, xTwo + 5);
+        captionTwo.fillColor = '#9b9b9b';
+        captionTwo.fontSize = '14px';
+        subCaptTwo.visible = false;
+        // resize and color circleThree
+        circleThree.radius = radiusLarge;
+        circleThree.fillColor = '#08ca75';
+        circleThree.strokeColor = null;
+        textThree.fontSize = '30px';
+        textThree.fillColor = 'white'
+        textThree.point = new Point(yAxis - 7.5, xThree + 10);
+        captionThree.fillColor = '#08ca75';
+        captionThree.fontSize = '20px';
+        subCaptThree.visible = true;
 
-    var yAxis = 100;
-    var xOne = 100;
-    var xIncrease = 150;
-    var xTwo = xOne + xIncrease;
-    var xThree = xOne + 2*xIncrease;
-    var radiusLarge = 36;
-    var radiusSmall = 20;
-
-    // center line
-    var centerPath = new Path();
-    centerPath.add(new Point(yAxis,xOne));
-    centerPath.add(new Point(yAxis,xThree));
-    centerPath.strokeColor = '#08ca75';
-    centerPath.strokeWidth = '2';
-
-    // initialize sidebarLeft menu circles
-    var circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
-    circleOne.fillColor = '#08ca75';
-    circleOne.strokeColor = null;
-
-    var textOne = new PointText({
-        point: new Point(yAxis-7.5, xOne + 10),
-        fillColor: 'white',
-        content: '1',
-        fontSize: '30px',
-    });
-
-    var captionOne = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xOne + 8),
-        fillColor: '#08ca75',
-        content: 'STL Formula',
-        fontSize: '20px',
-        fontWeight: 'bold',
-    });
-
-    var subCaptOne = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xOne + 24),
-        fillColor: '#9b9b9b',
-        content: 'Specify time behavior of your design',
-        fontSize: '12px',
-    });
-
-    var circleTwo = new Shape.Circle(new Point(yAxis, xTwo), radiusSmall);
-    circleTwo.fillColor = 'white';
-    circleTwo.strokeColor = '#08ca75';
-    circleTwo.strokeWidth = '5';
-
-    var textTwo = new PointText({
-        point: new Point(yAxis-5, xTwo + 5),
-        fillColor: '#08ca75',
-        content: '2',
-        fontSize: '15px',
-    });
-
-    var captionTwo = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xTwo + 4),
-        fillColor: '#9b9b9b',
-        content: 'Structural Constraints',
-        fontSize: '14px',
-        fontWeight: 'bold',
-    });
-
-    var subCaptTwo = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xTwo + 24),
-        fillColor: '#9b9b9b',
-        content: 'Specify parts, devices, and their constraints',
-        fontSize: '12px',
-    });
-    subCaptTwo.visible = false;
-
-    var circleThree = new Shape.Circle(new Point(yAxis, xThree), radiusSmall);
-    circleThree.fillColor = 'white';
-    circleThree.strokeColor = '#08ca75';
-    circleThree.strokeWidth = '5';
-
-    var textThree = new PointText({
-        point: new Point(yAxis-5, xThree + 5),
-        fillColor: '#08ca75',
-        content: '3',
-        fontSize: '15px',
-    });
-
-    var captionThree = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xThree + 4),
-        fillColor: '#9b9b9b',
-        content: 'Library of Components',
-        fontSize: '14px',
-        fontWeight: 'bold',
-    });
-
-    var subCaptThree = new PointText({
-        point: new Point(yAxis + radiusLarge + 10, xThree + 24),
-        fillColor: '#9b9b9b',
-        content: 'Select parts you want to use',
-        fontSize: '12px',
-    });
-    subCaptThree.visible = false;
-
-    // defines hitOptions - used to check if a click lands on a line or not
-    var hitOptions = {
-        segments: true,
-        stroke: true,
-        fill: true,
-        tolerance: 3
+        // update page layout:
+        $(".functional").hide();
+        $(".editor").hide();
+        $(".struct").show();
+        // document.getElementById('functional').style.visibilility = hidden;
+        // document.getElementById('library').style.visibilility = visible;
     };
-
-    var editor = ace.edit("editor");
-
-
 }
+
+// SETTINGS FUNCTIONS 
+function openSettings() {
+    $(".settings").css({"width":"500px","padding":"60px 40px"});
+    // $(".settings").css("padding","60px 40px");
+    // document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeSettings() {
+    $(".settings").css({"width":"0px","padding":"0px"});
+
+    // document.getElementById("settings").style.width = "0px";
+    // $(".settings").css("padding","0px");
+    // document.body.style.backgroundColor = "white";
+}
+
+function addRegistry() {
+    var newReg = $("#addReg").val();
+    $("#settings ul").append('<li>',newReg,'</li>');}
+
++ function($) {
+    'use strict';
+
+    // UPLOAD CLASS DEFINITION
+    // ======================
+
+    var uploadForm = document.getElementById('js-upload-form');
+
+    var startUpload = function(files) {
+        console.log(files)
+    }
+
+    uploadForm.addEventListener('submit', function(e) {
+        var uploadFiles = document.getElementById('js-upload-files').files;
+        e.preventDefault()
+
+        startUpload(uploadFiles)
+    })
+
+}(jQuery);
+

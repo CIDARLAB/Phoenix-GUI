@@ -44,11 +44,28 @@ nav img {
     padding: 6px 0px 0px;
 }
 
+
+/* All Pages */
+
+.row.flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.row.flex .col.flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 /* shows borders */
-.container .row,
-.container .col {
+.row,
+.col {
     border: 1px solid white;
 }
+
+/*SPECIFY*/
 
 /* Specify Sidebar */
 
@@ -57,11 +74,73 @@ nav img {
     height: 500px;
 }
 
+/* Specify Settings */
+.settings {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #19191f; 
+    overflow-x: hidden;
+    padding-top: 60px; 
+    transition: 0.5s;
+}
+
+.settings .closebtn {
+    position: absolute;
+    top: 0;
+    right: 20px;
+    font-size: 20px;
+    /*margin-left: 50px;*/
+    /*color: white;*/
+}
+
+.settings a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    display: block;
+    transition: 0.3s
+}
+
+.settings a:hover, .offcanvas a:focus{
+    color: #f1f1f1;
+}
+
+.settings ul {
+    color: white;
+    font-size: 14px;
+}
+
 /* Specify Pages */
+.stl {
+    height: 36px;
+    /*display:none;*/
+}
+
+.functional {
+    display: none;
+    height: 34px;
+}
+
+.text-muted.functional {
+    margin: 12px 0px -6px;
+}
+
+.struct {
+    display: none;
+}
+
+.struct.struct-top-row {
+    height: 31px;
+}
 
 .container.pull-left {
     width: calc(100% - 100px);
-    /*margin-right: 50px;*/
+    height: 500px;
 }
 
 .btn.btn-default.round {
@@ -74,15 +153,19 @@ nav img {
     font-size: 14px;
 }
 
-.btn.btn-default.round:hover {
-    border-radius: 24px;
+.btn.btn-sm.btn-default.round {
+    border-radius: 20px;
     border-color: #08ca75;
     border-width: 3px;
+    color: #08ca75;
+    width: 89px;
+    height: 31px;
+    font-size: 12px;
+}
+
+.btn.btn-default.round:hover {
     background-color: #08ca75;
     color: white;
-    width: 129px;
-    height: 41px;
-    font-size: 14px;
 }
 
 #editor {
@@ -91,11 +174,82 @@ nav img {
     background-color: white;
 }
 
-.col-xs-12.rounded {
+.col-xs-12.editor {
     margin: 10px 0px;
-    border: 1px solid gray;
+    border: 1.5px solid #D6D6D6;
     border-radius: 24px;
 }
+
+.img-logo-small {
+    width: 100px;
+    height: 38px;
+    margin-left: -10px;
+}
+
+.structbox {
+    margin: 10px 0px;
+    border: 1.5px solid #D6D6D6;
+    border-radius: 24px;
+    height: 500px;
+    padding: 20px 0px;
+}
+
+
+.struct-header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.struct-text {
+    color: #4A4A4A;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    padding-top: 8px;
+}
+
+.no-radius {
+    border: none !important;
+    border-radius: 0px !important;
+    outline: none;
+    /*display: block;*/
+    width: 100%;
+    text-align: left;
+}
+
+.btn-settings {
+    border: none;
+    text-align: left;
+    padding-left: 0px;
+}
+
+.text-muted {
+    color: #9b9b9b;
+}
+
+/* layout.css Style */
+.upload-drop-zone {
+  height: 100px;
+  border-width: 2px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.upload-drop-zone {
+  color: #9B9B9B;
+  border-style: dashed;
+  border-color: #9B9B9B;
+  line-height: 100px;
+  text-align: center
+}
+.upload-drop-zone.drop {
+  color: #222;
+  border-color: #222;
+}
+
+
+
+/* GRIDTLI STYLE */
 
 /* GridTLI Canvas */
 
@@ -104,26 +258,14 @@ nav img {
     height: 100%;
 }
 
-.row {
+.row.grid {
     text-align: center;
 }
 
-.row.flex {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.row.flex .col.col-xs-6 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.col.col-xs-6,
-.col.col-xs-12,
-.col.col-xs-6 > input,
-.col.col-xs-12 > input {
+.col.col-xs-6.grid,
+.col.col-xs-12.grid,
+.col.col-xs-6.grid > input,
+.col.col-xs-12.grid > input {
     text-align: center;
 }
 
