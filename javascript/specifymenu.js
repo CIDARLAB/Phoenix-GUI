@@ -30,6 +30,9 @@ window.onload = function() {
     centerPath.strokeWidth = '2';
 
     // initialize sidebarLeft menu circles
+
+    groupOne = new Group();
+
     circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
     circleOne.fillColor = '#08ca75';
     circleOne.strokeColor = null;
@@ -55,6 +58,8 @@ window.onload = function() {
         content: 'Specify time behavior of your design',
         fontSize: '12px',
     });
+
+    groupTwo = new Group();
 
     circleTwo = new Shape.Circle(new Point(yAxis, xTwo), radiusSmall);
     circleTwo.fillColor = 'white';
@@ -84,6 +89,8 @@ window.onload = function() {
     });
     subCaptTwo.visible = false;
 
+    groupThree = new Group();
+    
     circleThree = new Shape.Circle(new Point(yAxis, xThree), radiusSmall);
     circleThree.fillColor = 'white';
     circleThree.strokeColor = '#08ca75';
@@ -119,6 +126,24 @@ window.onload = function() {
         fill: true,
         tolerance: 3
     };
+
+    goBack = new Tool();
+    // goBack.onMouseDown = function(event) {
+    //     // hitTest to see where user clicked:
+    //     var hitResult = project.hitTest(event.point, hitOptions);
+    //     if (hitResult) {
+    //         if (groupOne.isChild(hitResult.item)) {
+                
+    //         }
+    //     }
+
+    //     // identify the current step
+    //     if (circleTwo.radius == radiusLarge) {
+
+    //     } else if (circleThree.radius == radiusLarge) {
+
+    //     }
+    // }
 
     var editor = ace.edit("editor");
 

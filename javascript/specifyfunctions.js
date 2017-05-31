@@ -21,8 +21,7 @@ function nextPage() {
         // update page layout:
         $(".stl").hide();
         $(".functional").show();
-        // document.getElementById('stl').style.visibilility = hidden;
-        // document.getElementById('functional').style.visibilility = visible;
+
     } else if (circleTwo.radius == radiusLarge) {
         // resize circleTwo
         circleTwo.radius = radiusSmall;
@@ -46,35 +45,76 @@ function nextPage() {
         $(".functional").hide();
         $(".editor").hide();
         $(".struct").show();
-        // document.getElementById('functional').style.visibilility = hidden;
-        // document.getElementById('library').style.visibilility = visible;
     };
+}
+
+function activatePage(groupId) {
+    if (groupID=='groupOne') {
+        $(".stl").show();
+        $(".editor").show();
+        $(".struct").hide();
+        $(".functional").hide();
+        
+        
+        circleTwo.radius = radiusLarge;
+        circleTwo.fillColor = '#08ca75';
+        circleTwo.strokeColor = null;
+        textTwo.fontSize = '30px';
+        textTwo.fillColor = 'white';
+        textTwo.point = new Point(yAxis - 7.5, xTwo + 10);
+        captionTwo.fillColor = '#08ca75';
+        captionTwo.fontSize = '20px';
+        subCaptTwo.visible = true;
+
+        circleTwo.radius = radiusSmall;
+        textTwo.fontSize = '15px';
+        textTwo.point = new Point(yAxis - 5, xTwo + 5);
+        captionTwo.fillColor = '#9b9b9b';
+        captionTwo.fontSize = '14px';
+        subCaptTwo.visible = false;
+
+
+    } else if (groupID=='groupTwo') {
+        
+    } else if (groupID=='groupThree') {
+
+    }
 }
 
 // SETTINGS FUNCTIONS 
 function openSettings() {
     $(".settings").css({"width":"500px","padding":"60px 40px"});
-    // $(".settings").css("padding","60px 40px");
     // document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
 }
 
 function closeSettings() {
     $(".settings").css({"width":"0px","padding":"0px"});
-
-    // document.getElementById("settings").style.width = "0px";
-    // $(".settings").css("padding","0px");
-    // document.body.style.backgroundColor = "white";
 }
 
 function addRegistry() {
-    var newReg = $("#addReg").val();
-    $("#settings ul").append('<li>',newReg,'</li>');}
+    newID = $("#addReg").val();
+    if (newID=='foobar') {
+        alert("Invalid Registry URL");
+    } else if (newID=='') {
+        alert("Invalid Registry URL");
+    } else {
+        $("#settings ul").append('<li id="' + newID + '">' + newID +
+            '<span class="pull-right" id="' + newID + '" onClick="$(\'#' + newID + '\').remove();">x</span></li>');
+        // $("#settings ul").append('<li id="' + newID + '"><a href="http://' + newID + '">' + newID +
+        //     '</a><span class="pull-right" onClick="$(\'#' + newID + '\').remove();">x</span></li>');
+        $("#registrySelect").append($('<option>', {
+            text: newID
+        }));
+    }
+    $("#addReg").val('');
+}
+
+function removeRegistry() {
+    console.log()
+}
 
 + function($) {
     'use strict';
-
-    // UPLOAD CLASS DEFINITION
-    // ======================
 
     var uploadForm = document.getElementById('js-upload-form');
 
@@ -91,3 +131,67 @@ function addRegistry() {
 
 }(jQuery);
 
+
+
+$(document).on('change','#registrySelect', function() {
+    if (!$(this).val().startsWith("https://")) {
+        registryURI = "https://" + $(this).val() + "/rootCollections";
+    } else {
+        registryURI = $(this).val() + "/rootCollections";
+    }
+    // console.log(registryURI)
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": registryURI,
+        "method": "GET",
+        "headers": {
+            "cache-control": "no-cache",
+        }
+    };
+    $.ajax(settings).done(function (response) {
+        $("#collectionsSelect option").remove(); // remove any existing options
+        $.each(response, function(i, value) {
+            $("#collectionsSelect").append($('<option>', {
+                text: value.name,
+                value: value.uri,
+            }));
+        });
+    });
+})
+
+$(document).on('change','#collectionsSelect', function() {
+    console.log($(this));
+    var collectionURI = $("option:selected", this).val();
+    // necessary reformatting for the API
+    var rep = '/';
+    var rep2 = ':';
+    var re = new RegExp(rep, 'g');
+    var re2 = new RegExp(rep2, 'g');
+    collectionURI = collectionURI.replace(re,"%2F")
+    collectionURI = collectionURI.replace(re2,"%3A")
+
+    var URI = "https://" + $("option:selected", "#registrySelect").val() + "/remoteSearch/collection%3D<" + 
+        collectionURI + ">&?offset=0&limit=1000";
+
+    var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": URI,
+        "method": "GET",
+        "headers": {
+            "cache-control": "no-cache",
+        }
+    };
+
+    $.ajax(settings).done(function (response) {
+        console.log(response);
+        $(".table tbody tr").remove(); // remove any existing rows
+        $.each(response, function(i, value) {
+            var newRow = '<tr class="row"><td class="col col-3">' + value.displayId +
+                '</td><td class="col col-3">' + value.name +
+                '</td><td class="col col-6">' + value.description + '</td></tr>';
+            $(".table").append(newRow);
+        });
+    });
+})

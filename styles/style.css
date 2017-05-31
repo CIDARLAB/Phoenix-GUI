@@ -4,28 +4,30 @@
 
 /* NAVBAR */ 
 
+.flex-grow {
+    flex: 1;
+}
+
 .navbar.navbar-inverse {
-    top: 0;
-    width: 100%;
     height: 100px;
-    text-align: center;
     background-color: #19191f;
+    width: 100%;
+    top: 0;
+    margin-bottom: 30px;
 }
 
 nav img {
-    float: left;
-    margin: 28px -226px 0 40px; /* -226 removes right-side offset for other content */
+    position: absolute;
+    margin: -60px 0px 0px -190px;
     height: 59px;
     width: 186px;
 }
 
-.nav.navbar-nav {
-    display: inline-block;
-    float: none;
-    margin-top: 67px;
+.collapse.navbar-collapse {
+    margin-top: 80px;
 }
 
-.nav.navbar-nav li a {
+.collapse.navbar-collapse li a {
     display: block;
     width: 100px;
     padding: 6px 0px;
@@ -34,12 +36,13 @@ nav img {
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 14px;
+    text-align: center;
     border: none;
 }
 
-.nav.navbar-nav li a:hover, 
-.nav.navbar-nav li a:focus,
-.nav.navbar-nav li a:active {
+.collapse.navbar-collapse li a:hover, 
+.collapse.navbar-collapse li a:focus,
+.collapse.navbar-collapse li a:active {
     border-bottom: 6px solid #08ca75;
     padding: 6px 0px 0px;
 }
@@ -90,20 +93,19 @@ nav img {
 
 .settings .closebtn {
     position: absolute;
+    padding: 8px 8px 8px 32px;
     top: 0;
     right: 20px;
     font-size: 20px;
-    /*margin-left: 50px;*/
-    /*color: white;*/
+    color: white;
+    transition: 0.3s;
 }
 
 .settings a {
-    padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 20px;
+    font-size: 14px;
     color: white;
     display: block;
-    transition: 0.3s
 }
 
 .settings a:hover, .offcanvas a:focus{
@@ -115,10 +117,10 @@ nav img {
     font-size: 14px;
 }
 
+
 /* Specify Pages */
 .stl {
     height: 36px;
-    /*display:none;*/
 }
 
 .functional {
@@ -132,10 +134,11 @@ nav img {
 
 .struct {
     display: none;
+    /*height: 34px;*/
 }
 
 .struct.struct-top-row {
-    height: 31px;
+    height: 25px;
 }
 
 .container.pull-left {
@@ -143,7 +146,7 @@ nav img {
     height: 500px;
 }
 
-.btn.btn-default.round {
+.btn.btn-secondary.round {
     border-radius: 24px;
     border-color: #08ca75;
     border-width: 3px;
@@ -153,7 +156,7 @@ nav img {
     font-size: 14px;
 }
 
-.btn.btn-sm.btn-default.round {
+.btn.btn-sm.btn-secondary.round {
     border-radius: 20px;
     border-color: #08ca75;
     border-width: 3px;
@@ -163,7 +166,7 @@ nav img {
     font-size: 12px;
 }
 
-.btn.btn-default.round:hover {
+.btn.btn-secondary.round:hover {
     background-color: #08ca75;
     color: white;
 }
@@ -174,7 +177,7 @@ nav img {
     background-color: white;
 }
 
-.col-xs-12.editor {
+.col-12.editor {
     margin: 10px 0px;
     border: 1.5px solid #D6D6D6;
     border-radius: 24px;
@@ -191,9 +194,8 @@ nav img {
     border: 1.5px solid #D6D6D6;
     border-radius: 24px;
     height: 500px;
-    padding: 20px 0px;
+    padding: 20px 16px;
 }
-
 
 .struct-header {
     font-weight: bold;
@@ -208,24 +210,48 @@ nav img {
     padding-top: 8px;
 }
 
-.no-radius {
-    border: none !important;
-    border-radius: 0px !important;
-    outline: none;
-    /*display: block;*/
-    width: 100%;
-    text-align: left;
+.form-control.struct {
+    width: calc(100% - 22px);
 }
 
 .btn-settings {
     border: none;
-    text-align: left;
-    padding-left: 0px;
+    padding-right: 4px;
+    padding-left: 4px;
 }
 
 .text-muted {
     color: #9b9b9b;
 }
+
+.table-row {
+    height: 300px;
+    overflow: auto;
+    width: 100%;
+}
+
+tbody {
+    height: 280px;
+    overflow-y:auto;
+    width: 100%;
+}
+thead,tbody,tr,td,th {
+    display:block;
+    /*border: none;*/
+}
+tbody > tr.row {
+    border-bottom: 2px solid lightgray;
+}
+
+tbody > td {
+    float:left;
+    height: 30px;
+}
+
+thead > tr > th {
+    float:left;
+}
+
 
 /* layout.css Style */
 .upload-drop-zone {
@@ -247,8 +273,6 @@ nav img {
   border-color: #222;
 }
 
-
-
 /* GRIDTLI STYLE */
 
 /* GridTLI Canvas */
@@ -262,10 +286,10 @@ nav img {
     text-align: center;
 }
 
-.col.col-xs-6.grid,
-.col.col-xs-12.grid,
-.col.col-xs-6.grid > input,
-.col.col-xs-12.grid > input {
+.col.col-6.grid,
+.col.col-12.grid,
+.col.col-6.grid > input,
+.col.col-12.grid > input {
     text-align: center;
 }
 
