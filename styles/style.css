@@ -1,18 +1,6 @@
-/*body {
-    background-color: #faffee;
-}*/
-
 /* NAVBAR */ 
-
-.flex-grow {
-    flex: 1;
-}
-
-.navbar.navbar-inverse {
+.navbar {
     height: 100px;
-    background-color: #19191f;
-    width: 100%;
-    top: 0;
     margin-bottom: 30px;
 }
 
@@ -30,7 +18,7 @@ nav img {
 .collapse.navbar-collapse li a {
     display: block;
     width: 100px;
-    padding: 6px 0px;
+    padding: 4px 0px 0px;
     margin: 0px 15px;
     color: white;
     text-decoration: none;
@@ -40,15 +28,56 @@ nav img {
     border: none;
 }
 
-.collapse.navbar-collapse li a:hover, 
-.collapse.navbar-collapse li a:focus,
-.collapse.navbar-collapse li a:active {
-    border-bottom: 6px solid #08ca75;
-    padding: 6px 0px 0px;
+.nav-item:hover, 
+.nav-item:focus,
+.nav-item:active,
+.nav-item.active {
+    border-bottom: 8px solid #08ca75;
 }
 
+.btn.btn-secondary.dropdown-toggle {
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    position: fixed;
+    top: 0;
+    right: 0;
 
-/* All Pages */
+}
+
+.login-form {
+    height: 0px;
+    width: 220px;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: #19191f; 
+    overflow-x: hidden;
+    padding: 0px 20px 0px 10px;
+    transition: 0.4s;
+}
+
+.login-form .closebtn {
+    position: absolute;
+    padding: 4px 8px 8px 32px;
+    top: 0;
+    right: 5px;
+    font-size: 12px;
+    color: white;
+    transition: 0.4s;
+}
+
+.login-form-item {
+    width: 200px;
+    background: #8dffbf;
+    border: 1px outset black;
+    font-size: 12px;
+    margin: 2px 0px;
+}
+
+/* ALL PAGES */
 
 .row.flex {
     display: flex;
@@ -62,7 +91,7 @@ nav img {
     justify-content: center;
 }
 
-/* shows borders */
+/* set to gray to show borders */
 .row,
 .col {
     border: 1px solid white;
@@ -78,11 +107,21 @@ nav img {
 }
 
 /* Specify Settings */
+.pageOverlay {
+    height: 100%;
+    width: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 1;
+}
+
 .settings {
     height: 100%;
     width: 0;
     position: fixed;
-    z-index: 1;
+    z-index: 2;
     top: 0;
     right: 0;
     background-color: #19191f; 
@@ -117,8 +156,12 @@ nav img {
     font-size: 14px;
 }
 
+.settings .fa {
+    background-color: #19191f;
+    color: purple;
+}
 
-/* Specify Pages */
+/* SPECIFY PAGES */
 .stl {
     height: 36px;
 }
@@ -134,14 +177,13 @@ nav img {
 
 .struct {
     display: none;
-    /*height: 34px;*/
 }
 
 .struct.struct-top-row {
     height: 25px;
 }
 
-.container.pull-left {
+.container.float-left {
     width: calc(100% - 100px);
     height: 500px;
 }
@@ -169,6 +211,13 @@ nav img {
 .btn.btn-secondary.round:hover {
     background-color: #08ca75;
     color: white;
+}
+
+.flex-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 35px;
 }
 
 #editor {
@@ -277,9 +326,14 @@ thead > tr > th {
 
 /* GridTLI Canvas */
 
+.fa {
+    width: 12px;
+}
+
 #myCanvas {
     width: 100%;
     height: 100%;
+    margin-top: -174px;
 }
 
 .row.grid {
@@ -296,7 +350,7 @@ thead > tr > th {
 .verticaltext {
     position: relative;
     min-width: 150px;
-    margin: 87px -5px;
+    margin: 95px -35px;
     font-size: 12px;
 }
 

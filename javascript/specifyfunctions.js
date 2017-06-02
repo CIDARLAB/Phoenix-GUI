@@ -1,94 +1,188 @@
-function nextPage() {
-    if (circleOne.radius == radiusLarge) {
-        // resize circleOne
-        circleOne.radius = radiusSmall;
-        textOne.fontSize = '15px';
-        textOne.point = new Point(yAxis - 5, xOne + 5);
-        captionOne.fillColor = '#9b9b9b';
-        captionOne.fontSize = '14px';
-        subCaptOne.visible = false;
-        // resize and color circleTwo
-        circleTwo.radius = radiusLarge;
-        circleTwo.fillColor = '#08ca75';
-        circleTwo.strokeColor = null;
-        textTwo.fontSize = '30px';
-        textTwo.fillColor = 'white';
-        textTwo.point = new Point(yAxis - 7.5, xTwo + 10);
-        captionTwo.fillColor = '#08ca75';
-        captionTwo.fontSize = '20px';
-        subCaptTwo.visible = true;
-
-        // update page layout:
-        $(".stl").hide();
-        $(".functional").show();
-
-    } else if (circleTwo.radius == radiusLarge) {
-        // resize circleTwo
-        circleTwo.radius = radiusSmall;
-        textTwo.fontSize = '15px';
-        textTwo.point = new Point(yAxis - 5, xTwo + 5);
-        captionTwo.fillColor = '#9b9b9b';
-        captionTwo.fontSize = '14px';
-        subCaptTwo.visible = false;
-        // resize and color circleThree
-        circleThree.radius = radiusLarge;
-        circleThree.fillColor = '#08ca75';
-        circleThree.strokeColor = null;
-        textThree.fontSize = '30px';
-        textThree.fillColor = 'white'
-        textThree.point = new Point(yAxis - 7.5, xThree + 10);
-        captionThree.fillColor = '#08ca75';
-        captionThree.fontSize = '20px';
-        subCaptThree.visible = true;
-
-        // update page layout:
-        $(".functional").hide();
-        $(".editor").hide();
-        $(".struct").show();
+   // defines hitOptions - used to check if a click lands on a line or not
+    var hitOptions = {
+        segments: true,
+        stroke: true,
+        fill: true,
+        tolerance: 3
     };
+
+    var activeCircle = {
+        fillColor: '#08ca75',
+        strokeColor: null,
+    };
+
+    var inactiveCircle = {
+        fillColor: 'white',
+        strokeColor: '#08ca75',
+        strokeWidth: '5',
+    };
+    
+    var inactiveCircleComplete = {
+        fillColor: '#08ca75',
+        strokeColor: null,
+    }
+
+    var activeText = {
+        fontSize: '30px',
+        fillColor: 'white',
+    };
+
+    var inactiveText = {
+        fontSize: '15px',
+        fillColor: '#08ca75',
+    };
+
+    var inactiveTextComplete = {
+        fontSize: '15px',
+        fillColor: 'white',
+    }
+    
+    var activeCaption = {
+        fillColor: '#08ca75',
+        fontSize: '20px',
+    }
+
+    var inactiveCaption = {
+        fillColor: '#9b9b9b',
+        fontSize: '14px',
+    }
+
+function activateSTLPage() {
+    // if hit lands on groupOne, activate that page:
+    circleOne.style = activeCircle;
+    circleOne.radius = radiusLarge;
+    textOne.style = activeText;
+    textOne.point = new Point(yAxis-7.5, xOne + 10),
+    captionOne.style = activeCaption;
+    subCaptOne.visible = true;
+
+    // resize and color circleTwo, circleThree
+    circleTwo.style = inactiveCircle;
+    circleTwo.radius = radiusSmall;
+    circleThree.style = inactiveCircle; 
+    circleThree.radius = radiusSmall;
+
+    textTwo.style = inactiveText;
+    textTwo.point = new Point(yAxis - 5, xTwo + 5);
+    textThree.style = inactiveText;
+    textThree.point = new Point(yAxis - 5, xThree + 5);
+    
+    captionTwo.style = inactiveCaption;
+    captionThree.style = inactiveCaption;
+
+    subCaptTwo.visible = false;
+    subCaptThree.visible = false;
+
+    // update page layout:
+    $(".stl").show();
+    $(".functional").hide();
+    $(".editor").show();
+    $(".struct").hide();
 }
 
-function activatePage(groupId) {
-    if (groupID=='groupOne') {
-        $(".stl").show();
-        $(".editor").show();
-        $(".struct").hide();
-        $(".functional").hide();
+function activateFuncPage() {
+    circleTwo.style = activeCircle;
+    circleTwo.radius = radiusLarge;
+    textTwo.style = activeText;
+    textTwo.point = new Point(yAxis-7.5, xTwo + 10),
+    captionTwo.style = activeCaption;
+    subCaptTwo.visible = true;
+
+    // resize and color circleOne, circleThree
+    circleOne.style = inactiveCircleComplete;
+    circleOne.radius = radiusSmall;
+    circleThree.style = inactiveCircle; 
+    circleThree.radius = radiusSmall;
+
+    textOne.style = inactiveTextComplete;
+    textOne.point = new Point(yAxis - 5, xOne + 5);
+    textThree.style = inactiveText;
+    textThree.point = new Point(yAxis - 5, xThree + 5);
+    
+    captionOne.style = inactiveCaption;
+    captionThree.style = inactiveCaption;
+
+    subCaptOne.visible = false;
+    subCaptThree.visible = false;
+
+    // update page layout:
+    $(".stl").hide();
+    $(".functional").show();
+    $(".editor").show();
+    $(".struct").hide();
+}
         
-        
-        circleTwo.radius = radiusLarge;
-        circleTwo.fillColor = '#08ca75';
-        circleTwo.strokeColor = null;
-        textTwo.fontSize = '30px';
-        textTwo.fillColor = 'white';
-        textTwo.point = new Point(yAxis - 7.5, xTwo + 10);
-        captionTwo.fillColor = '#08ca75';
-        captionTwo.fontSize = '20px';
-        subCaptTwo.visible = true;
+function activateStructPage() {
+    circleThree.style = activeCircle;
+    circleThree.radius = radiusLarge;
+    textThree.style = activeText;
+    textThree.point = new Point(yAxis-7.5, xThree + 10),
+    captionThree.style = activeCaption;
+    subCaptThree.visible = true;
 
-        circleTwo.radius = radiusSmall;
-        textTwo.fontSize = '15px';
-        textTwo.point = new Point(yAxis - 5, xTwo + 5);
-        captionTwo.fillColor = '#9b9b9b';
-        captionTwo.fontSize = '14px';
-        subCaptTwo.visible = false;
+    // resize and color circleOne, circleThree
+    circleOne.style = inactiveCircleComplete;
+    circleOne.radius = radiusSmall;
+    circleTwo.style = inactiveCircleComplete; 
+    circleTwo.radius = radiusSmall;
 
+    textOne.style = inactiveTextComplete;
+    textOne.point = new Point(yAxis - 5, xOne + 5);
+    textTwo.style = inactiveTextComplete;
+    textTwo.point = new Point(yAxis - 5, xTwo + 5);
+    
+    captionOne.style = inactiveCaption;
+    captionTwo.style = inactiveCaption;
 
-    } else if (groupID=='groupTwo') {
-        
-    } else if (groupID=='groupThree') {
-
+    subCaptOne.visible = false;
+    subCaptTwo.visible = false;
+    // update page layout:
+    $(".stl").hide();
+    $(".functional").hide();
+    $(".editor").hide();
+    $(".struct").show();
+}
+     
+function previousPage() {
+    if ($(".functional").is(":visible")) {
+        activateSTLPage();
+    } else {
+        activateFuncPage();
     }
 }
+
+function nextPage() {
+    console.log($(".stl").is(":visible"))
+    if ($(".stl").is(":visible")) {
+        activateFuncPage();
+    } else if ($(".functional").is(":visible")) {
+        activateStructPage();
+    } else {
+        // go to next step
+    }
+}
+
+// LOGIN FUNCTIONS 
+function openLogin() {
+    $(".login-form").css({"height":"85px","padding":"20px 20px 5px 10px"});
+    // $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0.6)","width":"100%"})
+}
+
+function closeLogin() {
+    $(".login-form").css({"height":"0px","padding":"0px 20px 0px 10px"});
+    // $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0)","width":"0px"})
+}
+
 
 // SETTINGS FUNCTIONS 
 function openSettings() {
     $(".settings").css({"width":"500px","padding":"60px 40px"});
-    // document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+    $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0.6)","width":"100%"})
 }
 
 function closeSettings() {
     $(".settings").css({"width":"0px","padding":"0px"});
+    $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0)","width":"0px"})
 }
 
 function addRegistry() {
@@ -98,8 +192,13 @@ function addRegistry() {
     } else if (newID=='') {
         alert("Invalid Registry URL");
     } else {
-        $("#settings ul").append('<li id="' + newID + '">' + newID +
-            '<span class="pull-right" id="' + newID + '" onClick="$(\'#' + newID + '\').remove();">x</span></li>');
+        $("#settings ul").append(
+            '<li id="' + newID + '">' + 
+                '<a href="http://' + newID + '">' + newID + '</a>' + 
+                '<div class="fa fa-close" id="' + newID + '" onClick="$(\'#' + newID + '\').remove();"></div>' + 
+            '</li>');
+        // $("#settings ul").append('<li id="' + newID + '">' + newID +
+        //     '<span class="pull-right" id="' + newID + '" onClick="$(\'#' + newID + '\').remove();">x</span></li>');
         // $("#settings ul").append('<li id="' + newID + '"><a href="http://' + newID + '">' + newID +
         //     '</a><span class="pull-right" onClick="$(\'#' + newID + '\').remove();">x</span></li>');
         $("#registrySelect").append($('<option>', {
@@ -112,25 +211,6 @@ function addRegistry() {
 function removeRegistry() {
     console.log()
 }
-
-+ function($) {
-    'use strict';
-
-    var uploadForm = document.getElementById('js-upload-form');
-
-    var startUpload = function(files) {
-        console.log(files)
-    }
-
-    uploadForm.addEventListener('submit', function(e) {
-        var uploadFiles = document.getElementById('js-upload-files').files;
-        e.preventDefault()
-
-        startUpload(uploadFiles)
-    })
-
-}(jQuery);
-
 
 
 $(document).on('change','#registrySelect', function() {
@@ -195,3 +275,46 @@ $(document).on('change','#collectionsSelect', function() {
         });
     });
 })
+
+// for cyto upload
+var form = $("#cyto-upload-form");
+var fileSelect = $("#cyto-upload-file");
+var uploadButton = $("#cyto-upload-submit");
+
+form.onsubmit = function(event) {
+    event.preventDefault();
+    
+    // Update button text.
+    uploadButton.innerHTML = 'Uploading...';
+
+    // Get the selected file from the input.
+    var file = fileSelect.file;
+
+    // Create a new FormData object.
+    var formData = new FormData();
+
+    // Check the file type.
+    if (file.type.match('text.*')) {
+        formData.append('file[]',file,file.name);
+    }
+
+    // Set up the request.
+    var xhr = new XMLHttpRequest();
+
+    // Open the connection.
+    xhr.open('POST', 'uploadCyto', true);
+    
+    // Set up a handler for when the request finishes.
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            // File(s) uploaded.
+            uploadButton.innerHTML = 'Upload';
+        } else {
+            alert('An error occurred!');
+        }
+    };
+
+    // Send the Data.
+    xhr.send(formData);
+    
+}

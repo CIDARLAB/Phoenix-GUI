@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
   	<meta name="viewport" http-equiv="X-UA-Compatible" content="width=device-width, initial-scale=1, IE=edge, chrome=1">
-    <title>Phoenix Library</title>
+    <title>Phoenix Specify</title>
 	<!-- load paper.js -->
     <script type="text/javascript" src="./javascript/paper-full.js"></script>
     <!-- load jquery -->
@@ -27,12 +27,10 @@
 <body>
     <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse main-nav">
         <div class="container">
-            <ul class="collapse navbar-collapse flex-grow">
-                <!--<a class="navbar-brand" href="#">-->
-                    <img src="./images/logo/phoenix_banner.png">
-                <!--</a>-->
+            <ul class="collapse navbar-collapse flex">
+                <img src="./images/logo/phoenix_banner.png">
             </ul>
-            <ul class="collapse navbar-collapse flex-grow justify-content-center">
+            <ul class="collapse navbar-collapse flex justify-content-center">
                 <li class="nav-item active">
                     <a class="nav-link" href="#">DESIGN</a>
                 </li>
@@ -43,18 +41,29 @@
                     <a class="nav-link" href="#">TEST</a>
                 </li>
             </ul>
-            <ul class="collapse navbar-collapse flex-grow justify-content-end">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Login?</a>
-                </li>
+            <ul class="collapse navbar-collapse flex">
+                <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openLogin()">
+                    LOGIN
+                </button>
+                <div id="login-form" class="login-form">
+                    <a href="javascript:void(0)" class="closebtn" onClick="closeLogin()">x</a>
+                    <input class="login-form-item" placeholder="Username">
+                    <input class="login-form-item" placeholder="Password">
+                </div>
+                    <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                        <input class="dropdown-item login-form" placeholder="Username">
+                        <input class="dropdown-item login-form" placeholder="Password">
+                    </div>-->
             </ul>
         </div>
     </nav>
+    <div class="pageOverlay">
+    </div>
     <div id="settings" class="settings">
         <a href="javascript:void(0)" class="closebtn" onClick="closeSettings()">x</a>
         <h5 class="text-muted">Registry List</h5>
-        <ul id="RegistryList">
-            <li><a href="http://synbiohub.org">synbiohub.org</a></li>
+        <ul class="list-group" id="RegistryList">
+            <li><a class="list-group-item" href="http://synbiohub.org">synbiohub.org</a></li>
             <li><a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a></li>
             <li><a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a></li>
         </ul>
@@ -67,7 +76,7 @@
             </div>
         </div>
     </div>
-	<div class="container pull-left">
+	<div class="container float-left">
 		<div class="row">
 			<div class="col col-3">
 				<canvas id="sidebarLeft"></canvas>	
@@ -108,14 +117,16 @@
                                 <p class="struct-text">Cytometer</p>
                             </div>
                             <div class="col col-9">
-                                <form action="" method="post" enctype="multipart/form-data" id="js-upload-form">
-                                    <div class="form-inline">
-                                        <div class="form-group">
-                                            <input type="file" class="form-control-file" name="files[]" id="js-upload-files">
+                                <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
+                                    <div class="row">
+                                        <div class="col col-9">
+                                            <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
                                         </div>
-                                        <button type="submit" class="btn btn-sm btn-secondary round pull-right" id="js-upload-submit">UPLOAD</button>
-                                    </div>
-                                </form>
+                                        <div class="col col-3 flex-right">
+                                            <button type="submit" class="btn btn-sm btn-secondary round" id="cyto-upload-submit">UPLOAD</button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                             <div class="col col-1">
                             </div>
@@ -131,7 +142,7 @@
                                         <option>synbiohub.cidarlab.org</option>
                                         <option>synbiohub.programmingbiology.org</option>
                                     </select>
-                                    <button type="button" class="btn btn-secondary btn-settings pull-right" onClick="openSettings()" title="Settings">
+                                    <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
                                         <span class="fa fa-cog"></span>
                                     </button>
                                 </div>
@@ -173,8 +184,11 @@
 					<div class="col-2">
 						<button class="btn btn-secondary round">HELP</button>
 					</div>
-					<div class="col-2 offset-6">
+					<div class="col-2 offset-4">
 						<button class="btn btn-secondary round">SAVE</button>
+					</div>
+                    <div class="col-2">
+						<button class="btn btn-secondary round" onClick="previousPage()">PREVIOUS</button>
 					</div>
 					<div class="col-2">
 						<button class="btn btn-secondary round" onClick="nextPage()">NEXT</button>

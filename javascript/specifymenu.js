@@ -10,6 +10,7 @@ var xThree = xOne + 2*xIncrease;
 var radiusLarge = 36;
 var radiusSmall = 20;
 
+var groupOne, groupTwo, groupThree;
 var circleOne, circleTwo, circleThree;
 var textOne, textTwo, textThree;
 var captionOne, captionTwo, captionThree;
@@ -30,8 +31,6 @@ window.onload = function() {
     centerPath.strokeWidth = '2';
 
     // initialize sidebarLeft menu circles
-
-    groupOne = new Group();
 
     circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
     circleOne.fillColor = '#08ca75';
@@ -59,7 +58,7 @@ window.onload = function() {
         fontSize: '12px',
     });
 
-    groupTwo = new Group();
+    groupOne = new Group([circleOne, textOne, captionOne, subCaptOne]);
 
     circleTwo = new Shape.Circle(new Point(yAxis, xTwo), radiusSmall);
     circleTwo.fillColor = 'white';
@@ -89,7 +88,8 @@ window.onload = function() {
     });
     subCaptTwo.visible = false;
 
-    groupThree = new Group();
+    groupTwo = new Group([circleTwo, textTwo, captionTwo, subCaptTwo]);
+
     
     circleThree = new Shape.Circle(new Point(yAxis, xThree), radiusSmall);
     circleThree.fillColor = 'white';
@@ -119,31 +119,24 @@ window.onload = function() {
     });
     subCaptThree.visible = false;
 
-    // defines hitOptions - used to check if a click lands on a line or not
-    var hitOptions = {
-        segments: true,
-        stroke: true,
-        fill: true,
-        tolerance: 3
-    };
+    groupThree = new Group([circleThree, textThree, captionThree, subCaptThree]);
 
-    goBack = new Tool();
-    // goBack.onMouseDown = function(event) {
-    //     // hitTest to see where user clicked:
-    //     var hitResult = project.hitTest(event.point, hitOptions);
-    //     if (hitResult) {
-    //         if (groupOne.isChild(hitResult.item)) {
-                
-    //         }
-    //     }
 
-    //     // identify the current step
-    //     if (circleTwo.radius == radiusLarge) {
-
-    //     } else if (circleThree.radius == radiusLarge) {
-
-    //     }
-    // }
+    menuNav = new Tool();
+    menuNav.onMouseDown = function(event) {
+        // hitTest to see where user clicked:
+        var hitResult = project.hitTest(event.point, hitOptions);
+        if (hitResult) {
+            currentItem = hitResult.item;
+            if (groupOne.isChild(currentItem)) {
+                activateSTLPage();
+            } else if (groupTwo.isChild(currentItem)) {
+                activateFuncPage();
+            } else if (groupThree.isChild(currentItem)) {
+                activateStructPage();
+            }; 
+        };
+    }
 
     var editor = ace.edit("editor");
 
