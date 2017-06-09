@@ -2,8 +2,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-  	<meta name="viewport" http-equiv="X-UA-Compatible" content="width=device-width, initial-scale=1, IE=edge, chrome=1">
-    <title>Phoenix Specify</title>
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phoenix | Specify</title>
 	<!-- load paper.js -->
     <script type="text/javascript" src="./javascript/paper-full.js"></script>
     <!-- load jquery -->
@@ -32,10 +32,10 @@
             </ul>
             <ul class="collapse navbar-collapse flex justify-content-center">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">DESIGN</a>
+                    <a class="nav-link" href="#">SPECIFY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">BUILD</a>
+                    <a class="nav-link" href="#">DESIGN</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">TEST</a>
@@ -50,25 +50,33 @@
                     <input class="login-form-item" placeholder="Username">
                     <input class="login-form-item" placeholder="Password">
                 </div>
-                    <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                        <input class="dropdown-item login-form" placeholder="Username">
-                        <input class="dropdown-item login-form" placeholder="Password">
-                    </div>-->
             </ul>
         </div>
     </nav>
     <div class="pageOverlay">
     </div>
-    <div id="settings" class="settings">
+    <div id="settings" class="settings bg-light">
         <a href="javascript:void(0)" class="closebtn" onClick="closeSettings()">x</a>
-        <h5 class="text-muted">Registry List</h5>
-        <ul class="list-group" id="RegistryList">
-            <li><a class="list-group-item" href="http://synbiohub.org">synbiohub.org</a></li>
-            <li><a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a></li>
-            <li><a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a></li>
+        <h5>Registry List</h5>
+        <ul class="list-group bg-light" id="RegistryList">
+            <div class="input-group justify-content-between" id="synbiohub.org">
+                <button type="button" class="list-group-item btn-secondary">
+                    <a href="http://synbiohub.org">synbiohub.org</a>
+                </button>
+            </div>
+            <div class="input-group justify-content-between" id="synbiohub.cidarlab.org">
+                <button type="button" class="list-group-item btn-secondary">
+                    <a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a>
+                </button>
+            </div>
+            <div class="input-group justify-content-between" id="synbiohub.programmingbiology.org">
+               <button type="button" class="list-group-item btn-secondary">
+                   <a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a>
+                </button>
+            </div>
         </ul>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="Enter registry URL here..." id="addReg">
+        <div class="input-group input-area">
+            <input type="text" class="form-control bg-light" placeholder="Enter registry URL here..." id="addReg">
             <div class="input-group-btn">
                 <button type="submit" class="btn btn-secondary" onClick="addRegistry()" title="Registry">
                     <i class="fa fa-plus"></i>
@@ -95,22 +103,28 @@
 					</div>
 					<div class="col col-2">
                         <a href="#"><button class="btn btn-secondary round stl">GridTLI</button></a>
-						<button class="btn btn-secondary round functional">UPLOAD</button>
-					</div>
-					<div class="col col-2">
-						<button class="btn btn-secondary round stl">UPLOAD</button>
-						<button class="btn btn-secondary round functional">SAMPLE</button>
-					</div>
-					<div class="col col-2">
-						<button class="btn btn-secondary round stl">SAMPLE</button>
 						<button class="btn btn-secondary round functional">RUN</button>
+					</div>
+					<div class="col col-2">
+						<button class="btn btn-secondary round">UPLOAD</button>
+					</div>
+					<div class="col col-2">
+						<button class="btn btn-secondary round" onClick="loadSample()">SAMPLE</button>
 						<p class="struct struct-top-row"></p>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row grid-border spec">
 					<div class="col col-12 editor" id="editor"></div>
-					<script src="src/ace.js" type="text/javascript" charset="utf-8"></script>
-					<!--<script src="src/ace.js" type="text/javascript" charset="utf-8" id="functional"></script>-->
+                    <script src="src/ace.js" data-ace-base="src" type="text/javascript" charset="utf-8"></script>
+                    <script>
+                        // initialize both scripts
+                        var stlScript = "";
+                        var functionalScript = "";
+                        // initialize editor
+                        var editor = ace.edit("editor");
+                        // editor.getSession().setMode("ace/mode/c_cpp"); // for STL syntax highlighting
+                        editor.getSession().setMode("ace/mode/eugene"); // for Eugene syntax highlighting
+                    </script>
                     <div class="col col-12 struct structbox">
                         <div class="row flex">
                             <div class="col col-2 flex">

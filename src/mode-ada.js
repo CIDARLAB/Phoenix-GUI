@@ -5,11 +5,20 @@ var oop = require("../lib/oop");
 var TextHighlightRules = require("./text_highlight_rules").TextHighlightRules;
 
 var AdaHighlightRules = function() {
-var keywords = "abort|else|new|return|abs|elsif|not|reverse|abstract|end|null|accept|entry|select|" +
-"access|exception|of|separate|aliased|exit|or|some|all|others|subtype|and|for|out|synchronized|" +
-"array|function|overriding|at|tagged|generic|package|task|begin|goto|pragma|terminate|" +
-"body|private|then|if|procedure|type|case|in|protected|constant|interface|until|" +
-"|is|raise|use|declare|range|delay|limited|record|when|delta|loop|rem|while|digits|renames|with|do|mod|requeue|xor";
+var keywords = "boolean|num|txt|PartType|Property|Rule|Device|include|" +
+                "else|for|if|return|while|OR|or|"+
+                "CONTAINS|NOTCONTAINS|AFTER|ALL_AFTER|SOME_AFTER|BEFORE|ALL_BEFORE|" + 
+                "SOME_BEFORE|STARTSWITH|ENDSWITH|WITH|NOTWITH|THEN|NEXTTO|ALL_NEXTTO|" +
+                "SOME_NEXTTO|MORETHAN|NOTMORETHAN|EXACTLY|NOTEXACTLY|REPRESSES|INDUCES|" +
+                "BINDS|DRIVES|ALL_REVERSE|REVERSE|SOME_REVERSE|ALL_FORWARD|FORWARD|" +
+                "SOME_FORWARD|SAME_ORIENTATION|ALL_SAME_ORIENTATION|SAME_COUNT|" + 
+                "ALTERNATE_ORIENTATION|TEMPLATE|SEQUENCE|" +
+                "contains|notcontains|after|all_after|some_after|before|all_before|" +
+                "some_before|startswith|endswith|with|notwith|then|nextto|all_nextto|" +
+                "some_nextto|morethan|notmorethan|exactly|notexactly|represses|induces|" +
+                "binds|drives|all_reverse|reverse|some_reverse|all_forward|forward|" +
+                "some_forward|same_orientation|all_same_orientation|same_count|" +
+                "alternate_orientation|template|sequence";
 
     var builtinConstants = (
         "true|false|null"
