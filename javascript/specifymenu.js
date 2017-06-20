@@ -138,6 +138,6 @@ window.onload = function() {
         };
     }
 
-    var editor = ace.edit("editor");
+    // var editor = ace.edit($('#editor'));
 
 }
