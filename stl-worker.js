@@ -64,7 +64,7 @@ ace.define('ace/worker/stl-worker',["require","exports","module","ace/lib/oop","
     var listener = new AnnotatingErrorListener(annotations);
     parser.removeErrorListeners();
     parser.addErrorListener(listener);
-    parser.file();
+    parser.property();
     return annotations;
   }
 
