@@ -80,6 +80,15 @@ function activateSTLPage() {
 
     // update the editor:
     editor.setValue(stlScript);
+    editor.getSession().setMode("ace/mode/stl");
+    // document.write('<script src="./javascript/ace-config-stl.js"></script>');
+    // ace.config.setModuleUrl(
+    //     'ace/mode/stl', './stl.js'
+    // );
+    // ace.config.setModuleUrl(
+    //     'ace/worker/stl-worker', './stl-worker.js'
+    // );
+
 }
 
 function activateFuncPage() {
@@ -115,6 +124,15 @@ function activateFuncPage() {
 
     // update the editor:
     editor.setValue(functionalScript);
+    editor.getSession().setMode("ace/mode/eugene");
+    // document.write('<script src="./javascript/ace-config-eugene.js"></script>');
+    // ace.config.setModuleUrl(
+    //     'ace/mode/eugene', './eugene.js'
+    // );
+    // ace.config.setModuleUrl(
+    //     'ace/worker/eugene-worker', './eugene-worker.js'
+    // );
+
 }
         
 function activateStructPage() {
@@ -364,7 +382,6 @@ $(document).on('change','#collectionsSelect', function() {
         });
     });
 })
-
 
 // for cyto upload
 // var form = $("#cyto-upload-form");

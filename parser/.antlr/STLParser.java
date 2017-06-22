@@ -1,4 +1,4 @@
-// Generated from /Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/STL.g4 by ANTLR 4.7
+// Generated from /Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/parser/STL.g4 by ANTLR 4.7
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;

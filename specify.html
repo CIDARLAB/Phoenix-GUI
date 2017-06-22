@@ -33,7 +33,8 @@
         module.exports = antlr4;
         });
     </script>
-    <script src="./javascript/ace-config.js"></script>
+    <script src="./javascript/ace-config-eugene.js"></script>
+    <script src="./javascript/ace-config-stl.js"></script>
     <script src="./bower_components/antlr4-ace-ext/src/token-type-map.js"></script>
     <script src="./bower_components/antlr4-ace-ext/src/tokenizer.js"></script>
 </head>
@@ -129,16 +130,18 @@
 				<div class="row grid-border spec">
 					<div class="col col-12 editor" id="editor"></div>   
                     <!--<script src="./javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>-->
-                    <!--<script src="./javascript/stl.js" type="text/javascript" charset="utf-8"></script>-->
+                    <script src="stl.js" type="text/javascript" charset="utf-8"></script>
+                    <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
+                    <!--<script src="my-mode.js" type="text/javascript" charset="utf-8"></script>-->
                     <script>
                         // initialize both scripts
                         var stlScript = "";
                         var functionalScript = "";
                         // initialize editor
                         var editor = ace.edit("editor");
-                        editor.setTheme("ace/theme/ambiance");
+                        editor.setTheme("ace/theme/chrome");
+                        // editor.getSession().setMode("ace/mode/my-mode"); // for testing
                         editor.getSession().setMode("ace/mode/stl"); // for STL syntax highlighting
-                        // editor.getSession().setMode("ace/mode/javascript");
                         console.log(editor.getSession().getMode())
                         // editor.getSession().setMode("ace/mode/eugene"); // for Eugene syntax highlighting
                     </script>

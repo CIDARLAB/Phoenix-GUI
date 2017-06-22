@@ -37,6 +37,7 @@ property:
     |    left=property op='>>' right=property #formula
     |    left=property op='#' right=property #formula
     |    left=property op='U' '[' low=RATIONAL ',' high=RATIONAL ']' right=property #formula
+    |    left=property op='^' right=property #formula
     ;
 expr:
         ('-('|'(') expr ')'
