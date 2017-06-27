@@ -54,7 +54,7 @@
     </nav>
 	<div class="container grid-border">
 		<div class="row">
-			<div class="col col-6 des-height">
+			<div class="col col-6 des-height" id="fileexp">
                 File Explorer
                 <div class="row d-flex flex-row">
                     <div class="col col-12">
@@ -85,7 +85,7 @@
                 Upload/View Metadata
                 <div class="row flex">
                     <div class="col col-12 flex align-items-stretch">
-                        <form class="box" method="post" action="" enctype="multipart/form-data">
+                        <!--<form class="box" method="post" action="" enctype="multipart/form-data">
                             <div class="box-input d-flex align-self-stretch">
                                 <label for="file"><span class="box-dragndrop">Upload File</span></label>
                                 <button class="box-button" type="submit">Upload</button>
@@ -93,7 +93,15 @@
                             <div class="box-uploading">Uploading&hellip;</div>
                             <div class="box-success">Done!</div>
                             <div class="box-error">Error!<span></span></div>
-                        </form>
+                        </form>-->
+                        <div id="sourcePigeon">
+                            <div class="editor"></div>
+                            <!--<script>
+                            // initialize editor
+                            var editor = ace.edit("editor");
+                            console.log(editor.getSession().getMode())
+                        </script>-->
+                        </div>
                     </div>
                 </div>
 			</div>
@@ -107,9 +115,25 @@
                 </div>
                 <div class="row">
                     <div class="col col-12">
-                        <canvas id="sbolCanvas"></canvas>
+                        <div style="clear: both;"></div>
+                        <div id="svg">
+                            <svg id="design"></svg>
+                        </div>
+                        <div id="designLoading" style="display: none;">
+                            <em>Loading design...</em>
+                        </div>
+                        <div id="designError" style="display: none;">
+                        </div>
                     </div>
                 </div>
+                <!--<div class="row">
+                    <div class="col col-12" id="svg">
+                        <div>
+                            <svg id="design"></svg>
+                        </div>
+                        <canvas id="sbolCanvas"></canvas>
+                    </div>
+                </div>-->
             </div>
 		</div>
 	</div>
@@ -122,6 +146,10 @@
     <script type="text/javascript" src="./javascript/treeview.js"></script>    
     <!-- load drag n drop script -->
     <script type="text/javascript" src="./javascript/dragdrop.js"></script>
+    <script src="js/pathseg.js"></script>
+    <script src="js/ace/ace.js"></script>
+    <script src="bundle.js"></script>
+    
 
     <!--<script type="text/javascript">
         $(function() {
