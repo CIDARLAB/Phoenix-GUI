@@ -20,20 +20,19 @@ var subCaptOne, subCaptTwo, subCaptThree;
 window.onload = function() {
     // Setup directly from canvas id:
     paper.setup('sidebarLeft');
-    sidebarLeft.style.background = 'white'; 
-
+    sidebarLeft.style.background = 'transparent'; 
 
     // center line
     var centerPath = new Path();
     centerPath.add(new Point(yAxis,xOne));
     centerPath.add(new Point(yAxis,xThree));
-    centerPath.strokeColor = '#08ca75';
+    centerPath.strokeColor = '#8e192f';
     centerPath.strokeWidth = '2';
 
     // initialize sidebarLeft menu circles
 
     circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
-    circleOne.fillColor = '#08ca75';
+    circleOne.fillColor = '#8e192f';
     circleOne.strokeColor = null;
 
     textOne = new PointText({
@@ -45,7 +44,7 @@ window.onload = function() {
 
     captionOne = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xOne + 8),
-        fillColor: '#08ca75',
+        fillColor: '#8e192f',
         content: 'STL Formula',
         fontSize: '20px',
         fontWeight: 'bold',
@@ -53,7 +52,7 @@ window.onload = function() {
 
     subCaptOne = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xOne + 24),
-        fillColor: '#9b9b9b',
+        fillColor: '#7f7f7f',
         content: 'Specify time behavior of your design',
         fontSize: '12px',
     });
@@ -62,27 +61,27 @@ window.onload = function() {
 
     circleTwo = new Shape.Circle(new Point(yAxis, xTwo), radiusSmall);
     circleTwo.fillColor = 'white';
-    circleTwo.strokeColor = '#08ca75';
+    circleTwo.strokeColor = '#8e192f';
     circleTwo.strokeWidth = '5';
 
     textTwo = new PointText({
         point: new Point(yAxis-5, xTwo + 5),
-        fillColor: '#08ca75',
+        fillColor: '#8e192f',
         content: '2',
         fontSize: '15px',
     });
 
     captionTwo = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xTwo + 4),
-        fillColor: '#9b9b9b',
-        content: 'Functional Constraints',
+        fillColor: '#7f7f7f',
+        content: 'Structural Constraints',
         fontSize: '14px',
         fontWeight: 'bold',
     });
 
     subCaptTwo = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xTwo + 24),
-        fillColor: '#9b9b9b',
+        fillColor: '#7f7f7f',
         content: 'Specify parts, devices, and their constraints',
         fontSize: '12px',
     });
@@ -93,27 +92,27 @@ window.onload = function() {
     
     circleThree = new Shape.Circle(new Point(yAxis, xThree), radiusSmall);
     circleThree.fillColor = 'white';
-    circleThree.strokeColor = '#08ca75';
+    circleThree.strokeColor = '#8e192f';
     circleThree.strokeWidth = '5';
 
     textThree = new PointText({
         point: new Point(yAxis-5, xThree + 5),
-        fillColor: '#08ca75',
+        fillColor: '#8e192f',
         content: '3',
         fontSize: '15px',
     });
 
     captionThree = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xThree + 4),
-        fillColor: '#9b9b9b',
-        content: 'Structural Constraints',
+        fillColor: '#7f7f7f',
+        content: 'Parts Library',
         fontSize: '14px',
         fontWeight: 'bold',
     });
 
     subCaptThree = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xThree + 24),
-        fillColor: '#9b9b9b',
+        fillColor: '#7f7f7f',
         content: 'Select parts you want to use',
         fontSize: '12px',
     });
@@ -131,9 +130,9 @@ window.onload = function() {
             if (groupOne.isChild(currentItem)) {
                 activateSTLPage();
             } else if (groupTwo.isChild(currentItem)) {
-                activateFuncPage();
-            } else if (groupThree.isChild(currentItem)) {
                 activateStructPage();
+            } else if (groupThree.isChild(currentItem)) {
+                activateLibraryPage();
             }; 
         };
     }

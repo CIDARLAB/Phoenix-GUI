@@ -4,10 +4,10 @@ $(function() {
 
 	var json = '[' +
 		'{' +
-		'"text": "Parent 1",' +
+		'"text": "B1_BM3R1",' +
 		'"nodes": [' +
 			'{' +
-			'"text": "Child 1",' +
+			'"text": "SarJ",' +
 			'"nodes": [' +
 				'{' +
 				'"text": "Grandchild 1"' +
@@ -18,7 +18,13 @@ $(function() {
 			']' +
 			'},' +
 			'{' +
-			'"text": "Child 2"' +
+			'"text": "B1"' +
+			'},' +
+			'{' +
+			'"text": "BM3R1"' +
+			'},' +
+			'{' +
+			'"text": "L3S2P11"' +
 			'}' +
 		']' +
 		'},' +

@@ -6,7 +6,9 @@
 	<!-- load paper.js -->
     <script type="text/javascript" src="./javascript/paper-full.js"></script>
     <!-- load jquery -->
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- load script for general functions -->
+    <script type="text/javascript" src="./javascript/functions.js"></script>
 	<!-- load script that implements menu -->
 	<script type="text/javascript" src="./javascript/specifymenu.js"></script>
 	<!-- load script for special functions -->
@@ -19,6 +21,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<!-- load custom stylesheet -->
     <link rel="stylesheet" href="./styles/style.css"></link>
+    <link rel="stylesheet" href="./styles/specify.css"></link>
 	<!-- load font support for STL editor -->
 	<script async="true" src="https://use.edgefonts.net/source-code-pro.js"></script>
     <!-- load antlr and ace editor files -->
@@ -39,198 +42,220 @@
     <script src="./bower_components/antlr4-ace-ext/src/tokenizer.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse main-nav">
+    <nav class="navbar navbar-toggleable-xs navbar-inverse main-nav grad">
         <div class="container">
-            <ul class="collapse navbar-collapse flex">
-                <img src="./images/logo/phoenix_banner.png">
-            </ul>
-            <ul class="collapse navbar-collapse flex justify-content-center">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">SPECIFY</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">DESIGN</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">TEST</a>
-                </li>
-            </ul>
-            <ul class="collapse navbar-collapse flex">
-                <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openLogin()">
-                    LOGIN
-                </button>
-                <div id="login-form" class="login-form">
-                    <a href="javascript:void(0)" class="closebtn" onClick="closeLogin()">x</a>
-                    <input class="login-form-item" placeholder="Username">
-                    <input class="login-form-item" placeholder="Password">
+            <div class="row">
+                <div class="col-2">
+                    <img src="./images/logo/phoenix_banner.png">
                 </div>
-            </ul>
-        </div>
-    </nav>
-    <div class="pageOverlay">
-    </div>
-    <div id="settings" class="settings bg-light">
-        <a href="javascript:void(0)" class="closebtn" onClick="closeSettings()">x</a>
-        <h5>Registry List</h5>
-        <ul class="list-group bg-light" id="RegistryList">
-            <div class="input-group justify-content-between" id="synbiohub.org">
-                <button type="button" class="list-group-item btn-secondary">
-                    <a href="http://synbiohub.org">synbiohub.org</a>
-                </button>
-            </div>
-            <div class="input-group justify-content-between" id="synbiohub.cidarlab.org">
-                <button type="button" class="list-group-item btn-secondary">
-                    <a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a>
-                </button>
-            </div>
-            <div class="input-group justify-content-between" id="synbiohub.programmingbiology.org">
-               <button type="button" class="list-group-item btn-secondary">
-                   <a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a>
-                </button>
-            </div>
-        </ul>
-        <div class="input-group input-area">
-            <input type="text" class="form-control bg-light" placeholder="Enter registry URL here..." id="addReg">
-            <div class="input-group-btn">
-                <button type="submit" class="btn btn-secondary" onClick="addRegistry()" title="Registry">
-                    <i class="fa fa-plus"></i>
-                </button>
-            </div>
-        </div>
-    </div>
-	<div class="container float-left">
-		<div class="row">
-			<div class="col col-3">
-				<canvas id="sidebarLeft"></canvas>	
-			</div>
-			<div class="col col-1">
-			</div>
-			<div class="col col-8">
-				<div class="row">
-					<div class="col col-3">
-						<p class="text-muted functional">Powered By
-							<img src="./images/logo/logo-Eugene-Color.png" class="img-logo-small">
-						</p>
-					</div>
-					<div class="col col-3"> 
-						<!-- for offset -->
-					</div>
-					<div class="col col-2">
-                        <a href="#"><button class="btn btn-secondary round stl">GridTLI</button></a>
-						<button class="btn btn-secondary round functional">RUN</button>
-					</div>
-					<div class="col col-2">
-						<button class="btn btn-secondary round">UPLOAD</button>
-					</div>
-					<div class="col col-2">
-						<button class="btn btn-secondary round" onClick="loadSample()">SAMPLE</button>
-						<p class="struct struct-top-row"></p>
-					</div>
-				</div>
-				<div class="row grid-border spec">
-					<div class="col col-12 editor" id="editor"></div>   
-                    <!--<script src="./javascript/src/ace.js" type="text/javascript" charset="utf-8"></script>-->
-                    <script src="stl.js" type="text/javascript" charset="utf-8"></script>
-                    <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
-                    <!--<script src="my-mode.js" type="text/javascript" charset="utf-8"></script>-->
-                    <script>
-                        // initialize both scripts
-                        var stlScript = "";
-                        var functionalScript = "";
-                        // initialize editor
-                        var editor = ace.edit("editor");
-                        editor.setTheme("ace/theme/chrome");
-                        // editor.getSession().setMode("ace/mode/my-mode"); // for testing
-                        editor.getSession().setMode("ace/mode/stl"); // for STL syntax highlighting
-                        console.log(editor.getSession().getMode())
-                        // editor.getSession().setMode("ace/mode/eugene"); // for Eugene syntax highlighting
-                    </script>
-                    <div class="col col-12 struct structbox">
-                        <div class="row flex">
-                            <div class="col col-2 flex">
-                                <p class="struct-text">Cytometer</p>
-                            </div>
-                            <div class="col col-9">
-                                <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
-                                    <div class="row">
-                                        <div class="col col-9">
-                                            <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
-                                        </div>
-                                        <div class="col col-3 flex-right">
-                                            <button type="submit" class="btn btn-sm btn-secondary round" id="cyto-upload-submit">UPLOAD</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="col col-1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-2">
-                                <p class="struct-text">Registry</p>
-                            </div>
-                            <div class="col col-9 flex">
-                                <div class="form-group">
-                                    <select class="form-control struct" id="registrySelect">
-                                        <option>synbiohub.org</option>
-                                        <option>synbiohub.cidarlab.org</option>
-                                        <option>synbiohub.programmingbiology.org</option>
-                                    </select>
-                                    <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
-                                        <span class="fa fa-cog"></span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col col-1">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col col-2">
-                                <p class="struct-text">Collections</p>
-                            </div>
-                            <div class="col col-9 flex">
-                                <div class="form-group">
-                                    <select class="form-control struct" id="collectionsSelect">
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col col-1">
-                            </div>
-                        </div>
-                        <div class="row table-row">
-                            <div class="col col-10 offset-1">
-                                <table class="table">
-                                    <thead>
-                                        <tr class="row">
-                                            <th class="col col-3">DisplayID</th>
-                                            <th class="col col-3">Name</th>
-                                            <th class="col col-6">Description</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    </tbody>
-                                </table>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="project-name" id="project-name">
+                                MY SYNBIO PROJECT
                             </div>
                         </div>
                     </div>
-				</div>	
-				<div class="row">
-					<div class="col-2">
-						<button class="btn btn-secondary round">HELP</button>
-					</div>
-					<div class="col-2 offset-4">
-						<button class="btn btn-secondary round">SAVE</button>
-					</div>
-                    <div class="col-2">
-						<button class="btn btn-secondary round" onClick="previousPage()">PREVIOUS</button>
-					</div>
-					<div class="col-2">
-						<button class="btn btn-secondary round" onClick="nextPage()">NEXT</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item active"> 
+                                    <a class="nav-link" href="#">SPECIFY</a>
+                                </li> 
+                                <li class="nav-item disabled"> 
+                                    <a class="nav-link" href="#">DESIGN</a>
+                                </li>
+                                <li class="nav-item disabled"> 
+                                    <a class="nav-link" href="#">TEST</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openUserSettings()">
+                        SynBioUserName
+                    </button>
+                    <div id="user-settings" class="user-settings">
+                        <a href="javascript:void(0)" class="closebtn" onClick="closeUserSettings()">x</a>
+                        <ul>
+                            <li>Setting Option 1</li>
+                            <li>Setting Option 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="wrap">
+        <div class="pageOverlay">
+        </div>
+        <div id="settings" class="settings bg-light">
+            <a href="javascript:void(0)" class="closebtn" onClick="closeSettings()">x</a>
+            <h5>Registry List</h5>
+            <ul class="list-group bg-light" id="RegistryList">
+                <div class="input-group justify-content-between" id="synbiohub.org">
+                    <button type="button" class="list-group-item btn-secondary">
+                        <a href="http://synbiohub.org">synbiohub.org</a>
+                    </button>
+                </div>
+                <div class="input-group justify-content-between" id="synbiohub.cidarlab.org">
+                    <button type="button" class="list-group-item btn-secondary">
+                        <a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a>
+                    </button>
+                </div>
+                <div class="input-group justify-content-between" id="synbiohub.programmingbiology.org">
+                <button type="button" class="list-group-item btn-secondary">
+                    <a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a>
+                    </button>
+                </div>
+            </ul>
+            <div class="input-group input-area">
+                <input type="text" class="form-control bg-light" placeholder="Enter registry URL here..." id="addReg">
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-secondary" onClick="addRegistry()" title="Registry">
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" id="main-container">
+                <div class="col-3">
+                    <canvas id="sidebarLeft"></canvas>	
+                </div>
+                <div class="col-1">
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-3 col-sm-5">
+                            <p class="text-muted struct">Powered By
+                                <img src="./images/logo/logo-Eugene-Color.png" class="img-logo-small">
+                            </p>
+                        </div>
+                        <div class="col-5 col-sm-3"> 
+                            <!-- for offset -->
+                        </div>
+                        <div class="col-2">
+                            <button id="btn-grid-eugene" class="btn btn-secondary round" onClick="window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')">GridTLI</button>
+                        </div>
+                        <div class="col-2">
+                            <button id="btn-sample" class="btn btn-secondary round" onClick="loadSample()">SAMPLE</button>
+                        </div>
+                    </div>
+                    <div class="row grid-border" id="editor-row">
+                        <div class="col-12 editor" id="editor">
+                        </div>   
+                        <script src="stl.js" type="text/javascript" charset="utf-8"></script>
+                        <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
+                        <script>
+                            // initialize both scripts
+                            var stlScript = "";
+                            var structScript = "";
+                            var editor = ace.edit("editor"); // initialize editor
+                            editor.setTheme("ace/theme/chrome");
+                            editor.getSession().setMode("ace/mode/stl");
+                        </script>
+                        <div class="col-12 library librarybox">
+                            <div class="row flex">
+                                <div class="col-2 flex">
+                                    <p class="library-text">Cytometer</p>
+                                </div>
+                                <div class="col-9">
+                                    <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
+                                            </div>
+                                            <div class="col-3 flex-right">
+                                                <button type="submit" class="btn btn-sm btn-secondary round" id="cyto-upload-submit">UPLOAD</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <p class="library-text">Registry</p>
+                                </div>
+                                <div class="col-9 flex">
+                                    <div class="form-group">
+                                        <select class="form-control library" id="registrySelect">
+                                            <option id="synbiohub-org">synbiohub.org</option>
+                                            <option id="synbiohub-cidarlab-org">synbiohub.cidarlab.org</option>
+                                            <option id="synbiohub-programmingbiology-org">synbiohub.programmingbiology.org</option>
+                                        </select>
+                                        <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
+                                            <span class="fa fa-cog"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <p class="library-text">Collections</p>
+                                </div>
+                                <div class="col-9 flex">
+                                    <div class="form-group">
+                                        <select class="form-control library" id="collectionsSelect">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                </div>
+                            </div>
+                            <div class="row table-row">
+                                <div class="col-10 offset-1">
+                                    <table class="table">
+                                        <thead>
+                                            <tr class="row">
+                                                <th class="col-3">DisplayID</th>
+                                                <th class="col-3">Name</th>
+                                                <th class="col-6">Description</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button id="btn-help" class="btn btn-secondary round">HELP</button>
+                        </div>
+                        <div class="col-2 offset-2">
+                            <button id="btn-save" class="btn btn-secondary round">SAVE</button>
+                        </div>
+                        <div class="col-2">
+                            <button id="btn-upload" class="btn btn-secondary round">UPLOAD</button>
+                        </div>
+                        <div class="col-2">
+                            <button id="btn-prevPage" class="btn btn-secondary round disabled">PREVIOUS</button>
+                        </div>
+                        <div class="col-2">
+                            <button id="btn-nextPage" class="btn btn-secondary round" onClick="activateStructPage()">NEXT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer"> 
+            <span>
+                <img src="./images/logo/cidar_s.png">
+            </span>
+            <span>
+                <img src="./images/logo/BU.png">
+            </span>
+            <p class="text-muted">Phoenix is licensed under Creative Commons Super Cool License</p>
+            <p class="text-muted">Phoenix Web App was created by Kat, Oompa Loompa Extraordinaire</p>
+    </footer> 
     <!-- load bootstrap javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

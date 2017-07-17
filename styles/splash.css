@@ -1,0 +1,62 @@
+body {
+    background-color: #3f3f3f;
+}
+
+.logo-splash {
+    margin-top: 6%;
+    text-align: center; 
+}
+
+.logo-splash img {
+    width: 300px;
+}
+
+.description {
+    margin-top: 4%;
+    text-align: center;
+    color: white;
+    font-family: 'Calibri', 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 34px;
+    letter-spacing: 1.5px;
+    line-height: 125%; 
+}
+
+.splash {
+    text-align: center;
+    color: white;
+    font-family: 'Calibri', 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    line-height: 125%; 
+}
+
+.container.login-splash {
+    margin-top: 6%; 
+    text-align: center;
+}
+
+.container.login-splash .form-control {
+    text-align: center;
+    background: white;
+    margin: 4px 0px;
+}
+
+.create-account {
+    color: #7f7f7f;
+    font-size: 14px;
+    margin-top: -5px;
+}
+
+.btn-splash {
+    margin-top: 10px; 
+    border-radius: 48px;
+    background-color: #f44a9e;
+    letter-spacing: 1px;
+    color: white;
+    height: 125%;
+    width: 200px;
+}
+
+.row {
+    margin-top: 10px;
+} 

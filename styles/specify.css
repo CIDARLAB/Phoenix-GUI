@@ -1,0 +1,212 @@
+/*** Sidebar Menu ***/
+
+#sidebarLeft {
+    width: 400px;
+    height: 100%;
+}
+
+/*** GENERAL SPECIFY PAGES ***/
+
+.btn.btn-secondary {
+    border-color: #8e192f;
+    border-width: 3px;
+    color: #8e192f;
+}
+
+.btn.btn-secondary.round {
+    border-radius: 24px;
+    width: 100%;
+    height: 41px;
+    font-size: 14px;
+}
+
+.btn.btn-sm.btn-secondary.round {
+    border-radius: 20px;
+    width: 80%;
+    height: 31px;
+    font-size: 12px;
+}
+
+.btn.btn-secondary.round:hover {
+    background-color: #8e192f;
+    color: white;
+}
+
+.text-muted {
+    color: #9b9b9b;
+}
+
+.grid-border {
+     height: calc(100% - 90px); 
+}
+
+.container {
+    width: calc(100% - 100px);
+    clear: both;
+    left: 0;
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
+.editor {
+    height: calc(100%-5px);
+    width: 100%;
+    font-size: 12px;
+    margin: 5px 0px;
+    border: 2px solid #c3c3c3;
+    border-radius: 24px;
+}
+
+/*** STL ***/
+.stl {
+    height: 36px;
+}
+
+/*** STRUCTURAL ***/
+
+.struct {
+    display: none;
+    height: 34px;
+}
+
+.text-muted.struct {
+    margin: 12px 0px -6px;
+}
+
+.img-logo-small {
+    width: 100px;
+    height: 38px;
+    margin-left: -10px;
+}
+
+/*** PARTS LIBRARY ***/
+
+.library {
+    display: none;
+}
+
+.flex-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 35px;
+}
+
+.librarybox {
+    background-color: white;
+    margin: 5px 0px;
+    border: 2px solid #c3c3c3;
+    border-radius: 24px;
+}
+
+.library-header {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.library-text {
+    color: #4A4A4A;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: right;
+    padding-top: 8px;
+}
+
+.form-control.library {
+    width: calc(100% - 22px);
+}
+
+.btn-settings {
+    border: none;
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.table-row {
+    height: 290px;
+    overflow: auto;
+    width: 100%;
+}
+
+tbody {
+    height: 280px;
+    overflow-y:auto;
+    width: 100%;
+}
+thead,tbody,tr,td,th {
+    display:block;
+    /*border: none;*/
+}
+tbody > tr.row {
+    border-bottom: 2px solid #a5a5a5;
+}
+
+tbody > td {
+    float:left;
+    height: 30px;
+}
+
+thead > tr > th {
+    float:left;
+}
+
+/*** Settings Overlay ***/
+
+.pageOverlay {
+    height: 100%;
+    width: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 1;
+}
+
+.settings {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    background-color: white;
+    overflow-x: hidden;
+    padding-top: 60px; 
+    transition: 0.5s;
+    color: #19191f;
+}
+
+.settings .closebtn {
+    position: absolute;
+    padding: 8px 8px 8px 32px;
+    top: 0;
+    right: 20px;
+    font-size: 20px;
+    color: #19191f;
+    transition: 0.3s;
+}
+
+.settings .list-group-item {
+    width: 100%;
+}
+
+.settings a {
+    color: #19191f;
+}
+
+.settings a:hover {
+    color: #4A4A4A;
+    text-decoration: none;
+}
+
+.settings .input-group.input-area {
+    margin-top: 10px;
+}
+
+.settings .fa {
+    background-color: transparent;
+}
+
+.settings .fa.fa-close {
+    background-color: transparent;
+}

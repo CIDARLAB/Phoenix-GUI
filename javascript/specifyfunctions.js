@@ -1,51 +1,51 @@
-   // defines hitOptions - used to check if a click lands on a line or not
-    var hitOptions = {
-        segments: true,
-        stroke: true,
-        fill: true,
-        tolerance: 3
-    };
+// defines hitOptions - used to check if a click lands on a line or not
+var hitOptions = {
+    segments: true,
+    stroke: true,
+    fill: true,
+    tolerance: 3
+};
 
-    var activeCircle = {
-        fillColor: '#08ca75',
-        strokeColor: null,
-    };
+var activeCircle = {
+    fillColor: '#8e192f',
+    strokeColor: null,
+};
 
-    var inactiveCircle = {
-        fillColor: 'white',
-        strokeColor: '#08ca75',
-        strokeWidth: '5',
-    };
-    
-    var inactiveCircleComplete = {
-        fillColor: '#08ca75',
-        strokeColor: null,
-    }
+var inactiveCircle = {
+    fillColor: 'white',
+    strokeColor: '#8e192f',
+    strokeWidth: '5',
+};
 
-    var activeText = {
-        fontSize: '30px',
-        fillColor: 'white',
-    };
+var inactiveCircleComplete = {
+    fillColor: '#8e192f',
+    strokeColor: null,
+}
 
-    var inactiveText = {
-        fontSize: '15px',
-        fillColor: '#08ca75',
-    };
+var activeText = {
+    fontSize: '30px',
+    fillColor: 'white',
+};
 
-    var inactiveTextComplete = {
-        fontSize: '15px',
-        fillColor: 'white',
-    }
-    
-    var activeCaption = {
-        fillColor: '#08ca75',
-        fontSize: '20px',
-    }
+var inactiveText = {
+    fontSize: '15px',
+    fillColor: '#8e192f',
+};
 
-    var inactiveCaption = {
-        fillColor: '#9b9b9b',
-        fontSize: '14px',
-    }
+var inactiveTextComplete = {
+    fontSize: '15px',
+    fillColor: 'white',
+}
+
+var activeCaption = {
+    fillColor: '#8e192f',
+    fontSize: '20px',
+}
+
+var inactiveCaption = {
+    fillColor: '#9b9b9b',
+    fontSize: '14px',
+}
 
 function activateSTLPage() {
     circleOne.style = activeCircle;
@@ -72,18 +72,28 @@ function activateSTLPage() {
     subCaptTwo.visible = false;
     subCaptThree.visible = false;
 
+    // update buttons
+    $("#btn-grid-eugene").css("visibility", 'visible');
+    $("#btn-grid-eugene").text('GridTLI');
+    $("#btn-grid-eugene").attr("onClick", "window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')")
+    $("#btn-upload").removeClass('disabled');
+    $("#btn-prevPage").addClass('disabled');
+    $("#btn-nextPage").text('NEXT');
+    $("#btn-nextPage").attr("onClick",'activateStructPage()');
+
+
     // update page layout:
     $(".stl").show();
-    $(".functional").hide();
-    $(".editor").show();
     $(".struct").hide();
+    $(".editor").show();
+    $(".library").hide();
 
     // update the editor:
     editor.setValue(stlScript);
     editor.getSession().setMode("ace/mode/stl");
 }
 
-function activateFuncPage() {
+function activateStructPage() {
     circleTwo.style = activeCircle;
     circleTwo.radius = radiusLarge;
     textTwo.style = activeText;
@@ -108,18 +118,29 @@ function activateFuncPage() {
     subCaptOne.visible = false;
     subCaptThree.visible = false;
 
+    // update buttons
+    $("#btn-grid-eugene").css("visibility", 'visible');
+    $("#btn-grid-eugene").text('RUN');
+    $("#btn-grid-eugene").attr("onClick",'runEugene()');
+    $("#btn-upload").removeClass('disabled');
+    $("#btn-prevPage").removeClass('disabled');
+    $("#btn-prevPage").attr("onClick",'activateSTLPage()');
+    $("#btn-nextPage").text('NEXT');
+    $("#btn-nextPage").attr("onClick",'activateLibraryPage()');
+
+
     // update page layout:
     $(".stl").hide();
-    $(".functional").show();
+    $(".struct").show();
     $(".editor").show();
-    $(".struct").hide();
+    $(".library").hide();
 
     // update the editor:
-    editor.setValue(functionalScript);
+    editor.setValue(structScript);
     editor.getSession().setMode("ace/mode/eugene");
 }
         
-function activateStructPage() {
+function activateLibraryPage() {
     circleThree.style = activeCircle;
     circleThree.radius = radiusLarge;
     textThree.style = activeText;
@@ -144,33 +165,21 @@ function activateStructPage() {
     subCaptOne.visible = false;
     subCaptTwo.visible = false;
 
+    // update buttons
+    $("#btn-grid-eugene").css("visibility", 'hidden');
+    $("#btn-upload").addClass('disabled');
+    $("#btn-prevPage").removeClass('disabled');
+    $("#btn-prevPage").attr("onClick",'activateStructPage()');
+    $("#btn-nextPage").text('RUN');
+    $("#btn-nextPage").attr("onClick",'');
+
+
     // update page layout:
     $(".stl").hide();
-    $(".functional").hide();
+    $(".struct").hide();
     $(".editor").hide();
-    $(".struct").show();
-}
-     
-function previousPage() {
-    if ($(".functional").is(":visible")) {
-        functionalScript = editor.getValue();
-        activateSTLPage();
-    } else if ($(".struct").is(":visible")) {
-        activateFuncPage();
-    } 
-}
+    $(".library").show();
 
-function nextPage() {
-    console.log($(".stl").is(":visible"))
-    if ($(".stl").is(":visible")) {
-        stlScript = editor.getValue();
-        activateFuncPage();
-    } else if ($(".functional").is(":visible")) {
-        functionalScript = editor.getValue();
-        activateStructPage();
-    } else {
-        // go to next step
-    }
 }
 
 function loadSample() {
@@ -179,8 +188,8 @@ function loadSample() {
         stlScript = "((G[0,60] inducer <= 5) => (F[0,90]G[0,30] output > 10) \n\
 ^ (G[0,60] inducer > 5) => (F[0,90]G[0,30] output <= 10))";
         editor.setValue(stlScript);
-    } else if ($(".functional").is(":visible")) {
-        functionalScript = 
+    } else if ($(".struct").is(":visible")) {
+        structScript = 
 "// Size = 8 \n\
 // 24 Solutions \n\
 \n\
@@ -231,19 +240,8 @@ ip1 SAME_ORIENTATION r1 \n\
 ip1 SAME_ORIENTATION t1 \n\
 rp1 SAME_ORIENTATION r2 \n\
 rp1 SAME_ORIENTATION t2";
-        editor.setValue(functionalScript);
+        editor.setValue(structScript);
     }
-}
-
-// LOGIN FUNCTIONS 
-function openLogin() {
-    $(".login-form").css({"height":"85px","padding":"20px 20px 5px 10px"});
-    // $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0.6)","width":"100%"})
-}
-
-function closeLogin() {
-    $(".login-form").css({"height":"0px","padding":"0px 20px 0px 10px"});
-    // $(".pageOverlay").css({"backgroundColor":"rgba(0,0,0,0)","width":"0px"})
 }
 
 
@@ -366,6 +364,9 @@ $(document).on('change','#collectionsSelect', function() {
     });
 })
 
+function runEugene() {
+    alert('Running Eugene (except not really b/c nothing works)!');
+}
 // for cyto upload
 // var form = $("#cyto-upload-form");
 // var fileSelect = $("#cyto-upload-file");
@@ -408,3 +409,22 @@ $(document).on('change','#collectionsSelect', function() {
 //     xhr.send(formData);
     
 // }
+
+// window load
+$(window).ready(function() {
+    console.log('loaded');
+    var winHeight = $(window).height();    //this.innerWidth;
+    var winWidth = $(window).width(); // this.innerHeight;
+//     // console.log(this.width());
+    console.log('winheight * 0.67:', winHeight, winHeight * .67)
+    console.log($("#main-container").css("height"));
+    $("#main-container").css("height", winHeight * .67);
+    console.log($("#main-container").css("height"));
+});
+
+$( window ).resize(function() {
+//   console.log('resize');
+  var newHeight = $(window).height();
+//   console.log(newHeight);
+    $("#main-container").css("height", newHeight * .67);
+});
