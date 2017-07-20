@@ -17,34 +17,55 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 	<!-- load custom stylesheet -->
     <link rel="stylesheet" href="./styles/style.css"></link>
+    <link rel="stylesheet" href="./styles/test.css"></link>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-sm navbar-inverse bg-inverse main-nav">
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
         <div class="container">
-            <ul class="collapse navbar-collapse flex">
-                <img src="./images/logo/phoenix_banner.png">
-            </ul>
-            <ul class="collapse navbar-collapse flex justify-content-center">
-                <li class="nav-item">
-                    <a class="nav-link" href="#">SPECIFY</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">DESIGN</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">TEST</a>
-                </li>
-            </ul>
-            <ul class="collapse navbar-collapse flex">
-                <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openLogin()">
-                    LOGIN
-                </button>
-                <div id="login-form" class="login-form">
-                    <a href="javascript:void(0)" class="closebtn" onClick="closeLogin()">x</a>
-                    <input class="login-form-item" placeholder="Username">
-                    <input class="login-form-item" placeholder="Password">
+            <div class="row">
+                <div class="col-2">
+                    <img src="./images/logo/phoenix_banner_black.png">
                 </div>
-            </ul>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="project-name" id="project-name">
+                                MY SYNBIO PROJECT
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
+                                </li> 
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./design.html">DESIGN</a>
+                                </li>
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./build.html">BUILD</a>
+                                </li>
+                                <li class="nav-item active"> 
+                                    <a class="nav-link" href="./test.html">TEST</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
+                        SynBioUserName
+                    </button>
+                    <div id="user-settings" class="user-settings">
+                        <a href="javascript:void(0)" class="closebtn" onClick="closeUserSettings()">x</a>
+                        <ul>
+                            <li>Setting Option 1</li>
+                            <li>Setting Option 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </nav>
 	<div class="container grid-border">

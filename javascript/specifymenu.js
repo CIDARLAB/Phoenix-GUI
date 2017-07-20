@@ -26,13 +26,13 @@ window.onload = function() {
     var centerPath = new Path();
     centerPath.add(new Point(yAxis,xOne));
     centerPath.add(new Point(yAxis,xThree));
-    centerPath.strokeColor = '#8e192f';
+    centerPath.strokeColor = '#0275d8';
     centerPath.strokeWidth = '2';
 
     // initialize sidebarLeft menu circles
 
     circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
-    circleOne.fillColor = '#8e192f';
+    circleOne.fillColor = '#0275d8';
     circleOne.strokeColor = null;
 
     textOne = new PointText({
@@ -44,7 +44,7 @@ window.onload = function() {
 
     captionOne = new PointText({
         point: new Point(yAxis + radiusLarge + 10, xOne + 8),
-        fillColor: '#8e192f',
+        fillColor: '#0275d8',
         content: 'STL Formula',
         fontSize: '20px',
         fontWeight: 'bold',
@@ -61,12 +61,12 @@ window.onload = function() {
 
     circleTwo = new Shape.Circle(new Point(yAxis, xTwo), radiusSmall);
     circleTwo.fillColor = 'white';
-    circleTwo.strokeColor = '#8e192f';
+    circleTwo.strokeColor = '#0275d8';
     circleTwo.strokeWidth = '5';
 
     textTwo = new PointText({
         point: new Point(yAxis-5, xTwo + 5),
-        fillColor: '#8e192f',
+        fillColor: '#0275d8',
         content: '2',
         fontSize: '15px',
     });
@@ -92,12 +92,12 @@ window.onload = function() {
     
     circleThree = new Shape.Circle(new Point(yAxis, xThree), radiusSmall);
     circleThree.fillColor = 'white';
-    circleThree.strokeColor = '#8e192f';
+    circleThree.strokeColor = '#0275d8';
     circleThree.strokeWidth = '5';
 
     textThree = new PointText({
         point: new Point(yAxis-5, xThree + 5),
-        fillColor: '#8e192f',
+        fillColor: '#0275d8',
         content: '3',
         fontSize: '15px',
     });

@@ -42,11 +42,11 @@
     <script src="./bower_components/antlr4-ace-ext/src/tokenizer.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-xs navbar-inverse main-nav grad">
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <img src="./images/logo/phoenix_banner.png">
+                    <img src="./images/logo/phoenix_banner_black.png">
                 </div>
                 <div class="col-8">
                     <div class="row">
@@ -60,20 +60,23 @@
                         <div class="col-12">
                             <ul class="nav justify-content-center">
                                 <li class="nav-item active"> 
-                                    <a class="nav-link" href="#">SPECIFY</a>
+                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
                                 </li> 
-                                <li class="nav-item disabled"> 
-                                    <a class="nav-link" href="#">DESIGN</a>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./design.html">DESIGN</a>
                                 </li>
-                                <li class="nav-item disabled"> 
-                                    <a class="nav-link" href="#">TEST</a>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./build.html">BUILD</a>
+                                </li>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./test.html">TEST</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openUserSettings()">
+                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
                         SynBioUserName
                     </button>
                     <div id="user-settings" class="user-settings">
@@ -95,25 +98,25 @@
             <h5>Registry List</h5>
             <ul class="list-group bg-light" id="RegistryList">
                 <div class="input-group justify-content-between" id="synbiohub.org">
-                    <button type="button" class="list-group-item btn-secondary">
+                    <button type="button" class="list-group-item btn-primary">
                         <a href="http://synbiohub.org">synbiohub.org</a>
                     </button>
                 </div>
                 <div class="input-group justify-content-between" id="synbiohub.cidarlab.org">
-                    <button type="button" class="list-group-item btn-secondary">
+                    <button type="button" class="list-group-item btn-primary">
                         <a href="http://synbiohub.cidarlab.org">synbiohub.cidarlab.org</a>
                     </button>
                 </div>
                 <div class="input-group justify-content-between" id="synbiohub.programmingbiology.org">
-                <button type="button" class="list-group-item btn-secondary">
-                    <a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a>
+                    <button type="button" class="list-group-item btn-primary">
+                        <a href="http://synbiohub.programmingbiology.org">synbiohub.programmingbiology.org</a>
                     </button>
                 </div>
             </ul>
             <div class="input-group input-area">
                 <input type="text" class="form-control bg-light" placeholder="Enter registry URL here..." id="addReg">
                 <div class="input-group-btn">
-                    <button type="submit" class="btn btn-secondary" onClick="addRegistry()" title="Registry">
+                    <button type="submit" class="btn btn-primary" onClick="addRegistry()" title="Registry">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>
@@ -137,15 +140,14 @@
                             <!-- for offset -->
                         </div>
                         <div class="col-2">
-                            <button id="btn-grid-eugene" class="btn btn-secondary round" onClick="window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')">GridTLI</button>
+                            <button id="btn-grid-eugene" class="btn btn-primary round" onClick="window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')">GridTLI</button>
                         </div>
                         <div class="col-2">
-                            <button id="btn-sample" class="btn btn-secondary round" onClick="loadSample()">SAMPLE</button>
+                            <button id="btn-sample" class="btn btn-primary round" onClick="loadSample()">SAMPLE</button>
                         </div>
                     </div>
                     <div class="row grid-border" id="editor-row">
-                        <div class="col-12 editor" id="editor">
-                        </div>   
+                        <div class="col-12 editor" id="editor"></div>   
                         <script src="stl.js" type="text/javascript" charset="utf-8"></script>
                         <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
                         <script>
@@ -168,7 +170,7 @@
                                                 <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
                                             </div>
                                             <div class="col-3 flex-right">
-                                                <button type="submit" class="btn btn-sm btn-secondary round" id="cyto-upload-submit">UPLOAD</button>
+                                                <button type="submit" class="btn btn-sm btn-primary round" id="cyto-upload-submit">UPLOAD</button>
                                             </div>
                                         </div>
                                     </form>
@@ -210,7 +212,7 @@
                             </div>
                             <div class="row table-row">
                                 <div class="col-10 offset-1">
-                                    <table class="table">
+                                    <table class="table" id="table">
                                         <thead>
                                             <tr class="row">
                                                 <th class="col-3">DisplayID</th>
@@ -227,19 +229,19 @@
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <button id="btn-help" class="btn btn-secondary round">HELP</button>
+                            <button id="btn-help" class="btn btn-primary round">HELP</button>
                         </div>
                         <div class="col-2 offset-2">
-                            <button id="btn-save" class="btn btn-secondary round">SAVE</button>
+                            <button id="btn-save" class="btn btn-primary round">SAVE</button>
                         </div>
                         <div class="col-2">
-                            <button id="btn-upload" class="btn btn-secondary round">UPLOAD</button>
+                            <button id="btn-upload" class="btn btn-primary round">UPLOAD</button>
                         </div>
                         <div class="col-2">
-                            <button id="btn-prevPage" class="btn btn-secondary round disabled">PREVIOUS</button>
+                            <button id="btn-prevPage" class="btn btn-primary round disabled">PREVIOUS</button>
                         </div>
                         <div class="col-2">
-                            <button id="btn-nextPage" class="btn btn-secondary round" onClick="activateStructPage()">NEXT</button>
+                            <button id="btn-nextPage" class="btn btn-primary round" onClick="activateStructPage()">NEXT</button>
                         </div>
                     </div>
                 </div>
@@ -247,15 +249,7 @@
         </div>
     </div>
     <footer class="footer"> 
-            <span>
-                <img src="./images/logo/cidar_s.png">
-            </span>
-            <span>
-                <img src="./images/logo/BU.png">
-            </span>
-            <p class="text-muted">Phoenix is licensed under Creative Commons Super Cool License</p>
-            <p class="text-muted">Phoenix Web App was created by Kat, Oompa Loompa Extraordinaire</p>
-    </footer> 
+    </footer>
     <!-- load bootstrap javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>

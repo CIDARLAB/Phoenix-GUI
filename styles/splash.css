@@ -60,3 +60,67 @@ body {
 .row {
     margin-top: 10px;
 } 
+
+/* ACCOUNT CREATION */
+
+#new-account-overlay {
+    height: 100%;
+    width: 0px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0);
+    z-index: 1;
+}
+
+#new-account-form {
+    height: 60%;
+    width: 0;
+    position: fixed;
+    z-index: 2;
+    background-color: white;
+    overflow: hidden;
+    padding-top: 40px; 
+    color: #19191f;
+    border-radius: 24px;
+}
+
+#new-account-form input {
+    width: 100%;
+    /* text-align: right; */
+}
+
+#new-account-form .form-group {
+    margin: 20px 0px;
+}
+
+#new-account-form .button {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.closebtn {
+    position: absolute;
+    padding: 8px 8px 8px 32px;
+    top: 0;
+    right: 20px;
+    font-size: 20px;
+    color: #19191f;
+    text-decoration: none;
+}
+
+.closebtn:hover,
+.closebtn:active,
+.closebtn:focus {
+    text-decoration: none;
+    color: #19191f;
+}
+
+
+.row,
+.col-1, .col-2, .col-3, 
+.col-4, .col-5, .col-6, 
+.col-7, .col-8, .col-9,
+.col-10, .col-11, .col-12 {
+    border: 1px solid transparent;
+}

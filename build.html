@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phoenix | Design</title>
+	<!-- load paper.js -->
+    <script type="text/javascript" src="./javascript/paper-full.js"></script>
+    <!-- load jquery -->
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- load bootstrap css -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+        integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
+        crossorigin="anonymous">
+    <!-- load font awesome (glyphicons) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<!-- load custom stylesheet -->
+    <link rel="stylesheet" href="./styles/style.css"></link>
+    <link rel="stylesheet" href="./styles/design.css"></link>
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <img src="./images/logo/phoenix_banner_black.png">
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="project-name" id="project-name">
+                                MY SYNBIO PROJECT
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <ul class="nav justify-content-center">
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
+                                </li> 
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./design.html">DESIGN</a>
+                                </li>
+                                <li class="nav-item active"> 
+                                    <a class="nav-link" href="./build.html">BUILD</a>
+                                </li>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./test.html">TEST</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
+                        SynBioUserName
+                    </button>
+                    <div id="user-settings" class="user-settings">
+                        <a href="javascript:void(0)" class="closebtn" onClick="closeUserSettings()">x</a>
+                        <ul>
+                            <li>Setting Option 1</li>
+                            <li>Setting Option 2</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="wrap">
+        Hiiiiiiii
+    </div>
+    <footer class="footer"> 
+            <span>
+                <img src="./images/logo/cidar_s.png">
+            </span>
+            <span>
+                <img src="./images/logo/BU.png">
+            </span>
+            <span>
+                <img src="https://www.nsf.gov/images/logos/nsf1.jpg">
+            </span>
+            <p class="text-muted">Phoenix Web App was created by Kat, Oompa Loompa Extraordinaire</p>
+            <p class="text-muted">Funding for this project was provided by NSF Grant #11111111111 and #111111111,
+                and Navy Grant #2222222222. </p>
+            <div>
+                <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                    <img alt="Creative Commons License" src="http://i.creativecommons.org/l/by-sa/4.0/88x31.png">
+                </a>
+                <p class="text-muted">Phoenix is licensed under a
+                    <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
+                        Creative Commons Attribution-ShareAlike 4.0 International License
+                    </a>
+                    .
+                </p>
+            </div>
+    </footer>
+    <!-- load bootstrap javascript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+        integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <!-- load treeview script -->
+    <script type="text/javascript" src="./javascript/treeview.js"></script>    
+    <!-- load drag n drop script -->
+    <script type="text/javascript" src="./javascript/dragdrop.js"></script>
+    <!-- <script src="js/pathseg.js"></script> -->
+    <!-- <script src="js/ace/ace.js"></script> -->
+    <!-- <script src="bundle.js"></script> -->
+</body>
+</html>

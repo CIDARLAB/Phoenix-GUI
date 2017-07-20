@@ -5,48 +5,61 @@ $(function() {
 	var json = '[' +
 		'{' +
 		'"text": "B1_BM3R1",' +
+		'"tags": ["2"],' +
 		'"nodes": [' +
 			'{' +
 			'"text": "SarJ",' +
+			'"tags": ["2"],' +
 			'"nodes": [' +
 				'{' +
-				'"text": "Grandchild 1"' +
+				'"text": "Grandchild 1",' +
+				'"tags": ["0"]' +
 				'},' +
 				'{' +
-				'"text": "Grandchild 2"' +
+				'"text": "Grandchild 2",' +
+				'"tags": ["0"]' +
 				'}' +
 			']' +
 			'},' +
 			'{' +
-			'"text": "B1"' +
+			'"text": "B1",' +
+			'"tags": ["1"]' +
 			'},' +
 			'{' +
-			'"text": "BM3R1"' +
+			'"text": "BM3R1",' +
+			'"tags": ["1"]' +
 			'},' +
 			'{' +
-			'"text": "L3S2P11"' +
+			'"text": "L3S2P11",' +
+			'"tags": ["1"]' +
 			'}' +
 		']' +
 		'},' +
 		'{' +
-		'"text": "Parent 2"' +
+		'"text": "Parent 2",' +
+		'"tags": ["0"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 2"' +
+		'"text": "Parent 3",' +
+		'"tags": ["0"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 2"' +
+		'"text": "Parent 4",' +
+		'"tags": ["0"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 2"' +
+		'"text": "Parent 5",' +
+		'"tags": ["1"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 3"' +
+		'"text": "Parent 6",' +
+		'"tags": ["0"]' +
 		'}' +
 	']';
 
 	var $searchableTree = $('#treeview-searchable').treeview({
 		data: json,
+		showTags: true,
 	});
 
 	var search = function(e) {
@@ -75,7 +88,6 @@ $(function() {
 	});
 
 });
-
 
 
 /* =========================================================
@@ -126,9 +138,9 @@ $(function() {
 		borderColor: undefined, // '#dddddd',
 		onhoverColor: '#F5F5F5',
 		selectedColor: '#FFFFFF',
-		selectedBackColor: '#08ca75',
+		selectedBackColor: '#0275d8',
 		searchResultColor: '#FFFFFF',
-		searchResultBackColor: '#08ca75',
+		searchResultBackColor: '#0275d8',
 
 		enableLinks: false,
 		highlightSelected: true,
@@ -136,8 +148,8 @@ $(function() {
 		showBorder: true,
 		showIcon: true,
 		showCheckbox: false,
-		showTags: false,
-		multiSelect: false,
+		showTags: true,
+		multiSelect: true,
 
 		// Event handlers
 		onNodeChecked: undefined,
@@ -394,10 +406,13 @@ $(function() {
 		});
 	};
 
+	var ctrl, cmd;
 	Tree.prototype.clickHandler = function (event) {
 
 		if (!this.options.enableLinks) event.preventDefault();
 
+		ctrl = event.ctrlKey;
+		cmd = event.metaKey && !ctrl
 		var target = $(event.target);
 		var node = this.findNode(target);
 		if (!node || node.state.disabled) return;
@@ -423,6 +438,17 @@ $(function() {
 
 			this.render();
 		}
+
+		var nNames = [];
+		var nTags = [];
+		$.each(this.findNodes('true', 'g', 'state.selected'), $.proxy(function (index, node) {
+			nNames.push(node.text)
+			nTags.push(node.tags[0])
+			// this.setSelectedState(node, false, options);
+			}, this));
+		// console.log(nSelect, nNames)
+		updateDataPanel(nNames, nTags)
+		// console.log(node.text)
 	};
 
 	// Looks up the DOM for the closest parent list item to retrieve the
@@ -484,7 +510,7 @@ $(function() {
 		if (state) {
 
 			// If multiSelect false, unselect previously selected
-			if (!this.options.multiSelect) {
+			if ((ctrl && cmd) || (!ctrl && !cmd))  {
 				$.each(this.findNodes('true', 'g', 'state.selected'), $.proxy(function (index, node) {
 					this.setSelectedState(node, false, options);
 				}, this));
@@ -679,10 +705,22 @@ $(function() {
 			// Add tags as badges
 			if (_this.options.showTags && node.tags) {
 				$.each(node.tags, function addTag(id, tag) {
-					treeItem
-						.append($(_this.template.badge)
-							.append(tag)
-						);
+					if (tag==1) {
+						treeItem
+							.append($(_this.template.badge)
+								.addClass('fa-check-square-o')
+							);
+					} else if (tag==0) {
+						treeItem
+							.append($(_this.template.badge)
+								.addClass('fa-square-o')
+							);
+					} else {
+						treeItem
+							.append($(_this.template.badge)
+								.addClass('fa-minus-square-o')
+							);
+					}
 				});
 			}
 
@@ -774,7 +812,7 @@ $(function() {
 		indent: '<span class="indent"></span>',
 		icon: '<span class="icon"></span>',
 		link: '<a href="#" style="color:inherit;"></a>',
-		badge: '<span class="badge"></span>'
+		badge: '<span class="bd fa"></span>',
 	};
 
 	Tree.prototype.css = '.treeview .list-group-item{cursor:pointer}.treeview span.indent{margin-left:10px;margin-right:10px}.treeview span.icon{width:12px;margin-right:5px}.treeview .node-disabled{color:silver;cursor:not-allowed}'

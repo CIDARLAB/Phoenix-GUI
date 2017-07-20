@@ -7,33 +7,32 @@
 
 /*** GENERAL SPECIFY PAGES ***/
 
-.btn.btn-secondary {
-    border-color: #8e192f;
-    border-width: 3px;
-    color: #8e192f;
-}
-
-.btn.btn-secondary.round {
-    border-radius: 24px;
+/* .btn.btn-primary {
     width: 100%;
-    height: 41px;
+} */
+
+.round {
+    width: 100%;
     font-size: 14px;
+    border-radius: 24px; 
 }
 
-.btn.btn-sm.btn-secondary.round {
-    border-radius: 20px;
+.btn-sm.round {
+    border-radius: 20px; 
     width: 80%;
-    height: 31px;
     font-size: 12px;
 }
 
-.btn.btn-secondary.round:hover {
-    background-color: #8e192f;
-    color: white;
+ .btn.btn-primary {
+    border-color: #0275d8;
+    background-color: white;
+    border-width: 3px;
+    color: #0275d8;
 }
 
-.text-muted {
-    color: #9b9b9b;
+.btn.btn-primary:hover {
+    background-color: #0275d8;
+    color: white;
 }
 
 .grid-border {
@@ -57,25 +56,19 @@
     border-radius: 24px;
 }
 
-/*** STL ***/
-.stl {
-    height: 36px;
-}
-
 /*** STRUCTURAL ***/
 
 .struct {
     display: none;
-    height: 34px;
-}
+} 
 
 .text-muted.struct {
     margin: 12px 0px -6px;
-}
+} 
 
 .img-logo-small {
-    width: 100px;
-    height: 38px;
+    width: 74px;
+    height: 28px;
     margin-left: -10px;
 }
 
@@ -93,7 +86,6 @@
 }
 
 .librarybox {
-    background-color: white;
     margin: 5px 0px;
     border: 2px solid #c3c3c3;
     border-radius: 24px;
@@ -123,22 +115,28 @@
 }
 
 .table-row {
-    height: 290px;
     overflow: auto;
     width: 100%;
 }
 
+thead > tr.row {
+    border-top: 1px solid #a4a4a4;
+    border-bottom: 1px solid #a4a4a4;
+}
+
 tbody {
-    height: 280px;
-    overflow-y:auto;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
 }
+
 thead,tbody,tr,td,th {
     display:block;
-    /*border: none;*/
 }
+
 tbody > tr.row {
-    border-bottom: 2px solid #a5a5a5;
+    border-bottom: 1px solid #a4a4a4;
 }
 
 tbody > td {

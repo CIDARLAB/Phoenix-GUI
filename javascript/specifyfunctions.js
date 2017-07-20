@@ -7,18 +7,18 @@ var hitOptions = {
 };
 
 var activeCircle = {
-    fillColor: '#8e192f',
+    fillColor: '#0275d8',
     strokeColor: null,
 };
 
 var inactiveCircle = {
     fillColor: 'white',
-    strokeColor: '#8e192f',
+    strokeColor: '#0275d8',
     strokeWidth: '5',
 };
 
 var inactiveCircleComplete = {
-    fillColor: '#8e192f',
+    fillColor: '#0275d8',
     strokeColor: null,
 }
 
@@ -29,7 +29,7 @@ var activeText = {
 
 var inactiveText = {
     fontSize: '15px',
-    fillColor: '#8e192f',
+    fillColor: '#0275d8',
 };
 
 var inactiveTextComplete = {
@@ -38,7 +38,7 @@ var inactiveTextComplete = {
 }
 
 var activeCaption = {
-    fillColor: '#8e192f',
+    fillColor: '#0275d8',
     fontSize: '20px',
 }
 
@@ -172,7 +172,6 @@ function activateLibraryPage() {
     $("#btn-prevPage").attr("onClick",'activateStructPage()');
     $("#btn-nextPage").text('RUN');
     $("#btn-nextPage").attr("onClick",'');
-
 
     // update page layout:
     $(".stl").hide();
@@ -420,6 +419,8 @@ $(window).ready(function() {
     console.log($("#main-container").css("height"));
     $("#main-container").css("height", winHeight * .67);
     console.log($("#main-container").css("height"));
+    $("#table").css("height", winHeight * .67 - 300); //300 for other rows
+    console.log($("#table").css("height"))
 });
 
 $( window ).resize(function() {

@@ -1,6 +1,7 @@
 .container.grid-border {
     padding-top: 0px;
     border: 2px solid lightgray;
+    border-radius: 24px;
 }
 
 .des-height {
@@ -11,6 +12,7 @@
 #fileexp {
     border-right: 2px solid lightgray;
 }
+
 /*** TREEVIEW ***/
 .treeview .list-group-item {
     font-size: 12px;
@@ -29,7 +31,32 @@
 
 #treeview-searchable {
     max-height: 280px;
-    overflow: scroll;
+    overflow-y: scroll;
+}
+
+ span.bd {
+    position: absolute;
+    right: 5px;
+    color: #5cb85c;
+    font-size: 16px;
+}
+
+span.fa-square-o {
+    right: 7px;
+    color: #d9534f;
+}
+
+span.fa-minus-square-o {
+    right: 7px;
+    color: #f0ad4e;
+}
+
+span.icon.fa {
+    color: #0275d8;
+}
+
+.node-selected > span.icon.fa {
+    color: white;
 }
 
 /*** SBOL VISUAL ***/
@@ -51,6 +78,10 @@
     overflow: scroll;
     position: absolute;
     z-index: 1;
+}
+
+.sbolvisbox {
+    height: 200px;
 }
 
 
@@ -196,4 +227,44 @@
 .box-button:hover,
 .box-button:focus  {
     background-color: #0f3c4b;
+}
+
+/* Control Upload/View Module Info */
+
+#noData {
+    margin-top: 24px;
+    font-size: 16px;
+}
+
+#moduleData,
+#multiData,
+#uploadData {
+    display: none;
+    height: 340px;
+}
+
+#multiModData {
+    max-height: 320px;
+    padding-top: 30px; 
+    overflow-y: scroll; 
+}
+
+.hasData {
+    color: #5cb85c
+}
+
+.needsData {
+    color: #d9534f;
+}
+
+#multiModData ul {
+    height: 100%;
+    overflow-y: scroll;
+    padding: 0px;
+    margin: 0px;
+}
+
+#multiModData ul li {
+    padding: 4px 0; 
+    border: 0px;
 }

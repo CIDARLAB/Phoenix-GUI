@@ -6,9 +6,12 @@
     <title>Phoenix | Design</title>
 	<!-- load paper.js -->
     <script type="text/javascript" src="./javascript/paper-full.js"></script>
-    <!--<script type="text/javascript" src="./javascript/sbol-vis-canvas.js"></script>-->
     <!-- load jquery -->
-	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- load general functions -->
+    <script type="text/javascript" src="./javascript/functions.js"></script>
+    <!-- load design functions -->
+    <script type="text/javascript" src="./javascript/designfunctions.js"></script>
     <!-- load bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -18,16 +21,13 @@
 	<!-- load custom stylesheet -->
     <link rel="stylesheet" href="./styles/style.css"></link>
     <link rel="stylesheet" href="./styles/design.css"></link>
-    <script type="text/javascript">
-        var myLink = "https://synbiohub.programmingbiology.org/public/Cello_Parts/A1/1/sbol";
-    </script>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-xs navbar-inverse main-nav grad">
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
         <div class="container">
             <div class="row">
                 <div class="col-2">
-                    <img src="./images/logo/phoenix_banner.png">
+                    <img src="./images/logo/phoenix_banner_black.png">
                 </div>
                 <div class="col-8">
                     <div class="row">
@@ -40,21 +40,24 @@
                     <div class="row">
                         <div class="col-12">
                             <ul class="nav justify-content-center">
-                                <li class="nav-item active"> 
-                                    <a class="nav-link" href="#">SPECIFY</a>
+                                <li class="nav-item"> 
+                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
                                 </li> 
-                                <li class="nav-item disabled"> 
-                                    <a class="nav-link" href="#">DESIGN</a>
+                                <li class="nav-item active"> 
+                                    <a class="nav-link" href="./design.html">DESIGN</a>
                                 </li>
-                                <li class="nav-item disabled"> 
-                                    <a class="nav-link" href="#">TEST</a>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./build.html">BUILD</a>
+                                </li>
+                                <li class="nav-item"> 
+                                    <a class="nav-link disabled" href="./test.html">TEST</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
                 <div class="col-2">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" onClick="openUserSettings()">
+                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
                         SynBioUserName
                     </button>
                     <div id="user-settings" class="user-settings">
@@ -98,34 +101,51 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col col-6 des-height">
-                    Upload/View Metadata
-                    <div class="row flex">
-                        <div class="col col-12 flex align-items-stretch">
-                            <form class="box" method="post" action="" enctype="multipart/form-data">
-                                <div class="box-input d-flex align-self-stretch">
-                                    <label for="file"><span class="box-dragndrop">Upload File</span></label>
-                                    <button class="box-button" type="submit">Upload</button>
-                                </div>
-                                <div class="box-uploading">Uploading&hellip;</div>
-                                <div class="box-success">Done!</div>
-                                <div class="box-error">Error!<span></span></div>
-                            </form>
-                            <!-- <div id="sourceSBOL">
-                                <div class="editor" id="editor">
-                                    https://synbiohub.programmingbiology.org/public/Cello_Parts/A1/1/sbol
-                                </div>
-                                <script>
-                                    // initialize editor
-                                    var editor = ace.edit("editor");
-                                    console.log(editor.getSession().getMode())
-                                </script>
-                            </div> -->
+                    <div id="noData">
+                        Select one or more modules to display data
+                    </div>
+
+                    <div id="uploadData">
+                        Upload Module Data
+                        <div class="row flex">
+                            <div class="col col-12 flex align-items-stretch">
+                                <form class="box" method="post" action="" enctype="multipart/form-data">
+                                    <div class="box-input d-flex align-self-stretch">
+                                        <label for="file"><span class="box-dragndrop">Upload File</span></label>
+                                        <button class="box-button" type="submit">Upload</button>
+                                    </div>
+                                    <div class="box-uploading">Uploading&hellip;</div>
+                                    <div class="box-success">Done!</div>
+                                    <div class="box-error">Error!<span></span></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
+
+                    <div id="moduleData">
+                        View Module Data
+                        <div class="row">
+                            <div class="col-12" id="modData">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="multiData">
+                        Multiple Modules Selected
+                        <div class="row">
+                            <div class="col-12" id="multiModData">
+                                <ul>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
             </div>
-            <div class="row">
+            <div class="row sbolvisbox">
                 <div class="col col-12">
                     <div class="row">
                         <div class="col col-12">
@@ -133,40 +153,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col col-12">
-                            <div style="clear: both;"></div>
-                            <div id="svg">
-                                <svg id="design"></svg>
-                            </div>
-                            <div id="designLoading" style="display: none;">
-                                <em>Loading design...</em>
-                            </div>
-                            <div id="designError" style="display: none;">
-                            </div>
-                        </div>
-                    </div>
-                    <!--<div class="row">
                         <div class="col col-12" id="svg">
                             <div>
                                 <svg id="design"></svg>
                             </div>
                             <canvas id="sbolCanvas"></canvas>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     <footer class="footer"> 
-        <span>
-            <img src="./images/logo/cidar_s.png">
-        </span>
-        <span>
-            <img src="./images/logo/BU.png">
-        </span>
-        <p class="text-muted">Phoenix is licensed under Creative Commons Super Cool License</p>
-        <p class="text-muted">Phoenix Web App was created by Kat, Oompa Loompa Extraordinaire</p>
-    </footer> 
+    </footer>
     <!-- load bootstrap javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
@@ -176,8 +175,8 @@
     <script type="text/javascript" src="./javascript/treeview.js"></script>    
     <!-- load drag n drop script -->
     <script type="text/javascript" src="./javascript/dragdrop.js"></script>
-    <script src="js/pathseg.js"></script>
-    <script src="js/ace/ace.js"></script>
-    <script src="bundle.js"></script>
+    <!-- <script src="js/pathseg.js"></script> -->
+    <!-- <script src="js/ace/ace.js"></script> -->
+    <!-- <script src="bundle.js"></script> -->
 </body>
 </html>
