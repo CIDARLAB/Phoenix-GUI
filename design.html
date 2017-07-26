@@ -12,6 +12,8 @@
     <script type="text/javascript" src="./javascript/functions.js"></script>
     <!-- load design functions -->
     <script type="text/javascript" src="./javascript/designfunctions.js"></script>
+    <!-- load design canvas -->
+    <script type="text/javascript" src="./javascript/designCanvas.js"></script>
     <!-- load bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -141,9 +143,7 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
-
             </div>
             <div class="row sbolvisbox">
                 <div class="col col-12">
@@ -153,17 +153,19 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col col-12" id="svg">
-                            <div>
-                                <svg id="design"></svg>
-                            </div>
+                        <div class="col col-12">
                             <canvas id="sbolCanvas"></canvas>
+                            <div id="design">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- <img src="./images/logo/bu.png" id="testImg"> -->
+    <!-- <button onClick="loadVisBOL('https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol')">Load stuff</button> -->
+    <!-- <button onClick="loadVisBOL()">Load stuff</button> -->
     <footer class="footer"> 
     </footer>
     <!-- load bootstrap javascript -->
@@ -175,8 +177,5 @@
     <script type="text/javascript" src="./javascript/treeview.js"></script>    
     <!-- load drag n drop script -->
     <script type="text/javascript" src="./javascript/dragdrop.js"></script>
-    <!-- <script src="js/pathseg.js"></script> -->
-    <!-- <script src="js/ace/ace.js"></script> -->
-    <!-- <script src="bundle.js"></script> -->
 </body>
 </html>

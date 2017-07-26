@@ -6,54 +6,85 @@ $(function() {
 		'{' +
 		'"text": "B1_BM3R1",' +
 		'"tags": ["2"],' +
+		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+		'"children": ["4"],' +
+		'"childNum": ["-1"],' +
 		'"nodes": [' +
 			'{' +
 			'"text": "SarJ",' +
 			'"tags": ["2"],' +
+			'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+			'"children": ["2"],' +
+			'"childNum": ["0"],' +
 			'"nodes": [' +
 				'{' +
 				'"text": "Grandchild 1",' +
-				'"tags": ["0"]' +
+				'"tags": ["0"],' +
+				'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+				'"children": ["0"],' +
+				'"childNum": ["0"]' +
 				'},' +
 				'{' +
 				'"text": "Grandchild 2",' +
-				'"tags": ["0"]' +
+				'"tags": ["0"],' +
+				'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+				'"children": ["0"],' +
+				'"childNum": ["1"]' +
 				'}' +
 			']' +
 			'},' +
 			'{' +
 			'"text": "B1",' +
-			'"tags": ["1"]' +
+			'"tags": ["1"],' +
+			'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+			'"children": ["0"],' +
+			'"childNum": ["1"]' +
 			'},' +
 			'{' +
 			'"text": "BM3R1",' +
-			'"tags": ["1"]' +
+			'"tags": ["1"],' +
+			'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+			'"children": ["0"],' +
+			'"childNum": ["1"]' +
 			'},' +
 			'{' +
 			'"text": "L3S2P11",' +
-			'"tags": ["1"]' +
+			'"tags": ["1"],' +
+			'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
+			'"children": ["0"],' +
+			'"childNum": ["1"]' +
 			'}' +
 		']' +
 		'},' +
 		'{' +
 		'"text": "Parent 2",' +
-		'"tags": ["0"]' +
+		'"tags": ["0"],' +
+		'"children": ["0"],' +
+		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
 		'"text": "Parent 3",' +
-		'"tags": ["0"]' +
+		'"tags": ["0"],' +
+		'"children": ["0"],' +
+		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
 		'"text": "Parent 4",' +
-		'"tags": ["0"]' +
+		'"tags": ["0"],' +
+		'"children": ["0"],' +
+		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
 		'"text": "Parent 5",' +
-		'"tags": ["1"]' +
+		'"tags": ["1"],' +
+		'"children": ["0"],' +
+		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
 		'"text": "Parent 6",' +
-		'"tags": ["0"]' +
+		'"tags": ["0"],' +
+		'"children": ["0"],' +
+		'"childNum": ["-1"]' +
 		'}' +
 	']';
 
@@ -449,6 +480,22 @@ $(function() {
 		// console.log(nSelect, nNames)
 		updateDataPanel(nNames, nTags)
 		// console.log(node.text)
+
+		console.log(node.sbol)
+		loadVisBOL(node.sbol)
+
+		if (node.childNum != -1) {
+			var num = node.childNum;
+			if (typeof(num) == "object") {
+				num = Number(num);
+			}
+			var totalChildren = project._children[0]._children[0]._children.length;
+			var totalParts = (totalChildren - 3) / 2;
+			var currentChild = 3 + totalParts + num;
+			var childLocation = project._children[0]._children[0]._children[currentChild]._children[0].position;
+			console.log(num, totalChildren, totalParts, currentChild, childLocation);
+			highlightRectangle.point = [childLocation._x, childLocation._y];
+		}
 	};
 
 	// Looks up the DOM for the closest parent list item to retrieve the
@@ -624,7 +671,10 @@ $(function() {
 				.addClass(node.state.selected ? 'node-selected' : '')
 				.addClass(node.searchResult ? 'search-result' : '') 
 				.attr('data-nodeid', node.nodeId)
-				.attr('style', _this.buildStyleOverride(node));
+				.attr('style', _this.buildStyleOverride(node))
+				.attr('sbol-link', node.sbol)
+				.attr('has-children', node.children)
+				.attr('child-num', node.childNum);
 
 			// Add indent/spacer to mimic tree structure
 			for (var i = 0; i < (level - 1); i++) {

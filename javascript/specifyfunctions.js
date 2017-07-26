@@ -412,14 +412,13 @@ function runEugene() {
 // window load
 $(window).ready(function() {
     console.log('loaded');
-    var winHeight = $(window).height();    //this.innerWidth;
-    var winWidth = $(window).width(); // this.innerHeight;
-//     // console.log(this.width());
+    var winHeight = $(window).height();
+    var winWidth = $(window).width();
     console.log('winheight * 0.67:', winHeight, winHeight * .67)
     console.log($("#main-container").css("height"));
     $("#main-container").css("height", winHeight * .67);
     console.log($("#main-container").css("height"));
-    $("#table").css("height", winHeight * .67 - 300); //300 for other rows
+    $("#table").css("height", winHeight * .67 - 300);
     console.log($("#table").css("height"))
 });
 

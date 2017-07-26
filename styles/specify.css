@@ -7,18 +7,8 @@
 
 /*** GENERAL SPECIFY PAGES ***/
 
-/* .btn.btn-primary {
-    width: 100%;
-} */
-
-.round {
-    width: 100%;
-    font-size: 14px;
-    border-radius: 24px; 
-}
-
-.btn-sm.round {
-    border-radius: 20px; 
+.btn-sm {
+    /* border-radius: 20px;  */
     width: 80%;
     font-size: 12px;
 }
@@ -28,6 +18,8 @@
     background-color: white;
     border-width: 3px;
     color: #0275d8;
+    font-size: 14px;
+    width: 100%;
 }
 
 .btn.btn-primary:hover {

@@ -17,17 +17,8 @@ body {
     margin-top: 0px;
     padding-top: 0px;
     margin-bottom: 30px;
-    /* background-color: #a9a9a9;    
-    color: #a9a9a9; */
     width: 100%;
-    /* border-bottom: 4px solid #a9a9a9;        */
 }
-
-/* .grad {
-    background-image: -webkit-linear-gradient(top, #a9a9a9, white);
-    background-image: -moz-linear-gradient(top, #a9a9a9, white); 
-    background-image: linear-gradient(to bottom, #a9a9a9, white);
-} */
 
 nav .container {
     width: 100%;
@@ -40,17 +31,12 @@ nav .container {
     height: 59px;
     width: 186px;
 }
-/* 
-.navbar-nav {
-    display: inline-block;
-} */
 
  .navbar li a {
     padding: 0px;
     display: block;
     width: 120px;
     margin-top: 18px;
-   /* color: #5f5f5f;  */
     text-decoration: none; 
     text-align: center;
     border: none;
@@ -60,15 +46,9 @@ nav .container {
 
  .navbar li.active a {
      font-weight: bold;
-    /* color: #5f5f5f; */
 } 
 
-/* .nav-item.active {
-    border-bottom: 8px solid #0275d8;
-} */
-
 .project-name {
-    /* color: #5f5f5f; */
     text-align: center;
     font-size: 36px;
     line-height: 110%;
@@ -79,7 +59,6 @@ nav .container {
     color: #5f5f5f; 
     background-color: transparent; 
     border: none;
-    /* font-size: 14px; */
     position: absolute;
     top: 0;
     right: 0;
