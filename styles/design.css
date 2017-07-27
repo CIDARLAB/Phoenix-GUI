@@ -257,6 +257,10 @@ span.icon.fa {
     color: #d9534f;
 }
 
+.partialData {
+    color: #f0ad4e;
+}
+
 #multiModData ul {
     height: 100%;
     overflow-y: scroll;

@@ -101,35 +101,71 @@ function getVisBOL(sbol) {
 }
 
 function loadVisBOL(sbolURI) {
+
+    svgLayer.activate(); // activate correct Layer
+
     sbol = getSBOL(sbolURI);    
     visdata = getVisBOL(sbol);
 
-    if (project._children[0]._children.length > 1) {
-        var numChildren = project._children[0]._children.length;
-        project._children[0]._children[numChildren-1].remove(); // removes previous image
+    if (svgLayer._children.length > 0) {
+        // var numChildren = project._children[0]._children.length;
+        svgLayer.removeChildren(); // removes previous image/highlights
     }
 
     new Item(paper.project.importSVG(visdata));
 
-    project._children[0].position.x = view.center.x;
-    project._children[0]._children[1]._children[1].content = project._children[0]._children[1]._children[1].content.substring(2,project._children[0]._children[1]._children[1].content.length-1)
+    svgLayer._children[0].position.x = view.center.x;
+    // removes the extra character before the name
+    svgLayer._children[0]._children[1].content = svgLayer._children[0]._children[1].content.substring(2,svgLayer._children[0]._children[1].content.length-1)
 
-    var lastchild = project._children[0]._children[1]._children.length;
-    project._children[0]._children[1]._children[lastchild-1]._children[0].remove();
+    svgLayer._children[0].lastChild._children[0].remove(); // removes the border around the image
+    svgLayer._children[0].lastChild._children[0]._segments[1]._point._x += -50 // removes extra "tail" for horizontal line
     // project._children[0]._children[0]._children[lastchild-1].remove();
 
 }
 
+function highlightPart(partNumber) {
+
+    rectLayer.activate(); // activate correct Layer
+
+    var xStartCoord = svgLayer._children[0].lastChild._children[0]._segments[0]._point._x
+    var svgWidth = svgLayer._children[0].lastChild._children[0]._segments[1]._point._x - xStartCoord;
+    
+    var totalParts = (svgLayer._children[0]._children.length - 3) / 2; // - 3 for Shape, Name, Border, /2 for part Labels
+    var partitionWidth = svgWidth/totalParts;
+
+    // define new rectangle:
+    var hrPoint = new Point(0, 0);
+    var hrSize = new Size(partitionWidth, view.bounds.height);
+    var rect = new Path.Rectangle({
+        point: hrPoint,
+        size: hrSize,
+        fillColor: '#d7d7d7',
+    });
+
+    // position the rectangle segments (corners) according to width and partID
+    for (var i = 0; i < rect._segments.length; i++) {
+        if (i == 0 | i == 1) {
+            rect._segments[i]._point._x = xStartCoord + (partitionWidth * partNumber);
+        } else {
+            rect._segments[i]._point._x = xStartCoord + (partitionWidth * partNumber) + partitionWidth;
+        }
+    }
+
+    rectLayer.addChild(rect); // add rectangle to rectLayer
+    rectLayer.sendToBack(); // ensure all rectangles are behind the svgLayer
+}
+
 // Convert Upload/File Info Area
-function updateDataPanel(names, hasData) {
+function updateDataPanel(names, hasData, childNames, childData) {
     len = names.length;
-    if (len == 1) {
-        $('#multiData').hide();
+    if (len == 1 && (hasData == 0 || hasData == 1)) {
         if (hasData == 1) {
             // change the active Panel:
             $('#noData').hide();
             $('#moduleData').show();
             $('#uploadData').hide();
+            $('#multiData').hide();
             // fetch the data from the server and display it...
             $('#modData').text('New data from the server...');
         } else if (hasData == 0) {
@@ -137,45 +173,57 @@ function updateDataPanel(names, hasData) {
             $('#noData').hide();
             $('#moduleData').hide();
             $('#uploadData').show();
+            $('#multiData').hide();
         }
-    } else {
+    } else if (len >= 1) {
         // change active Panel:
-        $('#multiData').show();
         $('#noData').hide();
         $('#moduleData').hide();
         $('#uploadData').hide();
+        $('#multiData').show();
 
         // state which have/don't have data:
-        // var listNameData = []
         $('#multiModData ul').empty();
-        $(names).each(function(index, value) {
-            if (hasData[index] != 0) {
-                $('#multiModData ul').append(
-                    '<li class="list-group-item"><span class="hasData">' + value + '</span>&nbsp;has data</li>'
-                );
+        if (len > 1) {
+            $(names).each(function(index, value) {
+                if (hasData[index] != 0) {
+                    $('#multiModData ul').append(
+                        '<li class="list-group-item"><span class="hasData">' + value + '</span>&nbsp;has data</li>'
+                    );
 
-                // listNameData.push(" " + value + " has data")
-            } else if (hasData[index] == 0) {
-                $('#multiModData ul').append(
-                    '<li class="list-group-item"><span class="needsData">' + value + '</span>&nbsp;needs additional data</li>'
-                );
-                // listNameData.push(" " + value + " needs additional data")
-            }
-        })
-        // console.log(listNameData)
-        // for (var i = 0; i < listNameData.length; i++) {
-        //     $('#multiModData ul').append(
-        //         '<li class="list-group-item hasData">' + listNameData[i] + '</li>'
-
-        //     );
-            
-        //     $("#settings ul").append(
-        //     '<div class="input-group justify-content-between" id="' + newID + '">' +
-        //         '<button type="button" class="list-group-item bg-light"><a href="http://' + newReg + '">' + newReg + '</a></button>' +
-        //         '<span class="input-group-addon" onClick="removeRegistry(\'' + newID + '\');"><div class="fa fa-close"></div></span>' +
-        //     '</div>');
-        //     (listNameData[i]);
-        // }
+                    // listNameData.push(" " + value + " has data")
+                } else if (hasData[index] == 0) {
+                    $('#multiModData ul').append(
+                        '<li class="list-group-item"><span class="needsData">' + value + '</span>&nbsp;needs additional data</li>'
+                    );
+                    // listNameData.push(" " + value + " needs additional data")
+                }
+            })
+        } else {
+            $('#multiModData ul').append(
+                '<li class="list-group-item"><span class="partialData">' + names + '</span>&nbsp;is missing some data</li>'
+            );
+            $(childNames).each(function(index, value) {
+                if (childData[index] == 1) {
+                    $('#multiModData ul').append(
+                        '<li class="list-group-item"><span class="hasData">' + value + '</span>&nbsp;has data</li>'
+                    );
+                } else if (childData[index] == 0) {
+                    $('#multiModData ul').append(
+                        '<li class="list-group-item"><span class="needsData">' + value + '</span>&nbsp;needs additional data</li>'
+                    );
+                } else if (childData[index] == 2) {
+                    $('#multiModData ul').append(
+                        '<li class="list-group-item"><span class="partialData">' + value + '</span>&nbsp;is missing some data</li>'
+                    );
+                }
+            })
+        }
+    } else {
+        $('#noData').show();
+        $('#moduleData').hide();
+        $('#uploadData').hide();
+        $('#multiData').hide();
     }
     
 }

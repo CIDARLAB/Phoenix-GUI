@@ -8,13 +8,14 @@ var highlightRectangle;
 window.onload = function() {
     // Setup directly from canvas id:
     paper.setup('sbolCanvas');
-    sbolCanvas.style.background = 'lightgreen'; 
+    sbolCanvas.style.background = 'transparent'; 
 
-    highlightRectangle = new Path.Rectangle({
-        point: [0, 0],
-        size: [92, 160],
-        fillColor: 'yellow',
-    })
+    rectLayer = new Layer();
+    svgLayer = new Layer();
+    // var hrPoint = new Point(0, 0);
+    // var hrSize = new Size(92, 160);
+    // highlightRectangle = new Path.Rectangle(hrPoint, hrSize);
+    // highlightRectangle.fillColor = 'yellow';
 
     // textItem = new PointText({
     //     point: new Point(100, 100),
