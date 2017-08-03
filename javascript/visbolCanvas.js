@@ -2,7 +2,7 @@
 paper.install(window);
 
 // define Global Variables
-var highlightRectangle;
+var highlightRectangle; //only used on design page
 
 // Load the window
 window.onload = function() {

@@ -6,9 +6,12 @@
     <title>Phoenix | Test</title>
 	<!-- load paper.js -->
     <script type="text/javascript" src="./javascript/paper-full.js"></script>
-    <script type="text/javascript" src="./javascript/sbol-vis-canvas.js"></script>
     <!-- load jquery -->
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- load general functions -->
+    <script type="text/javascript" src="./javascript/functions.js"></script>
+    <!-- load visbol canvas -->
+    <script type="text/javascript" src="./javascript/visbolCanvas.js"></script>
 	<!-- load bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -20,53 +23,7 @@
     <link rel="stylesheet" href="./styles/test.css"></link>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-                    <img src="./images/logo/phoenix_banner_black.png">
-                </div>
-                <div class="col-8">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="project-name" id="project-name">
-                                MY SYNBIO PROJECT
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="nav justify-content-center">
-                                <li class="nav-item"> 
-                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
-                                </li> 
-                                <li class="nav-item"> 
-                                    <a class="nav-link" href="./design.html">DESIGN</a>
-                                </li>
-                                <li class="nav-item"> 
-                                    <a class="nav-link" href="./build.html">BUILD</a>
-                                </li>
-                                <li class="nav-item active"> 
-                                    <a class="nav-link" href="./test.html">TEST</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
-                        SynBioUserName
-                    </button>
-                    <div id="user-settings" class="user-settings">
-                        <a href="javascript:void(0)" class="closebtn" onClick="closeUserSettings()">x</a>
-                        <ul>
-                            <li>Setting Option 1</li>
-                            <li>Setting Option 2</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav" id="tst-navbar">
     </nav>
 	<div class="container grid-border">
 		<div class="row d-flex">
@@ -76,14 +33,28 @@
 		</div>
         <div class="row d-flex">
             <div class="col col-12 test-pigeon d-flex justify-content-center">
-                PIGEON full circuit Image
+                <div class="row">
+                    <div class="col col-12">
+                        Full Circuit Image
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col col-12">
+                        <canvas id="sbolCanvas"></canvas>
+                        <div id="design">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-	</div>
+    </div>
+    <footer class="footer"> 
+    </footer>
     <!-- load bootstrap javascript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
         integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
         integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 </body>
+    
 </html>

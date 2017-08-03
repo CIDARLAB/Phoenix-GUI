@@ -42,53 +42,7 @@
     <script src="./bower_components/antlr4-ace-ext/src/tokenizer.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav">
-        <div class="container">
-            <div class="row">
-                <div class="col-2">
-                    <img src="./images/logo/phoenix_banner_black.png">
-                </div>
-                <div class="col-8">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="project-name" id="project-name">
-                                MY SYNBIO PROJECT
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <ul class="nav justify-content-center">
-                                <li class="nav-item active"> 
-                                    <a class="nav-link" href="./specify.html">SPECIFY</a>
-                                </li> 
-                                <li class="nav-item"> 
-                                    <a class="nav-link disabled" href="./design.html">DESIGN</a>
-                                </li>
-                                <li class="nav-item"> 
-                                    <a class="nav-link disabled" href="./build.html">BUILD</a>
-                                </li>
-                                <li class="nav-item"> 
-                                    <a class="nav-link disabled" href="./test.html">TEST</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-2">
-                    <button class="btn btn-primary dropdown-toggle" type="button" onClick="openUserSettings()">
-                        SynBioUserName
-                    </button>
-                    <div id="user-settings" class="user-settings">
-                        <a href="javascript:void(0)" class="closebtn" onClick="closeUserSettings()">x</a>
-                        <ul>
-                            <li>Setting Option 1</li>
-                            <li>Setting Option 2</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav" id="spc-navbar">
     </nav>
     <div class="wrap">
         <div class="pageOverlay">
@@ -131,101 +85,117 @@
                 </div>
                 <div class="col-8">
                     <div class="row">
-                        <div class="col-3 col-sm-5">
+                        <div class="col-8">
+                            <div class="tab stl">
+                                <button class="tablinks active" onclick="changeTab(event, 'tab-editor')">STL Editor</button>
+                                <button class="tablinks" onclick="changeTab(event, 'tab-grid')">GridTLI</button>
+                                <button class="tablinks" onclick="changeTab(event, 'tab-timerails')">TimeRails</button>
+                            </div>
                             <p class="text-muted struct">Powered By
                                 <img src="./images/logo/logo-Eugene-Color.png" class="img-logo-small">
                             </p>
                         </div>
-                        <div class="col-5 col-sm-3"> 
+                        <!-- <div class="col-5 col-sm-3">  -->
                             <!-- for offset -->
-                        </div>
+                        <!-- </div> -->
                         <div class="col-2">
-                            <button id="btn-grid-eugene" class="btn btn-primary" onClick="window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')">GridTLI</button>
+                            <button id="btn-eugene" class="btn btn-primary struct" onClick="runEugene()">RUN</button>
                         </div>
                         <div class="col-2">
                             <button id="btn-sample" class="btn btn-primary" onClick="loadSample()">SAMPLE</button>
                         </div>
                     </div>
                     <div class="row grid-border" id="editor-row">
-                        <div class="col-12 editor" id="editor"></div>   
-                        <script src="stl.js" type="text/javascript" charset="utf-8"></script>
-                        <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
-                        <script>
-                            // initialize both scripts
-                            var stlScript = "";
-                            var structScript = "";
-                            var editor = ace.edit("editor"); // initialize editor
-                            editor.setTheme("ace/theme/chrome");
-                            editor.getSession().setMode("ace/mode/stl");
-                        </script>
-                        <div class="col-12 library librarybox">
-                            <div class="row flex">
-                                <div class="col-2 flex">
-                                    <p class="library-text">Cytometer</p>
+                        <!-- <div class="tab-content tab-editor active" id="tab-editor"> -->
+                            <div class="col-12 editor" id="editor"></div>   
+                            <script src="stl.js" type="text/javascript" charset="utf-8"></script>
+                            <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
+                            <script>
+                                // initialize both scripts
+                                var stlScript = "";
+                                var structScript = "";
+                                var editor = ace.edit("editor"); // initialize editor
+                                editor.setTheme("ace/theme/chrome");
+                                editor.getSession().setMode("ace/mode/stl");
+                                editor.setOptions({
+                                    fontSize: "18pt",
+                                });
+                            </script>
+                            <div class="col-12 library librarybox">
+                                <div class="row flex">
+                                    <div class="col-2 flex">
+                                        <p class="library-text">Cytometer</p>
+                                    </div>
+                                    <div class="col-9">
+                                        <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
+                                            <div class="row">
+                                                <div class="col-9">
+                                                    <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
+                                                </div>
+                                                <div class="col-3 flex-right">
+                                                    <button type="submit" class="btn btn-sm btn-primary" id="cyto-upload-submit">UPLOAD</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-1">
+                                    </div>
                                 </div>
-                                <div class="col-9">
-                                    <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
-                                        <div class="row">
-                                            <div class="col-9">
-                                                <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
-                                            </div>
-                                            <div class="col-3 flex-right">
-                                                <button type="submit" class="btn btn-sm btn-primary" id="cyto-upload-submit">UPLOAD</button>
-                                            </div>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="library-text">Registry</p>
+                                    </div>
+                                    <div class="col-9 flex">
+                                        <div class="form-group">
+                                            <select class="form-control library" id="registrySelect">
+                                                <option id="synbiohub-org">synbiohub.org</option>
+                                                <option id="synbiohub-cidarlab-org">synbiohub.cidarlab.org</option>
+                                                <option id="synbiohub-programmingbiology-org">synbiohub.programmingbiology.org</option>
+                                            </select>
+                                            <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
+                                                <span class="fa fa-cog"></span>
+                                            </button>
                                         </div>
-                                    </form>
-                                </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <p class="library-text">Registry</p>
-                                </div>
-                                <div class="col-9 flex">
-                                    <div class="form-group">
-                                        <select class="form-control library" id="registrySelect">
-                                            <option id="synbiohub-org">synbiohub.org</option>
-                                            <option id="synbiohub-cidarlab-org">synbiohub.cidarlab.org</option>
-                                            <option id="synbiohub-programmingbiology-org">synbiohub.programmingbiology.org</option>
-                                        </select>
-                                        <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
-                                            <span class="fa fa-cog"></span>
-                                        </button>
+                                    </div>
+                                    <div class="col-1">
                                     </div>
                                 </div>
-                                <div class="col-1">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <p class="library-text">Collections</p>
-                                </div>
-                                <div class="col-9 flex">
-                                    <div class="form-group">
-                                        <select class="form-control library" id="collectionsSelect">
-                                        </select>
+                                <div class="row">
+                                    <div class="col-2">
+                                        <p class="library-text">Collections</p>
+                                    </div>
+                                    <div class="col-9 flex">
+                                        <div class="form-group">
+                                            <select class="form-control library" id="collectionsSelect">
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-1">
                                     </div>
                                 </div>
-                                <div class="col-1">
+                                <div class="row table-row">
+                                    <div class="col-10 offset-1">
+                                        <table class="table" id="table">
+                                            <thead>
+                                                <tr class="row">
+                                                    <th class="col-3">DisplayID</th>
+                                                    <th class="col-3">Name</th>
+                                                    <th class="col-6">Description</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row table-row">
-                                <div class="col-10 offset-1">
-                                    <table class="table" id="table">
-                                        <thead>
-                                            <tr class="row">
-                                                <th class="col-3">DisplayID</th>
-                                                <th class="col-3">Name</th>
-                                                <th class="col-6">Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                        <!-- </div> -->
+                        <!-- <div class="tab-content tab-grid" id="tab-grid">
+                             <div class="col-12"></div>  
                         </div>
+                        <div class="tab-content tab-timerails" id="tab-timerails">
+                            <div class="col-12"></div>  
+                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-2">

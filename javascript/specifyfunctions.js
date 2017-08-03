@@ -73,14 +73,10 @@ function activateSTLPage() {
     subCaptThree.visible = false;
 
     // update buttons
-    $("#btn-grid-eugene").css("visibility", 'visible');
-    $("#btn-grid-eugene").text('GridTLI');
-    $("#btn-grid-eugene").attr("onClick", "window.open('file:///Users/Kat/Documents/BU/CIDAR/Phoenix-GUI/design.html')")
     $("#btn-upload").removeClass('disabled');
     $("#btn-prevPage").addClass('disabled');
     $("#btn-nextPage").text('NEXT');
     $("#btn-nextPage").attr("onClick",'activateStructPage()');
-
 
     // update page layout:
     $(".stl").show();
@@ -119,15 +115,11 @@ function activateStructPage() {
     subCaptThree.visible = false;
 
     // update buttons
-    $("#btn-grid-eugene").css("visibility", 'visible');
-    $("#btn-grid-eugene").text('RUN');
-    $("#btn-grid-eugene").attr("onClick",'runEugene()');
     $("#btn-upload").removeClass('disabled');
     $("#btn-prevPage").removeClass('disabled');
     $("#btn-prevPage").attr("onClick",'activateSTLPage()');
     $("#btn-nextPage").text('NEXT');
     $("#btn-nextPage").attr("onClick",'activateLibraryPage()');
-
 
     // update page layout:
     $(".stl").hide();
@@ -166,7 +158,6 @@ function activateLibraryPage() {
     subCaptTwo.visible = false;
 
     // update buttons
-    $("#btn-grid-eugene").css("visibility", 'hidden');
     $("#btn-upload").addClass('disabled');
     $("#btn-prevPage").removeClass('disabled');
     $("#btn-prevPage").attr("onClick",'activateStructPage()');
@@ -242,7 +233,6 @@ rp1 SAME_ORIENTATION t2";
         editor.setValue(structScript);
     }
 }
-
 
 // SETTINGS FUNCTIONS 
 function openSettings() {
@@ -428,3 +418,24 @@ $( window ).resize(function() {
 //   console.log(newHeight);
     $("#main-container").css("height", newHeight * .67);
 });
+
+function changeTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
+
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}

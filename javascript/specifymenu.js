@@ -30,7 +30,6 @@ window.onload = function() {
     centerPath.strokeWidth = '2';
 
     // initialize sidebarLeft menu circles
-
     circleOne = new Shape.Circle(new Point(yAxis, xOne), radiusLarge);
     circleOne.fillColor = '#0275d8';
     circleOne.strokeColor = null;
@@ -136,7 +135,4 @@ window.onload = function() {
             }; 
         };
     }
-
-    // var editor = ace.edit($('#editor'));
-
 }

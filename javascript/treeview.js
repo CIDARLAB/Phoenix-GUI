@@ -1,31 +1,31 @@
 // this has been modified for Boostrap 4
-
+var json;
 $(function() {
 
-	var json = '[' +
+	json = '[' +
 		'{' +
 		'"text": "B1_BM3R1",' +
-		'"hasData": ["2"],' +
+		'"hasData": ["0"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["4"],' +
 		'"childNum": ["-1"],' +
 		'"nodes": [' +
 			'{' +
 			'"text": "SarJ",' +
-			'"hasData": ["2"],' +
+			'"hasData": ["1"],' +
 			'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 			'"children": ["2"],' +
 			'"childNum": ["0"],' +
 			'"nodes": [' +
 				'{' +
-				'"text": "Grandchild 1",' +
+				'"text": "RiboJ10",' +
 				'"hasData": ["0"],' +
 				'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 				'"children": ["0"],' +
 				'"childNum": ["-1"]' +
 				'},' +
 				'{' +
-				'"text": "Grandchild 2",' +
+				'"text": "RiboJ51",' +
 				'"hasData": ["0"],' +
 				'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 				'"children": ["0"],' +
@@ -57,35 +57,35 @@ $(function() {
 		']' +
 		'},' +
 		'{' +
-		'"text": "Parent 2",' +
+		'"text": "AAV",' +
 		'"hasData": ["0"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["0"],' +
 		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 3",' +
+		'"text": "BCD13",' +
 		'"hasData": ["0"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["0"],' +
 		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 4",' +
+		'"text": "L3S1P22_",' +
 		'"hasData": ["0"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["0"],' +
 		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 5",' +
+		'"text": "mRFP1_4m",' +
 		'"hasData": ["1"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["0"],' +
 		'"childNum": ["-1"]' +
 		'},' +
 		'{' +
-		'"text": "Parent 6",' +
+		'"text": "pBM3R1",' +
 		'"hasData": ["0"],' +
 		'"sbol": "https://synbiohub.programmingbiology.org/public/Cello_Parts/B1_BM3R1/1/sbol",' +
 		'"children": ["0"],' +
@@ -146,19 +146,12 @@ $(function() {
  * ========================================================= */
 
 ;(function ($, window, document, undefined) {
-
 	/*global jQuery, console*/
-
 	'use strict';
-
 	var pluginName = 'treeview';
-
 	var _default = {};
-
 	_default.settings = {
-
 		injectStyle: true,
-
 		levels: 1,
 
 		expandIcon: 'fa fa-plus',
@@ -212,15 +205,11 @@ $(function() {
 	};
 
 	var Tree = function (element, options) {
-
 		this.$element = $(element);
 		this.elementId = element.id;
 		this.styleId = this.elementId + '-style';
-
 		this.init(options);
-        
 		return {
-
 			// Options (public access)
 			options: this.options,
 
@@ -275,10 +264,8 @@ $(function() {
 	};
 
 	Tree.prototype.init = function (options) {
-
 		this.tree = [];
 		this.nodes = [];
-
 		if (options.data) {
 			if (typeof options.data === 'string') {
 				options.data = $.parseJSON(options.data);
@@ -301,9 +288,7 @@ $(function() {
 	};
 
 	Tree.prototype.destroy = function () {
-
 		if (!this.initialized) return;
-
 		this.$wrapper.remove();
 		this.$wrapper = null;
 
@@ -315,7 +300,6 @@ $(function() {
 	};
 
 	Tree.prototype.unsubscribeEvents = function () {
-
 		this.$element.off('click');
 		this.$element.off('nodeChecked');
 		this.$element.off('nodeCollapsed');
@@ -330,9 +314,7 @@ $(function() {
 	};
 
 	Tree.prototype.subscribeEvents = function () {
-
 		this.unsubscribeEvents();
-
 		this.$element.on('click', $.proxy(this.clickHandler, this));
 
 		if (typeof (this.options.onNodeChecked) === 'function') {
@@ -383,7 +365,6 @@ $(function() {
 		index nodes in a flattened structure
 	*/
 	Tree.prototype.setInitialStates = function (node, level) {
-
 		if (!node.nodes) return;
 		level += 1;
 
@@ -465,13 +446,11 @@ $(function() {
 			this.render();
 		}
 		else {
-			
 			if (node.selectable) {
 				this.toggleSelectedState(node, _default.options);
 			} else {
 				this.toggleExpandedState(node, _default.options);
 			}
-
 			this.render();
 		}
 
@@ -482,40 +461,34 @@ $(function() {
 		var nNums = [];
 		var childNames = [];
 		var childData = [];
+		var gchildNames = [];
+		var gchildData = [];
+		var panel = [];
 		rectLayer.removeChildren(); // removes any boxes
 
 		$.each(this.findNodes('true', 'g', 'state.selected'), $.proxy(function (index, node) {
 			// iterates through to find currently selected names, data status (tag), and highlights any subparts
-			nNames.push(node.text)
-			nData.push(node.hasData[0])
-			if (node.nodes != undefined) {
-				for (var i = 0; i < node.nodes.length; i++) {
-					childNames.push(node.nodes[i].text);
-					childData.push(node.nodes[i].hasData[0])
-				}
-			}
-
+			panel.push(node);
+			nNames.push(node.text);
+			nData.push(node.hasData[0]);
 			if (typeof(node.childNum) == "object") {
 				var num = Number(node.childNum);
 			}
 			if (num >= 0) {
 				highlightPart(num);
 			}
-
 			// this.setSelectedState(node, false, options);
 		}, this));
-
-		updateDataPanel(nNames, nData, childNames, childData)
-
+		paneljson = JSON.stringify(panel);
+		genPanel(paneljson);
+		updateDataPanel(nNames, nData);
 	};
 
 	// Looks up the DOM for the closest parent list item to retrieve the
 	// data attribute nodeid, which is used to lookup the node in the flattened structure.
 	Tree.prototype.findNode = function (target) {
-
 		var nodeId = target.closest('li.list-group-item').attr('data-nodeid');
 		var node = this.nodes[nodeId];
-
 		if (!node) {
 			console.log('Error: node does not exist');
 		}
@@ -528,11 +501,8 @@ $(function() {
 	};
 
 	Tree.prototype.setExpandedState = function (node, state, options) {
-
 		if (state === node.state.expanded) return;
-
 		if (state && node.nodes) {
-
 			// Expand a node
 			node.state.expanded = true;
 			if (!options.silent) {
@@ -540,13 +510,11 @@ $(function() {
 			}
 		}
 		else if (!state) {
-
 			// Collapse a node
 			node.state.expanded = false;
 			if (!options.silent) {
 				this.$element.trigger('nodeCollapsed', $.extend(true, {}, node));
 			}
-
 			// Collapse child nodes
 			if (node.nodes && !options.ignoreChildren) {
 				$.each(node.nodes, $.proxy(function (index, node) {
@@ -562,18 +530,14 @@ $(function() {
 	};
 
 	Tree.prototype.setSelectedState = function (node, state, options) {
-
 		if (state === node.state.selected) return;
-
 		if (state) {
-
 			// If multiSelect false, unselect previously selected
 			if ((ctrl && cmd) || (!ctrl && !cmd))  {
 				$.each(this.findNodes('true', 'g', 'state.selected'), $.proxy(function (index, node) {
 					this.setSelectedState(node, false, options);
 				}, this));
 			}
-
 			// Continue selecting node
 			node.state.selected = true;
 			if (!options.silent) {
@@ -581,7 +545,6 @@ $(function() {
 			}
 		}
 		else {
-
 			// Unselect node
 			node.state.selected = false;
 			if (!options.silent) {
@@ -596,20 +559,15 @@ $(function() {
 	};
 
 	Tree.prototype.setCheckedState = function (node, state, options) {
-
 		if (state === node.state.checked) return;
-
 		if (state) {
-
 			// Check node
 			node.state.checked = true;
-
 			if (!options.silent) {
 				this.$element.trigger('nodeChecked', $.extend(true, {}, node));
 			}
 		}
 		else {
-
 			// Uncheck node
 			node.state.checked = false;
 			if (!options.silent) {
@@ -619,25 +577,19 @@ $(function() {
 	};
 
 	Tree.prototype.setDisabledState = function (node, state, options) {
-
 		if (state === node.state.disabled) return;
-
 		if (state) {
-
 			// Disable node
 			node.state.disabled = true;
-
 			// Disable all other states
 			this.setExpandedState(node, false, options);
 			this.setSelectedState(node, false, options);
 			this.setCheckedState(node, false, options);
-
 			if (!options.silent) {
 				this.$element.trigger('nodeDisabled', $.extend(true, {}, node));
 			}
 		}
 		else {
-
 			// Enabled node
 			node.state.disabled = false;
 			if (!options.silent) {
@@ -647,20 +599,14 @@ $(function() {
 	};
 
 	Tree.prototype.render = function () {
-
 		if (!this.initialized) {
-
 			// Setup first time only components
 			this.$element.addClass(pluginName);
 			this.$wrapper = $(this.template.list);
-
 			this.injectStyle();
-
 			this.initialized = true;
 		}
-
 		this.$element.empty().append(this.$wrapper.empty());
-
 		// Build tree
 		this.buildTree(this.tree, 0);
 	};
@@ -668,13 +614,10 @@ $(function() {
 	// Starting from the root node, and recursing down the
 	// structure we build the tree one node at a time
 	Tree.prototype.buildTree = function (nodes, level) {
-
 		if (!nodes) return;
 		level += 1;
-
 		var _this = this;
 		$.each(nodes, function addNodes(id, node) {
-
 			var treeItem = $(_this.template.item)
 				.addClass('node-' + _this.elementId)
 				.addClass(node.state.checked ? 'node-checked' : '')
@@ -706,25 +649,20 @@ $(function() {
 			else {
 				classList.push(_this.options.emptyIcon);
 			}
-
 			treeItem
 				.append($(_this.template.icon)
 					.addClass(classList.join(' '))
 				);
 
-
 			// Add node icon
 			if (_this.options.showIcon) {
-				
 				var classList = ['node-icon'];
-
 				classList.push(node.icon || _this.options.nodeIcon);
 				if (node.state.selected) {
 					classList.pop();
 					classList.push(node.selectedIcon || _this.options.selectedIcon || 
 									node.icon || _this.options.nodeIcon);
 				}
-
 				treeItem
 					.append($(_this.template.icon)
 						.addClass(classList.join(' '))
@@ -733,7 +671,6 @@ $(function() {
 
 			// Add check / unchecked icon
 			if (_this.options.showCheckbox) {
-
 				var classList = ['check-icon'];
 				if (node.state.checked) {
 					classList.push(_this.options.checkedIcon); 
@@ -741,7 +678,6 @@ $(function() {
 				else {
 					classList.push(_this.options.uncheckedIcon);
 				}
-
 				treeItem
 					.append($(_this.template.icon)
 						.addClass(classList.join(' '))
@@ -776,18 +712,11 @@ $(function() {
 							.append($(_this.template.badge)
 								.addClass('fa-square-o')
 							);
-					} else {
-						treeItem
-							.append($(_this.template.badge)
-								.addClass('fa-minus-square-o')
-							);
 					}
 				});
 			}
-
 			// Add item to the tree
 			_this.$wrapper.append(treeItem);
-
 			// Recursively add child ndoes
 			if (node.nodes && node.state.expanded && !node.state.disabled) {
 				return _this.buildTree(node.nodes, level);
@@ -799,9 +728,7 @@ $(function() {
 	// 1. selectedNode
 	// 2. node|data assigned color overrides
 	Tree.prototype.buildStyleOverride = function (node) {
-
 		if (node.state.disabled) return '';
-
 		var color = node.color;
 		var backColor = node.backColor;
 
@@ -813,7 +740,6 @@ $(function() {
 				backColor = this.options.selectedBackColor;
 			}
 		}
-
 		if (this.options.highlightSearchResults && node.searchResult && !node.state.disabled) {
 			if (this.options.searchResultColor) {
 				color = this.options.searchResultColor;
@@ -822,14 +748,12 @@ $(function() {
 				backColor = this.options.searchResultBackColor;
 			}
 		}
-
 		return 'color:' + color +
 			';background-color:' + backColor + ';';
 	};
 
 	// Add inline style into head
 	Tree.prototype.injectStyle = function () {
-
 		if (this.options.injectStyle && !document.getElementById(this.styleId)) {
 			$('<style type="text/css" id="' + this.styleId + '"> ' + this.buildStyle() + ' </style>').appendTo('head');
 		}
@@ -837,33 +761,25 @@ $(function() {
 
 	// Construct trees style based on user options
 	Tree.prototype.buildStyle = function () {
-
 		var style = '.node-' + this.elementId + '{';
-
 		if (this.options.color) {
 			style += 'color:' + this.options.color + ';';
 		}
-
 		if (this.options.backColor) {
 			style += 'background-color:' + this.options.backColor + ';';
 		}
-
 		if (!this.options.showBorder) {
 			style += 'border:none;';
 		}
 		else if (this.options.borderColor) {
 			style += 'border:1px solid ' + this.options.borderColor + ';';
 		}
-
 		style += '}';
-
 		if (this.options.onhoverColor) {
 			style += '.node-' + this.elementId + ':not(.node-disabled):hover{' +
 				'background-color:' + this.options.onhoverColor + ';' +
 			'}';
 		}
-        
-
 		return this.css + style;
 	};
 
@@ -877,7 +793,6 @@ $(function() {
 	};
 
 	Tree.prototype.css = '.treeview .list-group-item{cursor:pointer}.treeview span.indent{margin-left:10px;margin-right:10px}.treeview span.icon{width:12px;margin-right:5px}.treeview .node-disabled{color:silver;cursor:not-allowed}'
-
 	/**
 		Returns a single node object that matches the given node id.
 		@param {Number} nodeId - A node's unique identifier
