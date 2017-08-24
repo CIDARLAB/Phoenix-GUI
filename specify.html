@@ -9,10 +9,12 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!-- load script for general functions -->
     <script type="text/javascript" src="./javascript/functions.js"></script>
-	<!-- load script that implements menu -->
+	<!-- load script that implements menu and GridTLI canvas -->
 	<script type="text/javascript" src="./javascript/specifymenu.js"></script>
-	<!-- load script for special functions -->
-	<script type="text/javascript" src="./javascript/specifyfunctions.js"></script>
+	<!-- load script for specify-specific functions -->
+    <script type="text/javascript" src="./javascript/specifyfunctions.js"></script>
+    <!-- load script that controls grid functions -->
+	<script type="text/javascript" src="./javascript/gridfunctions.js"></script>
 	<!-- load bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -22,6 +24,7 @@
 	<!-- load custom stylesheet -->
     <link rel="stylesheet" href="./styles/style.css"></link>
     <link rel="stylesheet" href="./styles/specify.css"></link>
+    <link rel="stylesheet" href="./styles/gridtli.css"></link>
 	<!-- load font support for STL editor -->
 	<script async="true" src="https://use.edgefonts.net/source-code-pro.js"></script>
     <!-- load antlr and ace editor files -->
@@ -78,7 +81,7 @@
         </div>
         <div class="container">
             <div class="row" id="main-container">
-                <div class="col-3">
+                <div class="col-3" id="sidebar-container">
                     <canvas id="sidebarLeft"></canvas>	
                 </div>
                 <div class="col-1">
@@ -87,17 +90,14 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="tab stl">
-                                <button class="tablinks active" onclick="changeTab(event, 'tab-editor')">STL Editor</button>
-                                <button class="tablinks" onclick="changeTab(event, 'tab-grid')">GridTLI</button>
-                                <button class="tablinks" onclick="changeTab(event, 'tab-timerails')">TimeRails</button>
+                                <button class="tab-btn active" onclick="changeTab(event, 'tab-editor')">STL Editor</button>
+                                <button class="tab-btn" onclick="changeTab(event, 'tab-grid')">GridTLI</button>
+                                <button class="tab-btn" onclick="changeTab(event, 'tab-timerails')">TimeRails</button>
                             </div>
                             <p class="text-muted struct">Powered By
                                 <img src="./images/logo/logo-Eugene-Color.png" class="img-logo-small">
                             </p>
                         </div>
-                        <!-- <div class="col-5 col-sm-3">  -->
-                            <!-- for offset -->
-                        <!-- </div> -->
                         <div class="col-2">
                             <button id="btn-eugene" class="btn btn-primary struct" onClick="runEugene()">RUN</button>
                         </div>
@@ -106,96 +106,225 @@
                         </div>
                     </div>
                     <div class="row grid-border" id="editor-row">
-                        <!-- <div class="tab-content tab-editor active" id="tab-editor"> -->
-                            <div class="col-12 editor" id="editor"></div>   
-                            <script src="stl.js" type="text/javascript" charset="utf-8"></script>
-                            <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
-                            <script>
-                                // initialize both scripts
-                                var stlScript = "";
-                                var structScript = "";
-                                var editor = ace.edit("editor"); // initialize editor
-                                editor.setTheme("ace/theme/chrome");
-                                editor.getSession().setMode("ace/mode/stl");
-                                editor.setOptions({
-                                    fontSize: "18pt",
-                                });
-                            </script>
-                            <div class="col-12 library librarybox">
-                                <div class="row flex">
-                                    <div class="col-2 flex">
-                                        <p class="library-text">Cytometer</p>
-                                    </div>
-                                    <div class="col-9">
-                                        <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
-                                            <div class="row">
-                                                <div class="col-9">
-                                                    <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
+                        <div class="col-12">
+                            <div class="tab-content tab-editor active" id="tab-editor"> 
+                                <div class="col-12 editor" id="editor"></div>   
+                                <script src="stl.js" type="text/javascript" charset="utf-8"></script>
+                                <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
+                                <script>
+                                    // initialize both scripts
+                                    var stlScript = "";
+                                    var structScript = "";
+                                    var editor = ace.edit("editor"); // initialize editor
+                                    editor.setTheme("ace/theme/chrome");
+                                    editor.getSession().setMode("ace/mode/stl");
+                                </script>
+                                <div class="col-12 library librarybox">
+                                    <div class="row flex">
+                                        <div class="col-2 flex">
+                                            <p class="library-text">Cytometer</p>
+                                        </div>
+                                        <div class="col-9">
+                                            <form action="" method="post" enctype="multipart/form-data" id="cyto-upload-form">
+                                                <div class="row">
+                                                    <div class="col-9">
+                                                        <input type="file" class="form-control-file" name="file[]" id="cyto-upload-file">
+                                                    </div>
+                                                    <div class="col-3 flex-right">
+                                                        <button type="submit" class="btn btn-sm btn-primary" id="cyto-upload-submit">UPLOAD</button>
+                                                    </div>
                                                 </div>
-                                                <div class="col-3 flex-right">
-                                                    <button type="submit" class="btn btn-sm btn-primary" id="cyto-upload-submit">UPLOAD</button>
+                                            </form>
+                                        </div>
+                                        <div class="col-1">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <p class="library-text">Registry</p>
+                                        </div>
+                                        <div class="col-9 flex">
+                                            <div class="form-group">
+                                                <select class="form-control library" id="registrySelect">
+                                                    <option id="synbiohub-org">synbiohub.org</option>
+                                                    <option id="synbiohub-cidarlab-org">synbiohub.cidarlab.org</option>
+                                                    <option id="synbiohub-programmingbiology-org">synbiohub.programmingbiology.org</option>
+                                                </select>
+                                                <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
+                                                    <span class="fa fa-cog"></span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <p class="library-text">Collections</p>
+                                        </div>
+                                        <div class="col-9 flex">
+                                            <div class="form-group">
+                                                <select class="form-control library" id="collectionsSelect">
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-1">
+                                        </div>
+                                    </div>
+                                    <div class="row table-row">
+                                        <div class="col-10 offset-1">
+                                            <table class="table" id="table">
+                                                <thead>
+                                                    <tr class="row">
+                                                        <th class="col-3">DisplayID</th>
+                                                        <th class="col-3">Name</th>
+                                                        <th class="col-6">Description</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="tab-content tab-grid" id="tab-grid">
+                                <div class="row grid">
+                                    <div class="col-12" id="divCanvas">
+                                        <!-- <div class="verticaltext float-left">
+                                            <p class="verticaltext content">Spatial Magnitude</p>
+                                        </div> -->
+                                        <canvas id="gridCanvas" resize="true"></canvas>
+                                    </div>
+                                </div>
+                                <div class="row grid">
+                                    <div class="col">
+                                        <div class="row grid align-items-center">
+                                            <div class="col-1 reduced-padding">
+                                                <button type="button" class="btn btn-secondary" onClick="selectLine.activate()" title="Select">
+                                                    <span class="fa fa-mouse-pointer"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onClick="drawLine.activate()" title="Draw">
+                                                    <span class="fa fa-pencil"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onClick="drawPoints.activate()" title="Point">
+                                                    <span class="fa fa-ellipsis-h"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onClick="deleteLine.activate()" title="Erase">
+                                                    <span class="fa fa-eraser"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onClick="movePoints.activate()" title="Move">
+                                                    <span class="fa fa-arrows"></span>
+                                                </button>
+                                                <!-- <button type="button" class="btn btn-secondary" onClick="saveProject()" title="Save Project">
+                                                    <span class="fa fa-save"></span>
+                                                </button>
+                                                <button type="button" class="btn btn-secondary" onClick="exportData()" title="Export Data">
+                                                    <span class="fa fa-download"></span>
+                                                </button> -->
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="row grid">
+                                                    <div class="col">
+                                                        <h6><strong>Axis Values</strong></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row flex">
+                                                    <div class="col-8">
+                                                        <div class="row flex">
+                                                            <div class="col reduced-padding">
+                                                                <p>Spatial:</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row flex">
+                                                            <div class="col-6 reduced-padding">
+                                                                <input type="text" class="form-control" id="smin" placeholder="Y_min"/>
+                                                            </div>
+                                                            <div class="col-6 reduced-padding">
+                                                                <input type="text" class="form-control"id="smax" placeholder="Y_max"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4">
+                                                        <div class="row flex">
+                                                            <div class="col reduced-padding">
+                                                                <p>Temporal:</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row flex">
+                                                            <div class="col reduced-padding">
+                                                                <input type="text" class="form-control" id="tmax" placeholder="T_max"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </form>
-                                    </div>
-                                    <div class="col-1">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <p class="library-text">Registry</p>
-                                    </div>
-                                    <div class="col-9 flex">
-                                        <div class="form-group">
-                                            <select class="form-control library" id="registrySelect">
-                                                <option id="synbiohub-org">synbiohub.org</option>
-                                                <option id="synbiohub-cidarlab-org">synbiohub.cidarlab.org</option>
-                                                <option id="synbiohub-programmingbiology-org">synbiohub.programmingbiology.org</option>
-                                            </select>
-                                            <button type="button" class="btn btn-secondary btn-settings float-right" onClick="openSettings()" title="Settings">
-                                                <span class="fa fa-cog"></span>
-                                            </button>
+                                            <div class="col-4 offset-lg-1">
+                                                <div class="row grid">
+                                                    <div class="col">
+                                                        <h6><strong>Threshold Values</strong></h6>
+                                                    </div>
+                                                </div>
+                                                <div class="row flex">
+                                                    <div class="col-4 flex">
+                                                        <div class="row">
+                                                            <div class="col reduced-padding">
+                                                                <p>Spatial:</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col reduced-padding">
+                                                                <input type="text" class="form-control" id="sThresh" placeholder="Yt"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 flex">
+                                                        <div class="row">
+                                                            <div class="col reduced-padding">
+                                                                <p>Temporal:</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col reduced-padding">
+                                                                <input type="text" class="form-control" id="tThresh" placeholder="Tt"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-4 flex">
+                                                        <div class="row">
+                                                            <div class="col  reduced-padding">
+                                                                <p>Cluster:</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col reduced-padding">
+                                                                <input type="text" class="form-control" id="cThresh" placeholder="Ct"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-2 gridButtons">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-secondary" id="getSTL" onClick="getSTL()" title="Get STL">Get STL</button>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-secondary" id="changeVals" onClick="changeGraphAxes()">ReDraw</button>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-1">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <p class="library-text">Collections</p>
-                                    </div>
-                                    <div class="col-9 flex">
-                                        <div class="form-group">
-                                            <select class="form-control library" id="collectionsSelect">
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-1">
-                                    </div>
-                                </div>
-                                <div class="row table-row">
-                                    <div class="col-10 offset-1">
-                                        <table class="table" id="table">
-                                            <thead>
-                                                <tr class="row">
-                                                    <th class="col-3">DisplayID</th>
-                                                    <th class="col-3">Name</th>
-                                                    <th class="col-6">Description</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            </tbody>
-                                        </table>
                                     </div>
                                 </div>
                             </div>
-                        <!-- </div> -->
-                        <!-- <div class="tab-content tab-grid" id="tab-grid">
-                             <div class="col-12"></div>  
+                            <div class="tab-content tab-timerails" id="tab-timerails">
+                                <div class="col-12">
+                                </div>  
+                            </div>
                         </div>
-                        <div class="tab-content tab-timerails" id="tab-timerails">
-                            <div class="col-12"></div>  
-                        </div> -->
                     </div>
                     <div class="row">
                         <div class="col-2">
@@ -218,6 +347,7 @@
             </div>
         </div>
     </div>
+    <img src="./images/ylabel.png" id="ylabel" style="display: none;">
     <footer class="footer"> 
     </footer>
     <!-- load bootstrap javascript -->

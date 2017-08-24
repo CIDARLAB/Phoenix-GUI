@@ -159,8 +159,8 @@ $(function() {
 		emptyIcon: 'fa',
 		nodeIcon: '',
 		selectedIcon: '',
-		checkedIcon: 'fa fa-check-square-o',
-		uncheckedIcon: 'fa fa-square-o',
+		checkedIcon: '',
+		uncheckedIcon: '',
 
 		color: undefined, // '#000000',
 		backColor: undefined, // '#FFFFFF',
@@ -702,15 +702,10 @@ $(function() {
 			// Add tags as badges
 			if (_this.options.showTags && node.hasData) {
 				$.each(node.hasData, function addTag(id, tag) {
-					if (tag==1) {
+					if (tag==0) {
 						treeItem
 							.append($(_this.template.badge)
-								.addClass('fa-check-square-o')
-							);
-					} else if (tag==0) {
-						treeItem
-							.append($(_this.template.badge)
-								.addClass('fa-square-o')
+								.addClass('fa-warning')
 							);
 					}
 				});

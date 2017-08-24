@@ -41,14 +41,9 @@
     font-size: 16px;
 }
 
-span.fa-square-o {
+span.fa-warning {
     right: 7px;
     color: #d9534f;
-}
-
-span.fa-minus-square-o {
-    right: 7px;
-    color: #f0ad4e;
 }
 
 span.icon.fa {

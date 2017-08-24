@@ -40,7 +40,7 @@
 }
 
 .editor {
-    height: calc(100%-5px);
+    height: 99%;
     width: 100%;
     font-size: 20px;
     margin: 5px 0px;
@@ -50,53 +50,99 @@
 
 /*** STL TABS ***/
 
-/* Style the tab */
 div.tab {
     overflow: hidden;
-    margin-bottom: -10px;
+    padding-left: 24px;
+    padding-top: 4px;
+    padding-bottom: -8px;
+    margin-bottom: -4px;
 }
 
-/* Style the buttons inside the tab */
-div.tab button {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+.tab-btn {
+    border-radius: 8px 8px 0px 0px;
     background-color: #e7e7e7;
-    float: left;
-    border: 1px solid #c7c7c7; 
-    outline: none;
+    border: 2px solid #c7c7c7; 
+    outline: none; 
     cursor: pointer;
-    padding: 14px 14px;
-    transition: 0.3s;
+    padding: 6px 14px;
     width: 100px;
+    height: 40px;
+    position: relative;
+    z-index: 1; 
+    margin-right: 20px;
+    border-bottom: none;
 }
 
-/* Change background color of buttons on hover */
-div.tab button:hover {
+.tab-btn:nth-child(2) {
+    z-index: 3;
+}
+
+.tab-btn:focus {
+    outline: none;
+}
+
+.tab-btn:hover,
+.tab-btn.active {
     background-color: #c7c7c7;
+    z-index: 5;
 }
 
-/* Create an active/current tablink class */
-div.tab button.active {
+.tab-btn:before,
+.tab-btn:after {
+    height: 40px;
+    width: 30px;
+    background-color: #e7e7e7;
+    position: absolute;
+    content: "";
+    top: -2px;
+    z-index: -1;    
+}
+
+.tab-btn:before {
+    left: -16px;
+    border-radius: 8px 0px 0px 0px;
+    -webkit-transform: skewX(-25deg);
+    transform: skewX(-25deg);
+    border-top: 2px solid #c7c7c7;
+    border-left: 2px solid #c7c7c7;
+}
+
+.tab-btn:after {
+    left: 80px;
+    border-radius: 0px 8px 0px 0px;
+    -webkit-transform: skewX(25deg);
+    transform: skewX(25deg);
+    border-right: 2px solid #c7c7c7;
+    border-top: 2px solid #c7c7c7;
+}
+
+.tab-btn.active:before,
+.tab-btn:hover::before,
+.tab-btn.active:after,
+.tab-btn:hover::after {
     background-color: #c7c7c7;
+    border-color:#c7c7c7;
 }
-
-/* Style the tab content */
 
  .tab-content {
-    /* display: none; */
+    margin-top: 0px;
     padding: 6px 12px;
-    border: 1px solid #ccc;
-    border-top: none;
+    border: 2px solid #c7c7c7; 
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-top-right-radius: 12px;
+    height: 100%;
+    background-color: #c7c7c7;
 }
 
 .tab-grid {
     display: none;
-    background-color: green;
+    height: 100%;
 }
 
 .tab-timerails {
     display: none;
-    background-color: red;
+    height: 100%;
 }
 
 /*** STRUCTURAL ***/

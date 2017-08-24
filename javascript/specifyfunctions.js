@@ -401,41 +401,78 @@ function runEugene() {
 
 // window load
 $(window).ready(function() {
-    console.log('loaded');
-    var winHeight = $(window).height();
-    var winWidth = $(window).width();
-    console.log('winheight * 0.67:', winHeight, winHeight * .67)
-    console.log($("#main-container").css("height"));
-    $("#main-container").css("height", winHeight * .67);
-    console.log($("#main-container").css("height"));
-    $("#table").css("height", winHeight * .67 - 300);
-    console.log($("#table").css("height"))
+    // resize the content area according to window size
+    $("#main-container").css("height", $(window).height() * .67);
+    // need to implement a scaleMenu function to resize it according to window size
+
 });
 
-$( window ).resize(function() {
-//   console.log('resize');
-  var newHeight = $(window).height();
-//   console.log(newHeight);
-    $("#main-container").css("height", newHeight * .67);
+$(window).on('load', function() {    
+    // define the menu canvas according to the size of the sidebar
+    paper.projects[0].view.bounds.width = $("#sidebar-container").width();
+    paper.projects[0].view.bounds.height = $("#sidebar-container").height();
+
+    // define a max height for all tabs:
+    $("#tab-grid").css("max-height", $("#tab-editor").height());
+    $("#tab-timerails").css("max-height", $("#tab-editor").height());
+
+    // resize gridCanvas
+    // $("#gridCanvas").css("height", $("#tab-editor").height() * .74); // height is percentage of tab, axis controls are below
+    // yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+    // paper.projects[1].view.bounds.width = $("#editor").width();
+    // paper.projects[1].view.bounds.height = $("#gridCanvas").height();
+
+    // force redraw of the grid
+    // changeGraphAxes();
+})
+
+var gridScaleVal = 0.76;
+
+$(window).resize(function() {
+    // define a max height for all tabs:
+    $("#tab-grid").css("max-height", $("#tab-editor").height());
+    $("#tab-timerails").css("max-height", $("#tab-editor").height());
+    
+    // resize gridCanvas
+    $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
+    yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+    paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
+    paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
+
+    // force redraw of the grid
+    changeGraphAxes();
 });
 
 function changeTab(evt, tabName) {
-    // Declare all variables
-    var i, tabcontent, tablinks;
-
-    // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
+    if ($(evt.target).hasClass("active")) {
+        return;
     }
-
-    // Get all elements with class="tablinks" and remove the class "active"
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+    $('.tab-content').hide(); // hide all tabs
+    $('.tab-btn').removeClass("active"); // remove all active classes
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    $('#' + tabName).show();
+    $(evt.target).addClass("active");
+
+    var zidx = 3;    
+    for (var i = 0; i < 3; i++) {
+        if ($(evt.target)[0] != $(".tab-btn:eq(" + i + ")")[0]) {
+            $(".tab-btn:eq(" + i + ")").css("z-index",zidx);
+            zidx += -2;
+        } else {
+            $(".tab-btn:eq(" + i + ")").css("z-index",5);
+        }
+    }
+
+    if (tabName == "tab-grid") {
+        // resize gridCanvas
+        $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
+        yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+        paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
+        paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
+
+        // force redraw of the grid
+        changeGraphAxes();
+        
+    }
 }
