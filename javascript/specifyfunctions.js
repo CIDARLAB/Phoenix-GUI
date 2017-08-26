@@ -407,6 +407,8 @@ $(window).ready(function() {
 
 });
 
+var gridScaleVal = 0.76;
+
 $(window).on('load', function() {    
     // define the menu canvas according to the size of the sidebar
     paper.projects[0].view.bounds.width = $("#sidebar-container").width();
@@ -416,17 +418,14 @@ $(window).on('load', function() {
     $("#tab-grid").css("max-height", $("#tab-editor").height());
     $("#tab-timerails").css("max-height", $("#tab-editor").height());
 
-    // resize gridCanvas
-    // $("#gridCanvas").css("height", $("#tab-editor").height() * .74); // height is percentage of tab, axis controls are below
-    // yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-    // paper.projects[1].view.bounds.width = $("#editor").width();
-    // paper.projects[1].view.bounds.height = $("#gridCanvas").height();
+    // temporary grid sizing:
 
-    // force redraw of the grid
-    // changeGraphAxes();
+    $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
+    yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+    paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
+    paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
 })
 
-var gridScaleVal = 0.76;
 
 $(window).resize(function() {
     // define a max height for all tabs:
