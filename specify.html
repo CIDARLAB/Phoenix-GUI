@@ -10,7 +10,7 @@
     <!-- load script for general functions -->
     <script type="text/javascript" src="./javascript/functions.js"></script>
 	<!-- load script that implements menu and GridTLI canvas -->
-	<script type="text/javascript" src="./javascript/specifymenu.js"></script>
+	<script type="text/javascript" src="./javascript/specifyCanvas.js"></script>
 	<!-- load script for specify-specific functions -->
     <script type="text/javascript" src="./javascript/specifyfunctions.js"></script>
     <!-- load script that controls grid functions -->
@@ -238,10 +238,10 @@
                                                         </div>
                                                         <div class="row flex">
                                                             <div class="col-6 reduced-padding">
-                                                                <input type="text" class="form-control" id="smin" placeholder="Y_min"/>
+                                                                <input type="text" class="form-control" id="smin" placeholder="Y_min" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                             <div class="col-6 reduced-padding">
-                                                                <input type="text" class="form-control"id="smax" placeholder="Y_max"/>
+                                                                <input type="text" class="form-control"id="smax" placeholder="Y_max" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -253,7 +253,7 @@
                                                         </div>
                                                         <div class="row flex">
                                                             <div class="col reduced-padding">
-                                                                <input type="text" class="form-control" id="tmax" placeholder="T_max"/>
+                                                                <input type="text" class="form-control" id="tmax" placeholder="T_max" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -274,7 +274,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col reduced-padding">
-                                                                <input type="text" class="form-control" id="sThresh" placeholder="Yt"/>
+                                                                <input type="text" class="form-control" id="sThresh" placeholder="Yt" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -286,7 +286,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col reduced-padding">
-                                                                <input type="text" class="form-control" id="tThresh" placeholder="Tt"/>
+                                                                <input type="text" class="form-control" id="tThresh" placeholder="Tt" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -298,7 +298,7 @@
                                                         </div>
                                                         <div class="row">
                                                             <div class="col reduced-padding">
-                                                                <input type="text" class="form-control" id="cThresh" placeholder="Ct"/>
+                                                                <input type="text" class="form-control" id="cThresh" placeholder="Ct" onfocusout="changeGraphAxes()"/>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -308,11 +308,6 @@
                                                 <div class="row">
                                                     <div class="col">
                                                         <button type="button" class="btn btn-secondary" id="getSTL" onClick="getSTL()" title="Get STL">Get STL</button>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col">
-                                                        <button type="button" class="btn btn-secondary" id="changeVals" onClick="changeGraphAxes()">ReDraw</button>
                                                     </div>
                                                 </div>
                                             </div>

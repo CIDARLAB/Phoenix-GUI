@@ -43,7 +43,7 @@ function checkInputValues(ids, vars) {
         // defines error message according to ID
         if (ids[i] == 'smin') {
             msg += "Spatial Minimum must be a number less than Spatial Max. Using last defined value: " +
-                    spatialMin + ".\n"
+                    spatialMin + ".\n";
         } else if (ids[i] == 'smax') {
             msg += "Spatial Maximum must be a number greater than Spatial Minimum. Using last defined values: [" + 
                     spatialMin + ", " + spatialMax + "].\n";
@@ -65,6 +65,7 @@ function checkInputValues(ids, vars) {
             // do nothing, will use last defined value
         } else if (isNaN($('#' + ids[i]).val())) {
             emsg += msg;
+            $('#' + ids[i]).val(vars[i]);            
         } else {
             vars[i] = $('#' + ids[i]).val();
         }
@@ -90,8 +91,8 @@ function changeGraphAxes() {
     spatialValues.reverse() // grid writes top to bottom, therefore reverse the y-axis values
 
     // draw the new grid
-    gridGroup = drawGrid(nTimeDivs, nSpatialDivs, timeValues, spatialValues, view.bounds);
-    colorBoxes(nTimeDivs, nSpatialDivs, view.bounds, gridGroup, cnvs.children)
+    gridGroup = drawGrid(nTimeDivs, nSpatialDivs, timeValues, spatialValues, gC.view.bounds);
+    colorBoxes(nTimeDivs, nSpatialDivs, gC.view.bounds, gridGroup, cnvs.children)
 
     return gridGroup;
 };
@@ -99,8 +100,8 @@ function changeGraphAxes() {
 function drawGrid(nWide, nTall, xAxisVals, yAxisVals, cnvsSize) {
     grid.activate() // Define active layer:
 
-    var xlabel = new PointText({
-        point: new Point(((cnvsSize.right - 60) / 2), cnvsSize.bottom - 13),
+    var xlabel = new gC.PointText({
+        point: new gC.Point(((cnvsSize.right - 60) / 2), cnvsSize.bottom - 13),
         content: "Time",
         fillColor: 'black',
         fontSize: '14px',
@@ -113,11 +114,11 @@ function drawGrid(nWide, nTall, xAxisVals, yAxisVals, cnvsSize) {
     for (var i = 0; i <= nWide; i++) {
         var xPos = 50 + i * width_per_rect;
         var xPos2 = cnvsSize.bottom - 55;
-        var topPoint = new paper.Point(xPos, xPos2);
-        var bottomPoint = new paper.Point(xPos, cnvsSize.bottom - 45);
-        var aLine = new paper.Path.Line(topPoint, bottomPoint);
+        var topPoint = new gC.Point(xPos, xPos2);
+        var bottomPoint = new gC.Point(xPos, cnvsSize.bottom - 45);
+        var aLine = new gC.Path.Line(topPoint, bottomPoint);
         aLine.strokeColor = '#000';
-        var xticks = new PointText(new Point(xPos - 5, cnvsSize.bottom - 30));
+        var xticks = new gC.PointText(new Point(xPos - 5, cnvsSize.bottom - 30));
         xticks.content = timeValues[i];
     }
 
@@ -125,30 +126,30 @@ function drawGrid(nWide, nTall, xAxisVals, yAxisVals, cnvsSize) {
     for (var i = 0; i <= nTall; i++) {
         var yPos = 10 + i * height_per_rect;
         var yPos2 = 45 + 10;
-        var leftPoint = new paper.Point(45, yPos);
-        var rightPoint = new paper.Point(45 + 10, yPos);
-        var aLine = new paper.Path.Line(leftPoint, rightPoint);
+        var leftPoint = new gC.Point(45, yPos);
+        var rightPoint = new gC.Point(45 + 10, yPos);
+        var aLine = new gC.Path.Line(leftPoint, rightPoint);
         aLine.strokeColor = '#000';
-        var yticks = new PointText(new Point(cnvsSize.left + 25, yPos + 5));
+        var yticks = new gC.PointText(new gC.Point(cnvsSize.left + 25, yPos + 5));
         yticks.content = spatialValues[i];
     }
 
     // draw x and y axis lines
-    var bottomLeftPoint = new paper.Point(50, cnvsSize.bottom - 50);
-    var topLeftPoint = new paper.Point(50, 10);
-    var bottomRightPoint = new paper.Point(cnvsSize.right - 10, cnvsSize.bottom - 50);
-    var aLine = new paper.Path.Line(bottomLeftPoint, bottomRightPoint)
+    var bottomLeftPoint = new gC.Point(50, cnvsSize.bottom - 50);
+    var topLeftPoint = new gC.Point(50, 10);
+    var bottomRightPoint = new gC.Point(cnvsSize.right - 10, cnvsSize.bottom - 50);
+    var aLine = new gC.Path.Line(bottomLeftPoint, bottomRightPoint)
     aLine.strokeColor = '#000';
-    var aLine = new paper.Path.Line(bottomLeftPoint, topLeftPoint)
+    var aLine = new gC.Path.Line(bottomLeftPoint, topLeftPoint)
     aLine.strokeColor = '#000';
 
-    var gridGroup = new Group(); // group for the gridLines, used for colorBoxes
+    var gridGroup = new gC.Group(); // group for the gridLines, used for colorBoxes
     gridGroup.removeChildren(); // if children, remove them
 
     // draw rectangles (grid lines):
     for (var i = 0; i < nWide; i++) {
         for (var j = 0; j < nTall; j++) {
-            var rect = new Path.Rectangle({
+            var rect = new gC.Path.Rectangle({
                 point: [50 + i * width_per_rect, 10 + j * height_per_rect],
                 size: [width_per_rect, height_per_rect],
                 strokeColor: "#777",
@@ -162,8 +163,8 @@ function drawGrid(nWide, nTall, xAxisVals, yAxisVals, cnvsSize) {
 }
 
 function colorBoxes(nWide, nTall, cnvsSize, gridGroup, allPaths) {
-    /* this runs over all the rectangles on the grid and colors
-    each box that a line crosses into */
+    /* runs through each rectangle on the grid and colors each
+    box that a line crosses into */
     grid.activate(); // Define active layer:
 
     // define the rectangle sizes from the grid
@@ -177,17 +178,17 @@ function colorBoxes(nWide, nTall, cnvsSize, gridGroup, allPaths) {
         for (j = 0; j < allPaths.length; j++) {
             allPaths[j].strokeColor = 'black'; // for each line, color is reset to black
             // check if the path is an outlier
-            if (checkOutliers(allPaths[j]) == true) {
-                allPaths[j].strokeColor = 'red'; // highlight color
-                crossings[j] = ["void"]; // won't check below for no-crossings possibility
-            } else {
+            // if (checkOutliers(allPaths[j]) == true) {
+            //     allPaths[j].strokeColor = 'red'; // highlight color
+            //     crossings[j] = ["void"]; // won't check below for no-crossings possibility
+            // } else {
                 // if path not outlier: 
                 crossings[j] = allPaths[j].getCrossings(gridGroup.children[i]);
                 if (crossings[j].length >= 1) {
                     gridGroup.children[i].fillColor = "#0275d8"; // for each crossing, fillColor is added
                     break; // once colored, move on next box without performing further checks
                 }
-            }
+            // }
         }
     }
 
@@ -302,109 +303,12 @@ function convertPathsToJSON() {
 
 function changeCoordinateValues(currentSegment) {
     var adjustedPair = {}; // initialize empty array
-    adjustedPair["x"] = (currentSegment.point.x - 50) * timeMax / (paper.view.bounds.width - 60);
-    adjustedPair["y"] = (((paper.view.bounds.height - 50) - currentSegment.point.y) * (spatialMax - spatialMin) / (paper.view.bounds.height - 60)) + spatialMin;
-    // console.log(currentSegment.point.x, currentSegment.point.y)
-    // console.log(adjustedPair.x, adjustedPair.y)
+    adjustedPair["x"] = (currentSegment.point.x - 50) * timeMax / (gC.view.bounds.width - 60);
+    adjustedPair["y"] = (((gC.view.bounds.height - 50) - currentSegment.point.y) * (spatialMax - spatialMin) / (gC.view.bounds.height - 60)) + spatialMin;
     return adjustedPair;
 }
 
-function importData() {
-    // take the JSON file
-    var stlArray = convertPathsToJSON(); // for testing, gets the coords from the STL formula
-    // this is a first pass, but will only handle a "single behavior" STL; it will need to be 
-    // split into "segments" later on so that behaviors can be observed in each individual part of the formula. 
-    var spatialBound = [1,-5]; // this value should be provided by the tool for the upper/lower bounds
-    var tBound = []; // also provided for start/stop values;
 
-    // convert the file from STL coordinates to graph coordinates
-    convertJSONtoPaths(stlArray);
-}
 
-function convertJSONtoPaths(stlArray) {
-    // takes in a JSON file containing the STL coordinates, converts the paths to canvas coordinates
-    // and places the paths on the canvas
-    for (var i = 0; i < stlArray.length; i++) { // length = number of paths
-        var path = new Path({
-            strokeColor: 'black',
-            selected: false,
-        })
-        for (var j = 0; j < stlArray[i].length; j++) {
-            path.add(changeSTLCoords(stlArray[i][j]));
-        }
-    }
-}
 
-function changeSTLCoords(stlCoord) {
-    var gridPair = {}; // initialize empty array
-    gridPair.x = (stlCoord["x"] * (paper.view.bounds.width - 60) / timeMax) + 50;
-    gridPair.y = (paper.view.bounds.height - 50) - ((stlCoord["y"] - spatialMin)*(paper.view.bounds.height - 60)) / (spatialMax - spatialMin);
-    // console.log(stlCoord.x, stlCoord.y)
-    // console.log(gridPair.x, gridPair.y)
-    return gridPair;
-}
 
-// possible format for the JSON version of the STL formula:
-var jsonSTL = 
-'[' + 
-    '{' + 
-        '"G": "[0.0, 6.0]",' +
-        '"x": "<= 2.0"' +
-    '},' +
-    '{' +
-        '"G": "[0.0, 1.0]",' +
-        '"x": ">= 0.0"' +
-    '},' +
-    '{' +
-        '"G": "[1.0, 5.0]",' +
-        '"x": ">= 1.0"' +
-    '},' +
-    '{' +
-        '"G": "[5.0, 6.0]",' +
-        '"x": ">= 0.0"' +
-    '}' +
-']';
-
-function checkOutliers(path) {
-    // checks a given path for outliers, colors red if yes
-    stlBounds = $.parseJSON(jsonSTL);
-    outOfBounds = false;
-    // for each segment on the path
-    for (var i = 0; i < path.segments.length; i++) {
-        if (outOfBounds == true) {
-            break;
-        }
-        var currentSeg = changeCoordinateValues(path.segments[i]) // convert canvas coords to STL values
-        // iterate through each of the bounds:
-        var minLeft = stlBounds[0].G.substring(1,4);
-        var maxRight = stlBounds[0].G.substring(6,9);
-        if (currentSeg.x < minLeft || currentSeg.x > maxRight) {
-            outOfBounds = true;
-            continue;
-        }
-        for (var j = 0; j < stlBounds.length; j++) {
-            if (outOfBounds == true) {
-                break;
-            }
-            // establish left and right bounds
-            var leftBound = stlBounds[j].G.substring(1,4);
-            var rightBound = stlBounds[j].G.substring(6,9);
-
-            // if the segment falls within the x-axis (temporal) bounds:
-            if (currentSeg.x >= leftBound && currentSeg.x <= rightBound) {
-                // compare if >= or <= the defined y-axis (spatial) bound
-                if (stlBounds[j].x.substring(0,2) == '>=') {
-                    if (currentSeg.y < stlBounds[j].x.substring(3,7)) {
-                        outOfBounds = true;
-                    }
-                } else {
-                    if (currentSeg.y > stlBounds[j].x.substring(3,7)) {
-                        outOfBounds = true;
-                    }
-                }
-            } 
-            // need to find a way to control x-values being beyond the maximal values? 
-        }
-    }
-    return outOfBounds;
-}

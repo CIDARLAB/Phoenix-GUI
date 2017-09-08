@@ -10,8 +10,12 @@
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
     <!-- load general functions -->
     <script type="text/javascript" src="./javascript/functions.js"></script>
-    <!-- load visbol canvas -->
-    <script type="text/javascript" src="./javascript/visbolCanvas.js"></script>
+    <!-- load grid canvas -->
+    <script type="text/javascript" src="./javascript/testGridCanvas.js"></script>
+    <!-- load script that controls test functions -->
+	<script type="text/javascript" src="./javascript/testFunctions.js"></script>
+    <!-- load script that controls grid functions -->
+    <script type="text/javascript" src="./javascript/testGridCanvasFunctions.js"></script>
 	<!-- load bootstrap css -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
         integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ"
@@ -26,28 +30,20 @@
     <nav class="navbar navbar-toggleable-xs navbar-light bg-faded main-nav" id="tst-navbar">
     </nav>
 	<div class="container grid-border">
-		<div class="row d-flex">
-			<div class="col col-12 test-graph d-flex justify-content-center">
-                Graph from Curtis/Prashant
+		<div class="row">
+			<div class="col-12 test-graph" id="graphZone">
+                <canvas id="gridCanvas" resize="true"></canvas>                
 			</div>
 		</div>
-        <div class="row d-flex">
-            <div class="col col-12 test-pigeon d-flex justify-content-center">
-                <div class="row">
-                    <div class="col col-12">
-                        Full Circuit Image
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col-12">
-                        <canvas id="sbolCanvas"></canvas>
-                        <div id="design">
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col-12 test-svg">
+                <canvas id="sbolCanvas" resize="true"></canvas>    
+                <div id="design">
                 </div>
             </div>
         </div>
     </div>
+    <img src="./images/ylabel.png" id="ylabel" style="display: none;">    
     <footer class="footer"> 
     </footer>
     <!-- load bootstrap javascript -->

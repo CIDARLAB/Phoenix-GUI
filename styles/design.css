@@ -63,10 +63,6 @@ span.icon.fa {
     /* position: absolute; */
 }
 
-#sourceSBOL .editor {
-    visibility: hidden;
-}
-
 #svg {
     width: calc(101% - 37px);
     text-align: center;

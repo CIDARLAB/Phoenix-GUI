@@ -10,7 +10,7 @@ function highlightPart(partNumber) {
 
     // define new rectangle:
     var hrPoint = new Point(0, 0);
-    var hrSize = new Size(partitionWidth, view.bounds.height);
+    var hrSize = new Size(partitionWidth, sC.view.bounds.height);
     var rect = new Path.Rectangle({
         point: hrPoint,
         size: hrSize,

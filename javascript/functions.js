@@ -177,11 +177,11 @@ function loadVisBOL(sbolURI) {
 
     new Item(paper.project.importSVG(visdata));
 
-    svgLayer._children[0].position.x = view.center.x;
+    svgLayer._children[0].position.x = sC.view.center.x;
     // removes the extra character before the name
-    svgLayer._children[0]._children[1].content = svgLayer._children[0]._children[1].content.substring(2,svgLayer._children[0]._children[1].content.length-1)
+    svgLayer._children[0]._children[1].content = svgLayer._children[0]._children[1].content.substring(3,svgLayer._children[0]._children[1].content.length-1)
 
-    svgLayer._children[0].lastChild._children[0].remove(); // removes the border around the image
+    svgLayer._children[0].lastChild.remove(); // removes the border around the image
     svgLayer._children[0].lastChild._children[0]._segments[1]._point._x += -50 // removes extra "tail" for horizontal line
     // project._children[0]._children[0]._children[lastchild-1].remove();
 

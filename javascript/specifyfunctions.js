@@ -411,32 +411,23 @@ var gridScaleVal = 0.76;
 
 $(window).on('load', function() {    
     // define the menu canvas according to the size of the sidebar
-    paper.projects[0].view.bounds.width = $("#sidebar-container").width();
-    paper.projects[0].view.bounds.height = $("#sidebar-container").height();
+    sL.view.bounds.width = $("#sidebar-container").width();
+    sL.view.bounds.height = $("#sidebar-container").height();
 
-    // define a max height for all tabs:
-    $("#tab-grid").css("max-height", $("#tab-editor").height());
-    $("#tab-timerails").css("max-height", $("#tab-editor").height());
-
-    // temporary grid sizing:
-
+    // adjust grid size:
     $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
     yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-    paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
-    paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
+    gC.view.viewSize.width = $("#gridCanvas").width();
+    gC.view.viewSize.height = $("#gridCanvas").height();
 })
 
 
 $(window).resize(function() {
-    // define a max height for all tabs:
-    $("#tab-grid").css("max-height", $("#tab-editor").height());
-    $("#tab-timerails").css("max-height", $("#tab-editor").height());
-    
     // resize gridCanvas
     $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
     yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-    paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
-    paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
+    gC.view.viewSize.width = $("#gridCanvas").width();
+    gC.view.viewSize.height = $("#gridCanvas").height();
 
     // force redraw of the grid
     changeGraphAxes();
@@ -464,11 +455,12 @@ function changeTab(evt, tabName) {
     }
 
     if (tabName == "tab-grid") {
+        gC.activate() // Define active scope        
         // resize gridCanvas
         $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
         yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-        paper.projects[1].view.viewSize.width = $("#gridCanvas").width();
-        paper.projects[1].view.viewSize.height = $("#gridCanvas").height();
+        gC.view.viewSize.width = $("#gridCanvas").width();
+        gC.view.viewSize.height = $("#gridCanvas").height();
 
         // force redraw of the grid
         changeGraphAxes();
