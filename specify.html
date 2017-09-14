@@ -12,7 +12,7 @@
 	<!-- load script that implements menu and GridTLI canvas -->
 	<script type="text/javascript" src="./javascript/specifyCanvas.js"></script>
 	<!-- load script for specify-specific functions -->
-    <script type="text/javascript" src="./javascript/specifyfunctions.js"></script>
+    <script type="text/javascript" src="./javascript/specifyFunctions.js"></script>
     <!-- load script that controls grid functions -->
 	<script type="text/javascript" src="./javascript/gridfunctions.js"></script>
 	<!-- load bootstrap css -->
@@ -90,9 +90,9 @@
                     <div class="row">
                         <div class="col-8">
                             <div class="tab stl">
-                                <button class="tab-btn active" onclick="changeTab(event, 'tab-editor')">STL Editor</button>
-                                <button class="tab-btn" onclick="changeTab(event, 'tab-grid')">GridTLI</button>
-                                <button class="tab-btn" onclick="changeTab(event, 'tab-timerails')">TimeRails</button>
+                                <button class="tab-btn active" id="tab-editor-btn" onclick="changeTab(event, 'tab-editor')">STL Editor</button>
+                                <button class="tab-btn" id="tab-grid-btn" onclick="changeTab(event, 'tab-grid')">GridTLI</button>
+                                <button class="tab-btn" id="tab-timerails-btn" onclick="changeTab(event, 'tab-timerails')">TimeRails</button>
                             </div>
                             <p class="text-muted struct">Powered By
                                 <img src="./images/logo/logo-Eugene-Color.png" class="img-logo-small">
@@ -107,7 +107,7 @@
                     </div>
                     <div class="row grid-border" id="editor-row">
                         <div class="col-12">
-                            <div class="tab-content tab-editor active" id="tab-editor"> 
+                            <div class="tab-content tab-editor" id="tab-editor"> 
                                 <div class="col-12 editor" id="editor"></div>   
                                 <script src="stl.js" type="text/javascript" charset="utf-8"></script>
                                 <script src="eugene.js" type="text/javascript" charset="utf-8"></script>
@@ -198,24 +198,30 @@
                                     <div class="col">
                                         <div class="row grid align-items-center">
                                             <div class="col-1 reduced-padding">
-                                                <button type="button" class="btn btn-secondary" onClick="selectLine.activate()" title="Select">
-                                                    <span class="fa fa-mouse-pointer"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onClick="drawLine.activate()" title="Draw">
-                                                    <span class="fa fa-pencil"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onClick="drawPoints.activate()" title="Point">
-                                                    <span class="fa fa-ellipsis-h"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onClick="deleteLine.activate()" title="Erase">
-                                                    <span class="fa fa-eraser"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onClick="movePoints.activate()" title="Move">
-                                                    <span class="fa fa-arrows"></span>
-                                                </button>
-                                                <button type="button" class="btn btn-secondary" onClick="movePoints.activate()" title="Move">
-                                                    <span class="fa fa-upload"></span>
-                                                </button>
+                                                <div class="btn-group">
+                                                    <button type="button" class="btn btn-secondary" onClick="selectLine.activate()" title="Select">
+                                                        <span class="fa fa-mouse-pointer"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" onClick="drawLine.activate()" title="Draw">
+                                                        <span class="fa fa-pencil"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">                                                        
+                                                    <button type="button" class="btn btn-secondary" onClick="drawPoints.activate()" title="Point">
+                                                        <span class="fa fa-ellipsis-h"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" onClick="deleteLine.activate()" title="Erase">
+                                                        <span class="fa fa-eraser"></span>
+                                                    </button>
+                                                </div>
+                                                <div class="btn-group">                                                        
+                                                    <button type="button" class="btn btn-secondary" onClick="movePoints.activate()" title="Move">
+                                                        <span class="fa fa-arrows"></span>
+                                                    </button>
+                                                    <button type="button" class="btn btn-secondary" onClick="movePoints.activate()" title="Move">
+                                                        <span class="fa fa-upload"></span>
+                                                    </button>
+                                                </div>
                                                 <!-- <button type="button" class="btn btn-secondary" onClick="saveProject()" title="Save Project">
                                                     <span class="fa fa-save"></span>
                                                 </button>
@@ -223,7 +229,7 @@
                                                     <span class="fa fa-download"></span>
                                                 </button> -->
                                             </div>
-                                            <div class="col-4">
+                                            <div class="col-4" id="axis-vals">
                                                 <div class="row grid">
                                                     <div class="col">
                                                         <h6><strong>Axis Values</strong></h6>
@@ -259,7 +265,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4 offset-lg-1">
+                                            <div class="col-4">
                                                 <div class="row grid">
                                                     <div class="col">
                                                         <h6><strong>Threshold Values</strong></h6>
@@ -304,7 +310,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-2 gridButtons">
+                                            <div class="col-1 gridButton">
                                                 <div class="row">
                                                     <div class="col">
                                                         <button type="button" class="btn btn-secondary" id="getSTL" onClick="getSTL()" title="Get STL">Get STL</button>

@@ -1,4 +1,4 @@
-.col-1.reduced-padding .btn.btn-secondary {
+.reduced-padding .btn.btn-secondary {
     padding: 4px 4px;
     width: 28px;
     height: 28px;
@@ -31,19 +31,34 @@
     margin: 0px auto;
 }
 
+#axis-vals {
+    border-right: 2px solid #a7a7a7;
+    /* margin-left: 3%; */
+}
+
+.row.grid.align-items-center {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
 div.reduced-padding {
-    padding-left: 4px;
-    padding-right: 4px;
+    padding: 0px;
     text-align: center;
+    /* border: 1px solid black; */
 }
 
 .tab-grid p {
     margin-bottom: 0px;
 }
 
-.gridButtons .btn.btn-secondary {
+.gridButton .btn.btn-secondary {
     font-size: 14px;
     padding: 4px 8px;
+}
+
+.gridButton {
+    padding: 0px;
+    /* margin-left: 3%; */
 }
 
 /* .tab-grid .verticaltext {
@@ -60,4 +75,9 @@ div.reduced-padding {
     transform: rotate(-90deg);
     filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
     position: absolute;
+} */
+
+/* .row .col-1,
+.row .col-4 {
+    border: 1px solid black;
 } */

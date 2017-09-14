@@ -1,4 +1,6 @@
-// defines hitOptions - used to check if a click lands on a line or not
+var lastTab = ""; // stores the lastTab 
+
+// defines hitOptions - used to check if a click lands on a line or not for the MENU
 var hitOptions = {
     segments: true,
     stroke: true,
@@ -84,6 +86,9 @@ function activateSTLPage() {
     $(".editor").show();
     $(".library").hide();
 
+    $(".tab-content").css("border-top-left-radius","0px"); // fixes styling for tabs
+    changeTab($("#" + lastTab + "-btn").click(), lastTab); // reactivates the last activated tab
+
     // update the editor:
     editor.setValue(stlScript);
     editor.getSession().setMode("ace/mode/stl");
@@ -113,6 +118,16 @@ function activateStructPage() {
 
     subCaptOne.visible = false;
     subCaptThree.visible = false;
+
+    // store last tab used and activate correct tab if needed
+    lastTab = $(".tab-btn.active").attr("onClick").substring(18,$(".tab-btn.active").attr("onClick").length-2);
+    
+    if (!$("#tab-editor").is(":visible")) {
+        changeTab($("#tab-editor").click(), "tab-editor");
+    }
+
+    // fix styling
+    $(".tab-content").css("border-top-left-radius","12px");
 
     // update buttons
     $("#btn-upload").removeClass('disabled');
@@ -157,6 +172,16 @@ function activateLibraryPage() {
     subCaptOne.visible = false;
     subCaptTwo.visible = false;
 
+    // store last tab used and activate correct tab if needed
+    lastTab = $(".tab-btn.active").attr("onClick").substring(18,$(".tab-btn.active").attr("onClick").length-2);
+    
+    if (!$("#tab-editor").is(":visible")) {
+        changeTab($("#tab-editor").click(), "tab-editor");
+    }
+
+    // fix styling
+    $(".tab-content").css("border-top-left-radius","12px");
+
     // update buttons
     $("#btn-upload").addClass('disabled');
     $("#btn-prevPage").removeClass('disabled');
@@ -169,7 +194,6 @@ function activateLibraryPage() {
     $(".struct").hide();
     $(".editor").hide();
     $(".library").show();
-
 }
 
 function loadSample() {
@@ -351,6 +375,10 @@ $(document).on('change','#collectionsSelect', function() {
             $(".table").append(newRow);
         });
     });
+
+    // resize the height of the table
+    $("tbody").height($("#tab-editor").height()*.45) // height will be 45% of the tab-editor window size
+
 })
 
 function runEugene() {
@@ -414,27 +442,40 @@ $(window).on('load', function() {
     sL.view.bounds.width = $("#sidebar-container").width();
     sL.view.bounds.height = $("#sidebar-container").height();
 
-    // adjust grid size:
-    $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
-    yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-    gC.view.viewSize.width = $("#gridCanvas").width();
-    gC.view.viewSize.height = $("#gridCanvas").height();
+    if ($("#tab-grid").hasClass("active")) {   
+        // adjust grid size if active:
+        $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
+        yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+        gC.view.viewSize.width = $("#gridCanvas").width();
+        gC.view.viewSize.height = $("#gridCanvas").height();
+    }
 })
 
 
 $(window).resize(function() {
-    // resize gridCanvas
-    $("#gridCanvas").css("height", $("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
-    yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
-    gC.view.viewSize.width = $("#gridCanvas").width();
-    gC.view.viewSize.height = $("#gridCanvas").height();
+    if ($("#tab-grid").hasClass("active")) {
+        // resize gridCanvas if active
+        $("#gridCanvas").height($("#tab-grid").height() * gridScaleVal); // height is percentage of tab, axis controls are below
+        yLabel.position = new Point (10, $("#gridCanvas").height() / 2);
+        gC.view.viewSize.width = $("#gridCanvas").width();
+        gC.view.viewSize.height = $("#gridCanvas").height();
 
-    // force redraw of the grid
-    changeGraphAxes();
+        // force redraw of the grid
+        changeGraphAxes();
+    }
+    if ($("#tab-editor").is(":visible")) {
+        if ($(".library").is(":visible")) {
+            // resize the height of the table
+            $("tbody").height($("#tab-editor").height()*.45) // height will be 45% of the tab-editor window size
+        }
+    }
 });
 
 function changeTab(evt, tabName) {
-    if ($(evt.target).hasClass("active")) {
+    if (evt.target) {
+        evt = evt.target; // allows this to work even when simulating clicks with jquery .click()
+    }
+    if ($(evt).hasClass("active")) {
         return;
     }
     $('.tab-content').hide(); // hide all tabs
@@ -442,11 +483,11 @@ function changeTab(evt, tabName) {
 
     // Show the current tab, and add an "active" class to the button that opened the tab
     $('#' + tabName).show();
-    $(evt.target).addClass("active");
+    $(evt).addClass("active");
 
     var zidx = 3;    
     for (var i = 0; i < 3; i++) {
-        if ($(evt.target)[0] != $(".tab-btn:eq(" + i + ")")[0]) {
+        if ($(evt)[0] != $(".tab-btn:eq(" + i + ")")[0]) {
             $(".tab-btn:eq(" + i + ")").css("z-index",zidx);
             zidx += -2;
         } else {
@@ -464,6 +505,5 @@ function changeTab(evt, tabName) {
 
         // force redraw of the grid
         changeGraphAxes();
-        
     }
 }
